@@ -1,0 +1,165 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : test_flex
+ major_version : 27
+ minor_version : 0
+ type : 2
+ description : ""
+ subtype : 0
+window :
+ name : test_flex
+ identifier : 0x222defaa014b080a
+ internal_properties : BwAAAAcAAADa94cqk6gLc7XjMWElXb8Xl63yQ10JKQICqKgBwT+1C2zMXzjfoH8bQBMiru97MATqy/kA5Vd+XNNDy5wkEiKHCS0SUdLKovUBApxRpBrD1AMjhIUa5r3tGNAkWfe0XMnqxjX/QUuOt46uACY4Mcjw+ASRSHKUDPNe/YPkF5yyYdVfhZq3ltm8QTjHqVDxZZhMsFqRtP5CLUJW7gyW4CxROnIP8sHcCrMI4uc2V5s6GumNnvlk3aVghnIFmzxa5t1jXUbhKeGRLCr21eyXHB5Wi9nyZclsB8g/9/oSLU6CBt3Jde8rtWjIuIJeX4MMhZO+QL+kdjwGHzqN4GxuYbu50GIwNCvcfLnJPYfM0tgG2yDYlMGdReum3g9Ya446cH86HF/crY7JklJ7VlgWKRRhUnVNWza24GCvefd4oz9KbUss7HLAVnLwCWCWVU/X/ASTU5pxyg2oBLQ93eo1opcoCVBW4VRztJNT97N8DiDTGVCJueMbR9rInFNXzb/d+6aBwKz1JD2AUxaMhJoNC2uWbdXsYh15hUkMVZVUeEBZZLLl4T3Iyl/+c8woN+eo4STWriUJ/SXSbfWYRK/DETcHP0lb+8wqeAsSibkhm7FeybsK0qrDX873U/WlgVTjVovrTsyw53kmre8sQn0hPtNU
+ properties :
+  width : 626
+  height : 425
+  widthClient : 624
+  heightClient : 393
+ controls :
+  -
+    name : SAI_Source
+    identifier : 0x222defb303642ca9
+    internal_properties : BwAAAAcAAAC2Dc87rFPeBun5mZgFYRg8I5QU4qvGL4Pf9HMQvAiJVcqIPvAMiZYO5m2Uo9JC9PzRe9idV9zgp5EekKOwzOI08idKusW+qzaSPp/vC4zvPS0HcPMCJNJHy2tzxqRWt+OZNXLTXRpWM8AdBYShr8jQfcC5BQbJHNJkQQ0RapnFk3EsLPupttIaRXbCwqpqx5X/VW7AEYCggr5GttpoYb09ze4IB3yQ/Jd5YAs1PFNVbRUcd4CIz5GcdUWQXoz5a3urJj7S5YiKwN0j5tZyopDAN4qnJhaZIuCw3I5pT0rFa3v6V00sJu93QDj69APUvZZLS3+o/GdcqneXtDOqrmAAIWyswMy9nVncWYe63aANTQ4CrLfDXVYs4Sv22i7b8rNGS3LnmCtU+aPCzXJoIekI+LYEduWsAi59LUSUJOsFEqi/EjE6JL0gYOQm800Z5RjI4kbzhzKCxN2FF8CFiRKUg/kzRSf09jpo2Bg4JQIIDQm2sEF3e5FyJlVpKhoR2zbg3/SAQyBd8RhsLSGK0HVf+EwFrSB7cEy2yQVSGr6RovYsQfn0X4vSVYOrNIVC0c8+U7YrGGaLp/yppMd+BqB5rKzO4VDfVDUmoN24BRIVaqju9zTw7GlgS4IpqCSZgXf/AsDsSdBNJjUSS8LDBQ48mZ98ThAdHtBxhHM9E9FMgrP1bbKDMpUDOhagyGXbhJvJUfn2WvYczbzKSkVx51UDY9pUFetShXImdgQLtv2eyOzHa1XwwTRe7To4cuchhHYRjCFzrwsRhTTT2KTlIkNJaJo3ghL1UWp0cDBGcNnR/ZB92BIIquTGOywFgLW+fYMrCuOvrX1J2vcUbFwWjujlBP7LcGeBMQFlky9vupWxY/sdNZHEI1Q+uBTRMvjEO3da5URcdMlnCJt3legfs9KtGh/XrS1uaMSMHOCG1NumV7aRIyl4LfWBD8YqB6rbnSHzvbgT3QrS+5W+mOUxwk8YaEz2Quf4+u4nW5TfxQXyLPmuqo91belHXOhTx2WJl3DSFK0WLlISdvAEfA2vE0KovUJaOYcqyS+hbdei8CYJei4KhWuJ0JiiOyD1KZYrj77eaTAFmMEhUEDpObBaVzMWe/MzPGhKZsmi91uKjRl38F7U4vJmue7aGCDIszxubnIFvR9BqIHIfgTCMgg7jLkSSGuMYHuuyma7NBPNNsah/MVXTV+VdzjqktHZhiLQX624t1GjYJotUkDkyLLFpuWfBBooXPOjak/vQOBJnthE3guHZx7NdXvMW0PeUm8l/1+6tp62WVUw+ZFVrTAOuCBJjPcnhX8qS4dUvA==
+    properties :
+     x : 29
+     y : 18
+     width : 302
+     height : 231
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1-
+         s est chaine = [
+         %{
+         /* C++ string header, for string ops below */
+         #include <string>
+         
+         /* Implementation of yyFlexScanner */ 
+         #include "mc_scanner.hpp"
+         #undef  YY_DECL
+         #define YY_DECL int MC::MC_Scanner::yylex( MC::MC_Parser::semantic_type * const lval, MC::MC_Parser::location_type *location )
+         
+         /* using "token" to make the returns for the tokens shorter to type */
+         using token = MC::MC_Parser::token;
+         
+         /* define yyterminate as this instead of NULL */
+         #define yyterminate() return( token::END )
+         
+         /* msvc2010 requires that we exclude this header file. */
+         #define YY_NO_UNISTD_H
+         
+         /* update location on matching */
+         #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
+         
+         %}
+         
+         %option debug
+         %option nodefault
+         %option yyclass="MC::MC_Scanner"
+         %option noyywrap
+         %option c++
+         
+         %%
+         %{          /** Code executed at the beginning of yylex **/
+                     yylval = lval;
+         %}
+         
+         [a-z]       {
+                        return( token::LOWER );
+                     }
+         
+         [A-Z]       {
+                        return( token::UPPER );
+                     }
+         
+         [a-zA-Z]+   {
+                        /**
+                         * Section 10.1.5.1 of the 3.0.2 Bison Manual says the 
+                         * following should work:
+                         * yylval.build( yytext );
+                         * but it doesn't.
+                         * ref: http://goo.gl/KLn0w2
+                         */
+                        yylval->build< std::string >( yytext );
+                        return( token::WORD );
+                     }
+         
+         \n          {
+                        /** Update line number **/
+                        loc->lines();
+                        return( token::NEWLINE );
+                     }
+         
+         .           {
+                        return( token::CHAR );
+                     }
+         %%
+         ]
+         SAI_Source = s
+        type : 14
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+  -
+    name : Compile1
+    identifier : 0x222defc603a5771f
+    internal_properties : BwAAAAcAAACQq5jtPJxU/7e/gWoyCjSgQ13WK4NxqSUG3ksy3GKbArXwErhN1qGPIyPdFTaqQSZqW4Y8MakAGHp8/UG+5rnvKvELbKa3F+imC67DVewU50aKVC/xiJlNgaLN1Lj3U3sxWAERZC/6Pe6zzjMnBI/BLrXs+Q0z7uIJS/WtnpLPwBMQKIQzAnddTu+ga8TGE+vcfUoKfLJvWhnAfsY4eP1y0QrhzDfPHpIVYFyslzR3/8r/zZ5MjrU7GEkiGaZ+pBFbg9N4dM40zyQk2OTvLMHC+PxDf+R4h+TzoSdF0K9voU3RMC6MnnLd+NpqC0sRcJfYPrNYsIoOzcZvEypV0mq4Jx7BxbItEMfuZANy7zLtqmr+4BlYJK3IqaHXwmB3VDBYlT7ojemvRsaXA86EYHBawXuApmHPAYVxQ7pGhPSwvqcMSnghNRxrnCLixhk+ZUDGkJdoBXavnZ2xjlByUqn5Ain/n/4SguJ2kHhnHouL9djkvPFjIIZ2KvFdwgFqo+N648Q3hGUUMah+PZmLwmYIhVJJEBU3ukE03L9pzxUkWkOneJ1k88F8tmjr3XnmQnPr/4b0sbwmUYFSeNbqlLvVEu8glNzA6vNZzZcUpHVjo4BeZBwbewqH5QFEsw/vW5mQldb0+F/Pk8xmlWvCdSzFIpeCTy6aeEF/CfmijMJpdUoizVKsmPHbawqW3eZkKIoUAGOEuGxEDPrCUpn7z9Lkp+U5jJgMPkQqwZIn3ysP/wC+MoJfpXtcDkYZoLs7ypwFrwtiCeURTpzGZwzMOtPKFhBqu/jYc3rEJzadngdrOdkxPMehDy0UYGBnRQv+sYWU
+    properties :
+     x : 348
+     y : 18
+     width : 80
+     height : 24
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         compilateur  est un wdFlex
+         soit (b,sErr) = compilateur.bParse(SAI_Source)
+         trace(b)
+         trace(sErr)
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+ menu :
+  name : _Menu
+  identifier : 0x292573e513b5f221
+  internal_properties : BwAAAAcAAABHivBqFH8xYQq/QELUltmClIuqm9KM3lg0XSaBAQ41WqT06R9JfU0qGK5sHUl8/xHCuvP3y9tLeLLOVaAgM2FjnfwSCRBgXqneLsHogwTYpIXuB1zp2uXtmOXYyGd6i+ek6BBvtJ0ylgF/MxkRihdZ26pl/9Jf5c+sxo07G0ZzHfcLEu9WD07gTSld25EPGWjvi/e5TxaHOZSRE8C5Ig+YdJawYdK89l+x1ofEmw3pfCNLUe3tNoiwg4AbC1jLdufmJ97Xc0JHDAy7gJsHBzEWwcuroqy2By4PJ4c6Wg==
+  options : []
+ languages :
+  - fr-FR
+ popup_menus : []
+ message_bar :
+  internal_properties : BwAAAAcAAADG0006i3ptxMcUE+O5cGvDhb43eRlY9UEE1z/7izK93v/ToMiwACETQQw4eQhZuJRMFa6SBwwT+zSdDbdc5HEkXDob51ldPFNKsP+0MWY=
+ code_elements :
+  type_code : 1
+  p_codes :
+   -
+     code : |1+
+      PROCEDURE MaFenêtre()
+   -
+     type : 230
+     enabled : false
+ code_parameters :
+  internal_properties : BwAAAAcAAAAwjDLmDSZ0H1P68nJIeNfqR9EvRjU/K+sVcM1T6rhVNr+VTV1mZ/rmoweYbFDZUhBGcv8UsxlDxVCOnb2U/SQOvlGWzNby3/w/V+ppSymxv+Vh
+  original_name : Modele1
+resources :
+ string_res :
+  identifier : 0x122defa00003e177
+  internal_properties : BwAAAAcAAAAa2Zm8J9E/zh+/WIrVvz1fER/So3PB0gjQuxc1xKQVWY4ZDm5lfg==
+custom_note :
+ internal_properties : BwAAAAcAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : BwAAAAcAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

@@ -1,0 +1,138 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : lexerTemplate
+ major_version : 27
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x122df05b004ebb23
+ internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1-
+      lexerTemplate est une Classe
+      	// chaine a analysée découpée en lignes
+      	tabLigne est un tableau de chaine
+      	// position courante
+      	ligne est entier
+      	colonne est  entier
+      	etatCourant est un entier
+      	// toutes les expressions et actions selon les l'état courant
+      	tabChaineVersToken est un tableau dynamique de tableaux de InfoToken 	
+      //%CODE_DECLARATION_1%
+      fin
+      
+      InfoToken est une Structure
+      	sfixe		est chaîne
+      	regExp		est chaîne
+      	tokenId     est entier
+      	fnAction	est une procédure
+      FIN
+      //%CODE_DECLARATION_2%
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1309967340272597795
+     type_code : 27
+     code : |1-
+      procédure Constructeur()
+      
+      //%CODE_DECLARATION_3%
+      
+      //%CODE_INIT_CHAINEVERSTOKEN%
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1309967340272663331
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+     type : 655360
+   -
+     name : init
+     procedure_id : 1315394697166736777
+     type_code : 12
+     code : |1-
+      // Initialiser l'analyse d'une chaine
+      procédure init(texte est chaine)
+      
+      ChaîneVersTableau(texte, :tabLigne, rc)
+      ligne  =1
+      colonne=1
+      etatCourant=1
+     type : 458752
+   -
+     name : tokenSuivant
+     procedure_id : 1315084385779573496
+     type_code : 12
+     code : |1-
+      // appelée par le parseur pour obtenir un nouveau token
+      // renvoie l'id du token et la chaine. ex: {64,"A"} ou {256,"// commentaire"}.
+      // renvoie (-1,"") si la fin du fichier est atteinte
+      procédure tokenSuivant() : (entier,chaine)
+      
+      // si c'est la fin du fichier
+      si :ligne>:tabLigne.Occurrence() ALORS
+      	renvoyer( -1, "" )
+      FIN
+      
+      // chaine courante a analyser
+      ligneEnCours est chaine = :tabLigne[ligne]
+      chaineRestante est chaine = Milieu( chaineRestante, colonne)
+      // convertion en stToken
+      procédure interne _rechercheToken(  ) : (InfoToken, chaine)
+      	// parcourt linéaire de toutes les expression possibles dans l'état en cours
+      	tabCourant est un  tableaux dynamique de InfoToken  <- tabChaineVersToken[etatCourant]
+      	POUR TOUT infoTokenI DE tabCourant
+      		// si c'est un chaine fixe
+      		SI infoTokenI.regExp=""  ALORS
+      			SI infoTokenI.sfixe = chaineRestante ALORS
+      				// trouvé 
+      				RENVOYER (infoTokenI,chaineRestante)
+      			FIN
+      		// si c"est une regexp qui matche
+      		SINON SI RegexVérifie( chaineRestante, infoTokenI.regExp ) ALORS
+      			// trouvé 
+      			RENVOYER (infoTokenI,chaineRestante)
+      		FIN
+      	FIN
+      	// aucun expression connue, on renvoi le caractère
+      	char est chaine =  Gauche(chaineRestante,1)
+      	InfoTokenChar est InfoToken
+      	InfoTokenChar.tokenId = asc(char)
+      	InfoTokenChar.sfixe   = char
+      	RENVOYER (InfoTokenChar,char)
+      fin
+      tokenTrouve est InfoToken 
+      chaineOK est chaine
+      (tokenTrouve,chaineOK) = _rechercheToken()
+      // on avance 
+      colonne += taille(chaineOK)
+      si colonne>=taille(ligneEnCours) ALORS
+      	// ligne suivante
+      	colonne = 1;
+      	ligne++;
+      FIN
+      // exécuter l'action associé
+      si tokenTrouve.fnAction<>null ALORS
+      	tokenTrouve.fnAction()
+      FIN
+      renvoyer (tokenTrouve.tokenId, chaineOK)
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BwAAAAcAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x122df03b004b4046
+  internal_properties : BwAAAAcAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BwAAAAcAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

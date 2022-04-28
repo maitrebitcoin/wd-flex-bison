@@ -1,0 +1,249 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : wdFlex
+ major_version : 27
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x122df02c004403ca
+ internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1-
+      wdFlex est une Classe
+      	// toutes les expressions et actions selon les l'état courant
+      	m_tabExpr2Action est un tableau dynamique de tableaux de stExpressionVersAction 
+      	// état courant
+      	m_etatCourant est un EEtat
+      	// expression et actions pour l'état courant
+      	//m_tabCourant est un  tableaux dynamique de stExpressionVersAction 
+      	// n° de ligne en cours
+      	m_nNumLigne est un entier
+      	// "" si tout est  ok ou erreur en cours
+      	m_sErreur est chaine
+      	
+      	// code utilisateur a mettre dans la déclaration
+      	m_sCode_Declaration est chaine
+      	// token + action a faire lorsqu'on le rencontre
+      	m_tabToken2Code est un tableau de stToken2Code
+      	
+      fin
+      EEtat est un enumeration
+      	Tout_Etat = 1 
+      	Declaration_CodeUser = 2 // entre [% et %]
+      	Declaration_SymboleEtOption = 3
+      	Expression = 4 // apres %%
+      
+      fin
+      stExpressionVersAction est une structure
+      	sfixe est chaine
+      	regExp est chaine
+      	fnAction est une procédure
+      fin
+      stToken2Code est une structure
+      	token est chaine // ex: "{blanks}" ou " [ \t\n]+"
+      	code est chaine  // ex : return (BLANK);
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1309967138408432586
+     type_code : 27
+     code : |1-
+      procédure Constructeur()
+      
+      // Init un tableau a vide
+      m_tabExpr2Action = allouer un tableau de 4 tableaux de stExpressionVersAction 
+      // Init des expression et actions
+      _add(Declaration_SymboleEtOption,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
+      _add(Declaration_SymboleEtOption,  "",".*",  (s)=>{ m_sCode_Declaration += [RC] + s  } )
+      _add(Declaration_CodeUser, 		   "%}","",  ()=> { _changeState(Declaration_SymboleEtOption) } )
+      _add(Declaration_CodeUser, 		   "",".*",  (s)=>{ _parseCodeUser(s) } )
+      _add(Declaration_CodeUser,  	   "%%","",  ()=> { _changeState(Expression) } )
+      //_add(Expression, 		  		   "[ \t]*.",  (s)=>{  m_sCodeEnCours + s } )
+      _add(Expression, 		  		   "",".*",  (s)=>{  } )
+      _add(Tout_Etat, 		  		   "","",  (s)=>{ } ) // ignorer les lignes vides
+      _add(Tout_Etat, 		  		   "","[ \t]*",  (s)=>{ } ) // ignorer les lignes avec que des espaces ou tab
+      
+      	procédure interne _add( etat est un EEtat, sfixe, rexgExp, fn )
+      		stExp2code est un stExpressionVersAction
+      		stExp2code.sfixe    = sfixe
+      		stExp2code.regExp   = rexgExp
+      		stExp2code.fnAction = fn
+      		m_tabExpr2Action[etat.Valeur].Ajoute( stExp2code )
+      	FIN
+      
+      	// découpun une déclaration de lexer.
+      	// ex: 
+      	// {blanks}        { /* ignore */ }
+      		procédure interne _parseCodeUser(s est chaine) 
+      			s2 est chaine = remplace(s,TAB," ") // TAB ou " " sont équivalents
+      			// recherche le 1er espace
+      			nPosEspace est entier = position(s2," ")
+      			si nPosEspace<=0 alors
+      				// Erreur
+      				ExceptionDéclenche(1,"Erreur de syntaxe : " + s)
+      			FIN
+      			// récupération de l'expression de gauche, ex : "{blanks}"
+      			sExpression est chaine = Gauche(s2, nPosEspace)
+      			// sauter tous les espaces
+      			tantque s2[nPosEspace]=" "
+      				nPosEspace++
+      			FIN
+      			// récupération du code utilisateur si on trouve le token <sExpression>
+      			sCode est chaine = Milieu(s2,nPosEspace+1)
+      			// ajoute a la table
+      			stInfo est un stToken2Code
+      			stInfo.token = sExpression
+      			stInfo.Code  = sCode
+      			m_tabToken2Code.Ajoute(stInfo)
+      		fin
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1309967138408498122
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+     type : 655360
+   -
+     name : _changeState
+     procedure_id : 1309976999654264243
+     type_code : 12
+     code : |1-
+      // change l'état courant
+      procédure _changeState( e EEtat )
+      m_etatCourant = e
+      // init du tableau des expressions valide selon l"état en cours
+      //m_tabCourant  <- m_tabExpr2Action[m_etatCourant.Valeur]
+     type : 458752
+   -
+     name : _rechecheInfoLigne
+     procedure_id : 1309978163590476148
+     type_code : 12
+     code : |1+
+      // renvoie un stExpressionVersAction qui correspond a la ligne de texte <sLigne>
+      procédure _rechecheInfoLigne( etat est EEtat, local sLigne chaine ) : stExpressionVersAction
+      
+      // parcourt linéaire de toutes les expression possibles dans l'état en cours
+      tabCourant est un  tableaux dynamique de stExpressionVersAction   <- m_tabExpr2Action[etat.Valeur]
+      POUR TOUT stExp2action de tabCourant
+      	// si c'est un chaine fixe
+      	si stExp2action.regExp=""  ALORS
+      		si stExp2action.sfixe = sLigne ALORS
+      			// trouvé 
+      			RENVOYER stExp2action			
+      		FIN
+      	// si c"est une regexp qui matche
+      	sinon SI RegexVérifie( sLigne, stExp2action.regExp ) ALORS
+      		// trouvé 
+      		renvoyer stExp2action
+      	FIN
+      FIN
+      // Essaie avec les expressions valides pour toues les états
+      si etat<>Tout_Etat ALORS
+      	renvoyer _rechecheInfoLigne(Tout_Etat,sLigne)
+      FIN
+      
+      // aucune expression valide => erreur 
+      stExpERREUR est un stExpressionVersAction 
+      RENVOYER stExpERREUR
+     type : 458752
+   -
+     name : bParse
+     procedure_id : 1309967391812349201
+     type_code : 12
+     code : |1+
+      // parsing du fichier dont le contenu texte est <contenuFicher>>
+      procédure bParse(sContenuFicher est chaine) : (booléen, chaine)
+      
+      // état initial
+      _changeState(Declaration_SymboleEtOption)
+      	
+      // parcourt des lignes
+      tabLigne est un tableau de chaînes
+      ChaîneVersTableau(sContenuFicher,tabLigne ,rc)
+      pour numLigne = 1 _a_ tabLigne.Occurrence()
+      	m_nNumLigne = numLigne
+      	soit sLigneI = tabLigne[numLigne]
+      	
+      	// recherche d'une expression
+      	soit stExp2action <- _rechecheInfoLigne(m_etatCourant,sLigneI)
+      	// si on a rencontré une erreur
+      	si stExp2action.fnAction= null alors
+      		// erreur
+      		m_sErreur = ChaîneConstruit( "erreur de syntaxe a ligne %1 : %2", m_nNumLigne,sLigneI ) 
+      		RENVOYER (faux, m_sErreur)
+      	fin
+      	
+      	// exécuter l'action
+      	stExp2action.fnAction(sLigneI)
+      		
+      FIN
+      
+      //success
+      renvoyer (vrai,"")
+     type : 458752
+   -
+     name : GenéreCodeLexer
+     procedure_id : 1315080112286971194
+     type_code : 12
+     code : |1+
+      // génération du code du lexer apres un appel a bParse
+      procédure GenéreCodeLexer( sNomFicDest est chaine ) : (booléen, chaine)
+      dbgAssertion(sNomFicDest<>"")
+      
+      // nom de la classe a crée
+      sNomClasse est chaine ansi = fExtraitChemin(sNomFicDest,fFichier)
+      
+      // chargemet du code template
+      sTemplate est chaine ansi = fChargeBuffer("..\\lexerTemplate.wdc")
+      si ErreurDétectée ALORS
+      	// erreur
+      	renvoyer (Faux, erreurinfo())
+      FIN
+      
+      //  Modifier le nom de la classe
+      sBufClasse est chaine ansi = sTemplate
+      sBufClasse = Remplace(sBufClasse, "lexerTemplate", sNomClasse)
+      
+      // Insérer le code user de déclaration
+      tabCode_Declaration est un tableau de 3 chaine
+      tabCode_Declaration[1] = :m_sCode_Declaration
+      pour i =1 a 3
+      	sBufClasse = Remplace(sBufClasse, "//%CODE_DECLARATION_"+i+"%", tabCode_Declaration[i])
+      fin
+      
+      // code pour chaque expression
+      // ex : _add( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
+      sCodeInitCahineVersToken est chaine
+      Remplace(sBufClasse,"%CODE_INIT_CHAINEVERSTOKEN%", sCodeInitCahineVersToken)
+      
+      // sauver le fichier généré
+      fSauveTexte(sNomFicDest,sBufClasse)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
+      // OK
+      RENVOYER (vrai, "")
+      
+      
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BwAAAAcAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x122df0200041d538
+  internal_properties : BwAAAAcAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BwAAAAcAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
