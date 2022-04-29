@@ -22,7 +22,7 @@ project :
     64bits : true
     new_features_help :
      name : ""
-     internal_properties : BwAAAAcAAAB9MxHacwHnGYBh3KrcU0dzmfLsWcR4B0NEst0c321jjBWjtOKj5xYNexoJUpNHOe8Hoissaxn0dQ==
+     internal_properties : BwAAAAcAAADpj402j5UTpRztWi6wj/P3oX5wVbD8C4fYVtXYCXdR6qf9ktQ9XYQXEaD76BnLvXOLLr+Y/41g4Q==
  elements :
   identifier : 0x422def4602f38467
   elements :
@@ -53,6 +53,8 @@ project :
  common_generation_directory : true
  languages :
   - fr-FR
+ disabled_errors :
+  internal_properties : BwAAAAcAAACNsppSC1Fu9tqxYXziuKktQWbrs1NMOuVBkHgsV72lAmMQz7DUgCjhNeD9dLmO1ZcljelsI3REYJPCBmC4VNIYc2I9VP7RBhZLmKxuh4WiqzPesistJ8++a2zteYDFbETfCrfG3mDPMVijZsKS/1J4WNUBC0WNv3i9rWif8OX4mKrT5M+V8xVf6HD6lSex6PAd1X2M70YdzrER+WqRLADDGbxZHmU1WRyhMLW2GbHPDmxmyVjjyyZm5NAZhlWUivnetpzEBdNUAo8f1mZWM5gq5WaLiWfwNRoXllSyF0m7MX6TO+AwCi15a5FlyRP2aoCB
  code_elements :
   type_code : 0
   p_codes :

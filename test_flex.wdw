@@ -123,12 +123,14 @@ window :
      type_code : 4
      p_codes :
       -
-        code : |1+
+        code : |1-
          compilateur  est un wdFlex
          soit (b,sErr) = compilateur.bParse(SAI_Source)
          trace(b)
          trace(sErr)
-         
+          (b,sErr) = compilateur.GenéreCodeLexer("c:\temp\parseur_test_01.wdc")
+         Trace(b)
+         Trace(sErr)
         type : 18
       -
         type : 161
