@@ -212,7 +212,7 @@ class :
       	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production( %1,%2,""%3"",(token)=>{%4} )", param_etat,chaine_exacte,rexgExp,code_action_lambda )
       FIN
       
-      Remplace(code_de_travail,"%CODE_INIT_CHAINEVERSTOKEN%", code_init_ChaineVersToken)
+      Remplace(code_de_travail,"//%CODE_INIT_CHAINEVERSTOKEN%", code_init_ChaineVersToken)
       
       // OK
       RENVOYER (vrai, code_de_travail, "")
