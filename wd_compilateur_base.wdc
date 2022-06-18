@@ -18,11 +18,12 @@ class :
       // classe de base pour les compilateur généré par wd-flex-bison
       wd_compilateur_base est une Classe
       	// toutes les règles de production du lexer selon les l'état courant
-      	tableau_regle est un tableau dynamique de tableaux de ExpressionVersAction
+      	tableau_regle est un tableau dynamique de tableaux de RegleDeProduction
+      	numero_regle_courante est entier // durant la déclartaion
       
       	// -- Variables d'état durant la compilation
       	
-      	source_découpée_en_ligne est un tableau de chaînes
+      	source_découpée_en_ligne est un tableau de chaînes UNICODE
       	// n° de ligne et de colonne en cours de compil
       	numéro_ligne_en_cours	est un entier
       	numéro_colonne_en_cours	est un entier
@@ -33,22 +34,25 @@ class :
       	// valeur de l'état courant pour les lexer avec des états
       	etat_courant_lexer est entier 
       	
+      	en_mode_debug est un booléen 
       	
       fin
       // définie une règle de production, c.a.d. comment passer d'une expression chaine a une action
-      ExpressionVersAction est une structure
+      RegleDeProduction est une structure
        	// chaine ou regexp d'entrée. l'une des 2 est vide mais jamais les 2
       	chaine_exacte	est chaine 
       	regexp			est chaine
       	// action
       	action			est une procédure
+      	// pour debug
+      	numero_regle    est un entier
       FIN
       // définie la regle a exécuter sur chaque token trouvé durant la compilation
       RegleAExécuter est une structure
-      	// token trouvé. ex: " " ou "34"
+      	// token trouvé. ex: " " ou "34". correspond a yytext dans flex
       	token			est chaine		
-      	// code a exécuter sur le token.
-      	action			est une procédure 
+      	// regle ou null si aucune n'a été trouvé 
+      	règle 		    est RegleDeProduction dynamique
       	// état :
       	est_terminé est un booléen
       fin
@@ -81,10 +85,11 @@ class :
       // ajouter une règle de production au lexer
       PROCÉDURE PROTÉGÉE _ajoute_règle_production( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, action est procédure )
       
-      regle_production est un wd_compilateur_base::ExpressionVersAction
+      regle_production est un wd_compilateur_base::RegleDeProduction
       regle_production.chaine_exacte	= chaine_exacte
       regle_production.regexp			= rexgExp
       regle_production.action			= action
+      regle_production.numero_regle	= :numero_regle_courante++
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
    -
@@ -99,21 +104,21 @@ class :
       règle_résultat est un RegleAExécuter 
       
       // parcourt linéaire de toutes les expression possibles dans l'état en cours
-      tabCourant est un  tableaux dynamique de ExpressionVersAction   <- tableau_regle[valeur_etat]
+      tabCourant est un  tableaux dynamique de RegleDeProduction   <- tableau_regle[valeur_etat]
       POUR TOUT règle_de_production de tabCourant
       	// si c'est un chaine fixe
       	si règle_de_production.regExp=""  ALORS
       		si règle_de_production.chaine_exacte = ligne_source ALORS
       			// trouvé 
       			règle_résultat.token  = règle_de_production.chaine_exacte 
-      			règle_résultat.action = règle_de_production.action
+      			règle_résultat.règle  = règle_de_production
       			RENVOYER règle_résultat			
       		FIN
       	// si c'est une regexp qui matche
       	sinon SI RegexVérifie( ligne_source, règle_de_production.regExp ) ALORS
       		// trouvé 
       		règle_résultat.token	= ligne_source 
-      		règle_résultat.action	= règle_de_production.action
+      		règle_résultat.règle	= règle_de_production
       		RENVOYER règle_résultat			
       	FIN
       FIN
@@ -135,7 +140,7 @@ class :
      code : |1+
       // compilation d'un texte en mode ligne a ligne
       // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
-      PROCÉDURE protégée _compile_mode_ligne(source_a_compiler est chaine) : (booléen, chaine)
+      PROCÉDURE protégée _compile_mode_ligne(source_a_compiler est chaine UNICODE) : (booléen, chaine)
       
       // init de source_découpée_en_ligne
       ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
@@ -148,13 +153,16 @@ class :
       	// recherche d'une règle valide sur <ligne_en_cours>
       	soit règle_a_exécuter <- _recherche_règle(etat_courant_lexer , texte_ligne_en_cours)
       	// si on a trouvé aucune règle de production valide
-      	SI règle_a_exécuter.action = Null ALORS
+      	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
       		m_sErreur = ChaîneConstruit( <§R12ad88bb0018eb30¤fr-FR¤Erreur de syntaxe a ligne %1.\nLigne **%2** invalide.§>, numéro_ligne_en_cours, texte_ligne_en_cours ) 
       		RENVOYER (Faux, m_sErreur)
       	FIN
-      	// exécuter l'action sur le token
-      	règle_a_exécuter.action(règle_a_exécuter.token)
+      	si en_mode_debug alors
+      		trace( règle_a_exécuter.règle.numero_regle + ":" + :etat_courant_lexer+ ":"   + règle_a_exécuter.token )
+      	fin
+      	// exécuter l'action sur le token trouvé
+      	règle_a_exécuter.règle.action(règle_a_exécuter.token)
       
       FIN
       
@@ -187,7 +195,7 @@ class :
       		RENVOYER (Vrai, "")
       	FIN
       	// si on a trouvé aucune règle de production valide
-      	SI règle_a_exécuter.action = Null ALORS
+      	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
       		text_ligne_courante	est chaine	= :source_découpée_en_ligne[:numéro_ligne_en_cours]
       		chaine_restante		est chaine	= Milieu( text_ligne_courante, :numéro_colonne_en_cours)		
@@ -195,7 +203,7 @@ class :
       		RENVOYER (Faux, m_sErreur)
       	FIN
       	// on exécute l'action associée a la règle
-      	règle_a_exécuter.action( règle_a_exécuter.token )
+      	règle_a_exécuter.règle.action( règle_a_exécuter.token )
       
       fin
      type : 458752
@@ -222,7 +230,7 @@ class :
       // recherche d'une règle valide sur <chaineRestante>
       soit règle_a_exécuter <- _recherche_règle(etat_courant_lexer , chaine_restante)
       // si on a trouvé aucune règle de production valide
-      SI règle_a_exécuter.action = Null ALORS
+      SI règle_a_exécuter.règle = Null ALORS
       	// on renvoie cette règle invalide
       	RENVOYER règle_a_exécuter
       FIN

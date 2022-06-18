@@ -1,7 +1,7 @@
 %option noyywrap
 
 %{
-//code d'init
+// code d'init 2
 valeur_courante est un réél
 %}
 
