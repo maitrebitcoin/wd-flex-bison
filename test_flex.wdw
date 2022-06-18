@@ -59,13 +59,14 @@ window :
      p_codes :
       -
         code : |1+
+         fichier_source est chaine = "c:\temp\source.wl.l"
          fichier_dest est chaine = "c:\temp\parseur_test_01.wdc"
          
          RésultatDeLaCompilation=""
          
          compilateur  est un wdFlex
-         fSauveTexte("source.wl.l",CodeSourceLexer)
-         soit (b,sErr) = compilateur.génère_compilateur("source.wl.l", fichier_dest)
+         fSauveTexte(fichier_source,CodeSourceLexer)
+         soit (b,sErr) = compilateur.génère_compilateur(fichier_source, fichier_dest)
          si pas b ALORS
          	RésultatDeLaCompilation = sErr
          	retour
