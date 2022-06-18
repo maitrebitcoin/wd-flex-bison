@@ -129,13 +129,13 @@ class :
       
      type : 458752
    -
-     name : _compile_modelgine
+     name : _compile_mode_ligne
      procedure_id : 1345880843185755993
      type_code : 12
      code : |1+
       // compilation d'un texte en mode ligne a ligne
       // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
-      PROCÉDURE protégée _compile_modelgine(source_a_compiler est chaine) : (booléen, chaine)
+      PROCÉDURE protégée _compile_mode_ligne(source_a_compiler est chaine) : (booléen, chaine)
       
       // init de source_découpée_en_ligne
       ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)

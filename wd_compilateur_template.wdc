@@ -1,49 +1,45 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : lexerTemplate
+ name : wd_compilateur_template
  major_version : 27
  minor_version : 0
  type : 4
  description : ""
  subtype : 0
 class :
- identifier : 0x122df05b004ebb23
+ identifier : 0x12add70c0021d69e
  internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
  code_elements :
   type_code : 10
   p_codes :
    -
-     code : |1-
-      lexerTemplate est une Classe
+     code : |1+
+      wd_compilateur_template est une Classe
       	hérite de wd_compilateur_base
-      //%CODE_DECLARATION_1%
+      //%CODE_DECLARATION_MEMBRE%
       fin
-      
-      //%CODE_DECLARATION_2%
      type : 131072
   procedures :
    -
      name : Constructeur
-     procedure_id : 1309967340272597795
+     procedure_id : 1345968310195508894
      type_code : 27
      code : |1-
       procédure Constructeur()
-      
-      //%CODE_DECLARATION_3%
       
       //%CODE_INIT_CHAINEVERSTOKEN%
      type : 589824
    -
      name : Destructeur
-     procedure_id : 1309967340272663331
+     procedure_id : 1345968310195574430
      type_code : 28
      code : |1+
       procédure Destructeur()
      type : 655360
    -
      name : compile
-     procedure_id : 1315394697166736777
+     procedure_id : 1345968310195639966
      type_code : 12
      code : |1+
       // compilation de <source_a_compiler>

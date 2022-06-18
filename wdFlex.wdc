@@ -18,16 +18,11 @@ class :
       wdFlex est une Classe
       	hérite de wd_compilateur_base
       	
-      	// toutes les expressions et actions selon les l'état courant
-      	//§m_tabExpr2Action est un tableau dynamique de tableaux de wd_compilateur_base::stExpressionVersAction 
-      	// état courant
-      //	m_etatCourant est un EEtat
+      	// Remplis durant la phase de compilation
       
-      	
-      // OUT généré	
-      	// code utilisateur a mettre dans la déclaration
-      	m_sCode_Declaration est chaine
-      	// token + action a faire lorsqu'on le rencontre
+      	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
+      	code_wl_declaration est chaine
+      	// règles de productions pour le lexer
       	m_tabToken2Code est un tableau de stToken2Code
       	
       fin
@@ -38,7 +33,7 @@ class :
       	Expression = 4 // apres %%
       
       fin
-      // définie la regle a exécuter sur chaque token trouvé durant la compilation
+      // définie la règle a exécuter sur chaque token trouvé durant la compilation
       stToken2Code est une structure
       	// token trouvé. ex: " " ou "34"
       	token		est chaine		
@@ -54,23 +49,17 @@ class :
      code : |1-
       procédure Constructeur()
       
-      	procédure interne _add( e est EEtat, s, r, fn )
-      		_ajoute_règle_production( e.Valeur, s, r, fn)
-      	FIN
-      
       // Init un tableau a vide
       :tableau_regle = allouer un tableau de 4 tableaux de wd_compilateur_base::ExpressionVersAction 
       // Init des expression et actions
-      _add(Declaration_SymboleEtOption,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
-      _add(Declaration_SymboleEtOption,  "",".*",  (s)=>{ m_sCode_Declaration += [RC] + s  } )
-      _add(Declaration_CodeUser, 		   "%}","",  ()=> { _changeState(Declaration_SymboleEtOption) } )
-      _add(Declaration_CodeUser, 		   "",".*",  (s)=>{ _parseCodeUser(s) } )
-      _add(Declaration_CodeUser,  	   "%%","",  ()=> { _changeState(Expression) } )
-      //_add(Expression, 		  		   "[ \t]*.",  (s)=>{  m_sCodeEnCours + s } )
-      _add(Expression, 		  		   "",".*",  (s)=>{  } )
-      _add(Tout_Etat, 		  		   "","",  (s)=>{ } ) // ignorer les lignes vides
-      _add(Tout_Etat, 		  		   "","[ \t]*",  (s)=>{ } ) // ignorer les lignes avec que des espaces ou tab
-      
+      _ajoute_règle_production(Declaration_SymboleEtOption,  "%{","",     ()=> { _changeState(Declaration_CodeUser) } )
+      _ajoute_règle_production(Declaration_SymboleEtOption,  "",".*",     (s)=>{ code_wl_declaration += [RC] + s  } )
+      _ajoute_règle_production(Declaration_CodeUser, 		   "%}","",     ()=> { _changeState(Declaration_SymboleEtOption) } )
+      _ajoute_règle_production(Declaration_CodeUser, 		   "",".*",     (s)=>{ _parseCodeUser(s) } )
+      _ajoute_règle_production(Declaration_CodeUser,  	   "%%","",     ()=> { _changeState(Expression) } )
+      _ajoute_règle_production(Expression, 		  		   "",".*",     (s)=>{  } )
+      _ajoute_règle_production(Tout_Etat, 		  		   "","",       (s)=>{ } ) // ignorer les lignes vides
+      _ajoute_règle_production(Tout_Etat, 		  		   "","[ \t]*", (s)=>{ } ) // ignorer les lignes avec que des espaces ou tab
       
       
       	// découper une déclaration de lexer.
@@ -107,39 +96,56 @@ class :
       procédure Destructeur()
      type : 655360
    -
-     name : _changeState
-     procedure_id : 1309976999654264243
-     type_code : 12
-     code : |1-
-      // change l'état courant
-      procédure _changeState( e EEtat )
-      :etat_courant_lexer = e.Valeur
-      //m_etatCourant = e
-      // init du tableau des expressions valide selon l"état en cours
-      //m_tabCourant  <- m_tabExpr2Action[m_etatCourant.Valeur]
-     type : 458752
-   -
-     name : bParse
+     name : génère_compilateur
      procedure_id : 1309967391812349201
      type_code : 12
      code : |1+
-      // parsing du fichier dont le contenu texte est <contenuFicher>>
-      procédure bParse(sContenuFicher est chaine) : (booléen, chaine)
+      // génération d'une classe WL sur le disque
+      // renvoie (vrai,"") ou (faux,<message d'erreur>)
+      procédure génère_compilateur(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
       
-      // état initial
+      // chargement du fichier .l
+      source_lexer est chaine = fChargeTexte(nom_fichier_source_lex)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
+      
+      // init a l'état initial
       _changeState(Declaration_SymboleEtOption)
-      	
-      // rebond
-      renvoyer _compile(sContenuFicher)
-      	
+      // compilation avec le mode spécial ligne a ligne
+      soit (ok,message_erreur) = _compile_mode_ligne(source_lexer)
+      si pas ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN
+      
+      // génération de la classe sur disque
+      (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
+      SI PAS ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN	
+      
+      // succès de la génération d'une classe WL pour compiler
+      renvoyer (Vrai,"")
      type : 458752
    -
-     name : GenéreCodeLexer
+     name : _changeState
+     procedure_id : 1345972635227731108
+     type_code : 12
+     code : |1+
+      // change l'état courant
+      procédure _changeState( e EEtat )
+      :etat_courant_lexer = e.Valeur
+     type : 458752
+   -
+     name : _genére_code_wl
      procedure_id : 1315080112286971194
      type_code : 12
      code : |1+
       // génération du code du lexer apres un appel a bParse
-      procédure GenéreCodeLexer( nom_fichier_dest est chaine ) : (booléen, chaine)
+      procédure protégée _genére_code_wl( nom_fichier_dest est chaine ) : (booléen, chaine)
       dbgAssertion(nom_fichier_dest<>"")
       
       // nom de la classe a crée
@@ -175,7 +181,7 @@ class :
       procédure _genère_code_lexer_apres_compilation(nom_classe_générée est chaine ansi) :  (booléen, chaine ansi, chaine)
       
       // chargement du code  wl template
-      template_code est chaine ansi = fChargeBuffer("..\\lexerTemplate.wdc")
+      template_code est chaine ansi = fChargeBuffer("..\\wd_compilateur_template.wdc")
       si ErreurDétectée ALORS
       	// erreur
       	renvoyer (Faux, "", erreurinfo())
@@ -186,13 +192,9 @@ class :
       code_de_travail = Remplace(code_de_travail, "lexerTemplate", nom_classe_générée)
       
       // Insérer le code user de déclaration
-      tab_code_déclaration est un tableau de 3 chaine
-      tab_code_déclaration[1] = :m_sCode_Declaration
-      pour i =1 a 3
-      	code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_"+i+"%", tab_code_déclaration[i])
-      fin
+      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", code_wl_declaration)
       
-      // code pour chaque expression
+      // code pour déclarer les règle de production
       // ex : _add( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
       code_init_ChaineVersToken est chaine
       token_vers_code_wl est stToken2Code
@@ -200,8 +202,8 @@ class :
       	param_etat est chaine = "Etat_lexer_tous"
       	chaine_exacte est chaine  = """""" // 2 quotes = chaine vide
       	rexgExp est chaine 		 
-      	// ex :  (s)=>{ m_sCode_Declaration += [RC] + s  } )
-      	code_action_lambda est chaine = ChaîneConstruit(" (token)=> { %1 }", token_vers_code_wl.code_wl )
+      	// ex :  (yytext; )=>{ m_sCode_Declaration += [RC] + yytext  } )
+      	code_action_lambda est chaine = ChaîneConstruit(" (yytext)=> { %1 }", token_vers_code_wl.code_wl )
       	// si c'est au format "A" => on prend la chaine exacte
       	si token_vers_code_wl.token[1] = """" alors
       		chaine_exacte = token_vers_code_wl.token

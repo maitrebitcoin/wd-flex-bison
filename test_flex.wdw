@@ -12,93 +12,28 @@ window :
  identifier : 0x222defaa014b080a
  internal_properties : BwAAAAcAAADa94cqk6gLc7XjMWElXb8Xl63yQ10JKQICqKgBwT+1C2zMXzjfoH8bQBMiru97MATqy/kA5Vd+XNNDy5wkEiKHCS0SUdLKovUBApxRpBrD1AMjhIUa5r3tGNAkWfe0XMnqxjX/QUuOt46uACY4Mcjw+ASRSHKUDPNe/YPkF5yyYdVfhZq3ltm8QTjHqVDxZZhMsFqRtP5CLUJW7gyW4CxROnIP8sHcCrMI4uc2V5s6GumNnvlk3aVghnIFmzxa5t1jXUbhKeGRLCr21eyXHB5Wi9nyZclsB8g/9/oSLU6CBt3Jde8rtWjIuIJeX4MMhZO+QL+kdjwGHzqN4GxuYbu50GIwNCvcfLnJPYfM0tgG2yDYlMGdReum3g9Ya446cH86HF/crY7JklJ7VlgWKRRhUnVNWza24GCvefd4oz9KbUss7HLAVnLwCWCWVU/X/ASTU5pxyg2oBLQ93eo1opcoCVBW4VRztJNT97N8DiDTGVCJueMbR9rInFNXzb/d+6aBwKz1JD2AUxaMhJoNC2uWbdXsYh15hUkMVZVUeEBZZLLl4T3Iyl/+c8woN+eo4STWriUJ/SXSbfWYRK/DETcHP0lb+8wqeAsSibkhm7FeybsK0qrDX873U/WlgVTjVovrTsyw53kmre8sQn0hPtNU
  properties :
-  width : 626
-  height : 425
-  widthClient : 624
-  heightClient : 393
+  width : 663
+  height : 329
+  widthClient : 661
+  heightClient : 297
  controls :
   -
-    name : SAI_Source
+    name : CodeSourceLexer
     identifier : 0x222defb303642ca9
-    internal_properties : BwAAAAcAAAC2Dc87rFPeBun5mZgFYRg8I5QU4qvGL4Pf9HMQvAiJVcqIPvAMiZYO5m2Uo9JC9PzRe9idV9zgp5EekKOwzOI08idKusW+qzaSPp/vC4zvPS0HcPMCJNJHy2tzxqRWt+OZNXLTXRpWM8AdBYShr8jQfcC5BQbJHNJkQQ0RapnFk3EsLPupttIaRXbCwqpqx5X/VW7AEYCggr5GttpoYb09ze4IB3yQ/Jd5YAs1PFNVbRUcd4CIz5GcdUWQXoz5a3urJj7S5YiKwN0j5tZyopDAN4qnJhaZIuCw3I5pT0rFa3v6V00sJu93QDj69APUvZZLS3+o/GdcqneXtDOqrmAAIWyswMy9nVncWYe63aANTQ4CrLfDXVYs4Sv22i7b8rNGS3LnmCtU+aPCzXJoIekI+LYEduWsAi59LUSUJOsFEqi/EjE6JL0gYOQm800Z5RjI4kbzhzKCxN2FF8CFiRKUg/kzRSf09jpo2Bg4JQIIDQm2sEF3e5FyJlVpKhoR2zbg3/SAQyBd8RhsLSGK0HVf+EwFrSB7cEy2yQVSGr6RovYsQfn0X4vSVYOrNIVC0c8+U7YrGGaLp/yppMd+BqB5rKzO4VDfVDUmoN24BRIVaqju9zTw7GlgS4IpqCSZgXf/AsDsSdBNJjUSS8LDBQ48mZ98ThAdHtBxhHM9E9FMgrP1bbKDMpUDOhagyGXbhJvJUfn2WvYczbzKSkVx51UDY9pUFetShXImdgQLtv2eyOzHa1XwwTRe7To4cuchhHYRjCFzrwsRhTTT2KTlIkNJaJo3ghL1UWp0cDBGcNnR/ZB92BIIquTGOywFgLW+fYMrCuOvrX1J2vcUbFwWjujlBP7LcGeBMQFlky9vupWxY/sdNZHEI1Q+uBTRMvjEO3da5URcdMlnCJt3legfs9KtGh/XrS1uaMSMHOCG1NumV7aRIyl4LfWBD8YqB6rbnSHzvbgT3QrS+5W+mOUxwk8YaEz2Quf4+u4nW5TfxQXyLPmuqo91belHXOhTx2WJl3DSFK0WLlISdvAEfA2vE0KovUJaOYcqyS+hbdei8CYJei4KhWuJ0JiiOyD1KZYrj77eaTAFmMEhUEDpObBaVzMWe/MzPGhKZsmi91uKjRl38F7U4vJmue7aGCDIszxubnIFvR9BqIHIfgTCMgg7jLkSSGuMYHuuyma7NBPNNsah/MVXTV+VdzjqktHZhiLQX624t1GjYJotUkDkyLLFpuWfBBooXPOjak/vQOBJnthE3guHZx7NdXvMW0PeUm8l/1+6tp62WVUw+ZFVrTAOuCBJjPcnhX8qS4dUvA==
+    internal_properties : BwAAAAcAAAB4bPsAjCtH11Os+9lvbgdDQt8RrmrebeJnYxzxJCqclmZhnqtfPODeyh8CAlw8tuqc6sVT2zC7U0hIVzEeW6beLv83o+j7+ZIGxP06OOKI4yymgjSue7LKdeCt3PvmoOTvcUlEFR20cOsrPLIyOCuS+2K9dBMrRu82XYYpLO74YaigcEJFgsVDCTcP2e9DY/UiUCphFwTiG5LJ0oA3V1rEgLdpCDopZwnCKthkhawI+d2ZmaC5FFqGUzn9cls4bJM9d73e3Gr4MwAd1Cj7xeHJtixIRAXWB6N5J5Lu2hStvUIPBNt0bKZG24ktmZjlbFhGW2mruucpni1BnghJKq1V1Is8f7+TOR5477J8pxKegZGEVG8F5/v7dcBHGnVHUREMIeQh8fsMR+K/pGKLRKqL0ZSHbHa6yB33iJfvDzB8NxKm2Q+eGKgMPm5elUK1E+bK0ljWEnrLIl1wCKbbHjD09WyY7DJhmjdCZBKSktJjOhjExdrqZ/T/8cYHUtqDZYG+jD0rRUOaTbUVdSPFroo14AoqYsGJLfWcU2jD34ZfHFXrUb/I1tMGfNHiLyy96zblZOUmF3MAMNNiMztMWFVJ5xDJdEBHt3p344By11EIm9elYkG9p6Qo3j5pvEftmMZzZXbwag8l8QLYJ2sBR0b5MU+1z4mMqbIIv1zkbxmkhDDgzf4njcpHg4xdGMgq1SPY5SAPYpOOb6T4c7XnkR34LAb3WDoigr5u2sBXYn6g6di/TnQURh5Re3Qu++r0qsrbo1bmnezIB0Mei3IAx7Lbpcdj/YqgyaLJyHha1Dip3xm6FF1/JiHQunp/9U/nRcM7LBS45R/IU7oUwazcIAEbIdPYwUeOLmg236la+/jr4vSZ3rC/1Es7npYSYXZbpwdt2mqDY4MovBLTG4aNC9yBg76B6eiqumSa1qm1yLrKjWu5ja5UnrKDNDjGQ/iOUwVgru5QJma6naHLBYSxd9ZjpkCDT+Tln/CIQH8UXXEKK4y7GwIBfIJWiL/t2sxauVnyG+06eb4Pi/1Yzp5lkJZOD2I8mxAyz22dQ8+bgF/iB998CwStgkh7z9HrtREvTvT6Xt6yi3C8vMQQYfmvZoQQGMfT846hJuy6QA8T/3B/M9RHkZBHYAXVpl5ryr4Rm8CAFIzGx8ZjcF3xT9+CwAgw2n25G7c52bCl0IsuwXNewiuHCqBYrPAqSkJuMzikP3F8qk3ICAbSnAH3JXbxht0px86mvEAgO3zorz9nXyrJaFHs9f57YIwT2AbSYZB21CnDCCxS0mBkiLIKggMa9Sq2jIfuY46SIqq3c39CxgKnywomzFBjfpBEEzRrcNSInXtBCyq/OGdWOtA=
     properties :
-     x : 29
-     y : 18
+     x : 14
+     y : 13
      width : 302
-     height : 231
+     height : 262
     type : 2
     code_elements :
      type_code : 3
      p_codes :
       -
-        code : |1-
-         s est chaine = [
-         %{
-         /* C++ string header, for string ops below */
-         #include <string>
-         
-         /* Implementation of yyFlexScanner */ 
-         #include "mc_scanner.hpp"
-         #undef  YY_DECL
-         #define YY_DECL int MC::MC_Scanner::yylex( MC::MC_Parser::semantic_type * const lval, MC::MC_Parser::location_type *location )
-         
-         /* using "token" to make the returns for the tokens shorter to type */
-         using token = MC::MC_Parser::token;
-         
-         /* define yyterminate as this instead of NULL */
-         #define yyterminate() return( token::END )
-         
-         /* msvc2010 requires that we exclude this header file. */
-         #define YY_NO_UNISTD_H
-         
-         /* update location on matching */
-         #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
-         
-         %}
-         
-         %option debug
-         %option nodefault
-         %option yyclass="MC::MC_Scanner"
-         %option noyywrap
-         %option c++
-         
-         %%
-         %{          /** Code executed at the beginning of yylex **/
-                     yylval = lval;
-         %}
-         
-         [a-z]       {
-                        return( token::LOWER );
-                     }
-         
-         [A-Z]       {
-                        return( token::UPPER );
-                     }
-         
-         [a-zA-Z]+   {
-                        /**
-                         * Section 10.1.5.1 of the 3.0.2 Bison Manual says the 
-                         * following should work:
-                         * yylval.build( yytext );
-                         * but it doesn't.
-                         * ref: http://goo.gl/KLn0w2
-                         */
-                        yylval->build< std::string >( yytext );
-                        return( token::WORD );
-                     }
-         
-         \n          {
-                        /** Update line number **/
-                        loc->lines();
-                        return( token::NEWLINE );
-                     }
-         
-         .           {
-                        return( token::CHAR );
-                     }
-         %%
-         ]
-         SAI_Source = s
+        code : |1+
+         s est chaine = fChargeTexte(".\exemples\calc.wd.l")
+         CodeSourceLexer = s
         type : 14
       -
         type : 276
@@ -114,9 +49,9 @@ window :
     identifier : 0x222defc603a5771f
     internal_properties : BwAAAAcAAACQq5jtPJxU/7e/gWoyCjSgQ13WK4NxqSUG3ksy3GKbArXwErhN1qGPIyPdFTaqQSZqW4Y8MakAGHp8/UG+5rnvKvELbKa3F+imC67DVewU50aKVC/xiJlNgaLN1Lj3U3sxWAERZC/6Pe6zzjMnBI/BLrXs+Q0z7uIJS/WtnpLPwBMQKIQzAnddTu+ga8TGE+vcfUoKfLJvWhnAfsY4eP1y0QrhzDfPHpIVYFyslzR3/8r/zZ5MjrU7GEkiGaZ+pBFbg9N4dM40zyQk2OTvLMHC+PxDf+R4h+TzoSdF0K9voU3RMC6MnnLd+NpqC0sRcJfYPrNYsIoOzcZvEypV0mq4Jx7BxbItEMfuZANy7zLtqmr+4BlYJK3IqaHXwmB3VDBYlT7ojemvRsaXA86EYHBawXuApmHPAYVxQ7pGhPSwvqcMSnghNRxrnCLixhk+ZUDGkJdoBXavnZ2xjlByUqn5Ain/n/4SguJ2kHhnHouL9djkvPFjIIZ2KvFdwgFqo+N648Q3hGUUMah+PZmLwmYIhVJJEBU3ukE03L9pzxUkWkOneJ1k88F8tmjr3XnmQnPr/4b0sbwmUYFSeNbqlLvVEu8glNzA6vNZzZcUpHVjo4BeZBwbewqH5QFEsw/vW5mQldb0+F/Pk8xmlWvCdSzFIpeCTy6aeEF/CfmijMJpdUoizVKsmPHbawqW3eZkKIoUAGOEuGxEDPrCUpn7z9Lkp+U5jJgMPkQqwZIn3ysP/wC+MoJfpXtcDkYZoLs7ypwFrwtiCeURTpzGZwzMOtPKFhBqu/jYc3rEJzadngdrOdkxPMehDy0UYGBnRQv+sYWU
     properties :
-     x : 348
-     y : 18
-     width : 80
+     x : 322
+     y : 31
+     width : 217
      height : 24
     type : 4
     code_elements :
@@ -124,17 +59,64 @@ window :
      p_codes :
       -
         code : |1+
+         fichier_dest est chaine = "c:\temp\parseur_test_01.wdc"
+         
+         RésultatDeLaCompilation=""
+         
          compilateur  est un wdFlex
-         soit (b,sErr) = compilateur.bParse(SAI_Source)
-         trace(b)
-         trace(sErr)
-          (b,sErr) = compilateur.GenéreCodeLexer("c:\temp\parseur_test_01.wdc")
-         Trace(b)
-         Trace(sErr)
+         fSauveTexte("source.wl.l",CodeSourceLexer)
+         soit (b,sErr) = compilateur.génère_compilateur("source.wl.l", fichier_dest)
+         si pas b ALORS
+         	RésultatDeLaCompilation = sErr
+         	retour
+         FIN
+         // OK
+         ToastAffiche("Compilation OK" + rc + fichier_dest,toastCourt,cvHaut)
+         RésultatDeLaCompilation = fChargeTexte(fichier_dest)
+         
         type : 18
       -
         type : 161
         enabled : false
+  -
+    name : RésultatDeLaCompilation
+    identifier : 0x22adddc2017b0e69
+    internal_properties : BwAAAAcAAAAVr60GuJID81bz9lV4ASjbA98XmXI08bLe1uGZ4wV8GF60OVsyEx10iTXb01gGxxMGWTiv4rA60+V7TkVq5stiOZN+kQA+GF15MO0l8mDBFfPoj+avmdpNtbqWwcGMtLX8e2+TMm2vm7UzQZd01w8favyRNjxV1JVjyX4csy7PdV7D/u5RN+HKBv4mdM7EiHuw08w+lVdAC9XzDLrE5VYbT76FIOUMEHDJEf+aEMx86/vv52KRPNqNrEru10NBm1dRNBBsfcsS75FHPAYXR9LKedywMBoUFSPAGRkIohEdIobTEt1TKxTY250MIm9mkBeeR0zbikD5nCBUdzXwXMHtUsdbsW6R4ZQ6D9iP0qqSmtpyDXjjia/sL4nWf2L45pgpx2Vi81YQMgEBtzIA44KVs4t4GSkCCBqvNrdV4aRI9dvJO9/eIq/rQhg8ZftyIflV13PmHAequ0O4ACF3yW+fqaf7idGYt0yBtYzWCErQhxWEKoOdNf8TAyRhGHBxYJzMEjoqY3C61Lpea5NxZXboJPRtax03vpRD8BTmu3yN8ZHSrsmTiCDVWXPIr0VRYjhbXaKslk55QcItpsmqDYe2b/njIAChYVmv2m2Trp+P7xcu+AOdl16DEvWcBVAqPdlU36oG6Ftyd4wYLsugbJPKIpiwuBalu9/FpjgPv9kS5p6dEfR0X3zszgfVB4MPl7t+HgKIEwGNwCOblfWF8/xJ18GrRdU6VxgCS2fiP/g+F0goNujDmiubgPlkvx7htQdZurM3MkSVBIk3G3JRtvccUWgIAHYlDQYZp70cPSDPVWkHsBjA6kzuI5imBy3Oa3OM9RrrUdxnXHPwyBum2BTpjdiu1QlPYWb0+YqZ25HehRCpt3HlVDNBJPNrxdcYsrhw4KXcmmgkq/VFIcGEIHRebk+FLhfZkdQC2Lf5F2gCp1HAiHs9s/ls3NLnXSO980VrCGgfHh9cgapagxOO0mIC4XnX1yjQQkdSsKKAgv3QwCQCTcd3HLJjdl5OrH2sQsWBs55KLAOwB1RmgLDanr1VnblH4K1/AOOd1DJ01Gzvz5BJF/etNoXajRfm8Zd7BDItbJYfnk9XP8up7qIHS0BOoyi7DVTTjkoyPWlI5KutJYr+n7l7SbzQeEvfj2tTTrvvDNSD6v6F453fti1dIgo7UYivIY0sr/dkvhWWw2i7pFp0YzMIAsC7xmqXb9Fb/c4Cubyu8gEn5jHWsrlFEu3JRD+2S7UJQLpYaMnS
+    properties :
+     x : 322
+     y : 61
+     width : 302
+     height : 210
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1-
+         
+        type : 14
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+  -
+    name : Image1
+    identifier : 0x22addf0c0213173a
+    internal_properties : BwAAAAcAAAAZYqutCUXqdZkGWpBflqiUmUrgWB8ivQmpCOR+iN+hfqIJBPe0Z1cE03aNJXJb1DiNL2tD3UPlVckkZ+Y5cxSllG+mkoktziqMa8RSq/bjFrYjRxOvqdYwDGIMkXVRGjpXwbG3vabX7Bw/RPJ2BH+BR9hT9XvzpKrKFJN7ToBxKyWNpeZKa4rEF33+qw8Cgs4N7jn9Aad8n9xV1Wxdsa6AMVpHhDc09OsklVffAmAnoVNpzj7GGueawD/+q1nc7lWYIgeZu2N2/HKt8yGtPhuhpg5zVbNMBh6tFcJYgmYTplzMh6xdDygAjOQarnPC5pW559K4aoGS91+eljcCrYqv97aT8kBeTwl4gH72rTqKl+VYZAnmEbvfurmCg9/nlvqWDUMwm8YLAuvD4/5RlqoBOvABOLpQGD2EzlqsndGWhcZXg2eXl514slTSeXJuHGOG8VW6S4m5n4CuWlXFPLjwviCHlKtrdEDPHWaZO/mDK14J1Lri2OhmFsrGHGRhv7GALVXPffrdBrGYi/imjkmXVJeEJBZwGEMu+yoenLE8K2iMgFJ7/+66tQpc7GxSpFlCCxJPoXkRW30q/3WDpc1IG/DJKTe0tZ3bBwe2iNhsHBikN9Imu+IvTK29hE7mZnqC5SUZFyd0ZOUTtyq9mDFfvxNVNcpni150/x84Ph4znfl8okrE8iNKXqtDgokILQ1OwgcKeQbG18MUu/ks2I1hlD7KD3UINlqR8oExSF6UzFWJkpCgNkgg3qFDqPYf/z1mNDvW6EYoqH/kKyviBJQjB2CnbcQG1qite3cM16XHGs02E075K8RNt5KMlxKQsw/Ffy0ufr3nfpLUj1V0lU88AjLODbB5mRk+ngL5DeRoIqBvFOM=
+    properties :
+     x : 551
+     y : 6
+     width : 100
+     height : 100
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes : []
  menu :
   name : _Menu
   identifier : 0x292573e513b5f221

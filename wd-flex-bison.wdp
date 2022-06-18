@@ -27,10 +27,10 @@ project :
   identifier : 0x422def4602f38467
   elements :
    -
-     name : lexerTemplate
+     name : wd_compilateur_template
      identifier : 0x422df05b037cbb23
      internal_properties : BwAAAAcAAADwTih0s+jA2/JJhL+OSvaUHF2rswhfW6e2VcR0y0fVY11VMglySSKOv3tlU9MN9evVXQ==
-     physical_name : .\lexerTemplate.wdc
+     physical_name : .\wd_compilateur_template.wdc
      type : 4
    -
      name : wdFlex
