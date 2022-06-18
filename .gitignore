@@ -17,6 +17,8 @@ Gabarits
 *.wdcoverage
 *.wpf
 HstDuree.log
+Folder.ico
+desktop.ini
 #
 #WEBDEV
 *\res
