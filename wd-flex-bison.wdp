@@ -22,7 +22,7 @@ project :
     64bits : true
     new_features_help :
      name : ""
-     internal_properties : BwAAAAcAAADpj402j5UTpRztWi6wj/P3oX5wVbD8C4fYVtXYCXdR6qf9ktQ9XYQXEaD76BnLvXOLLr+Y/41g4Q==
+     internal_properties : BwAAAAcAAAAkcOwUqXRHAGhJ6zYI8vMcYIzr751YcULEKuUMotHQavMuDV04/4jAJ7Vsy9kPcPtaogz/Aa63reNN
  elements :
   identifier : 0x422def4602f38467
   elements :
@@ -44,6 +44,12 @@ project :
      internal_properties : BwAAAAcAAAD5W9czjDkJrDJMDSi5xpl2ygBuLiwqublHz2s2jcFOZQRmAB0KRr+oLixHcFO3AOt8
      physical_name : .\test_flex.wdw
      type : 2
+   -
+     name : wd_compilateur_base
+     identifier : 0x42ad83060322a1de
+     internal_properties : BwAAAAcAAAC4luA8C7D4IzoBr2aEvtZZSG8HnzqxMkGOvzcDhL5W+hrEGoeeZaEmh7MtiwvFvTOdpQ==
+     physical_name : .\wd_compilateur_base.wdc
+     type : 4
   other_elements : []
   net_assemblies : []
   uwp_api : []
