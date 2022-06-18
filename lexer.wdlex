@@ -1,0 +1,31 @@
+%{
+wdFlex est une Classe
+	// toutes les expressions et actions selon les l'état courant
+	m_tabExpr2Action est un tableau dynamique de tableaux de stExpressionVersAction 
+	// état courant
+	m_etatCourant est un EEtat
+	
+	// code utilisateur a mettre dans la déclaration
+	m_sCode_Declaration est chaîne
+	// token + action a faire lorsqu'on le rencontre
+	m_tabToken2Code est un tableau de stToken2Code
+	
+FIN
+
+stExpressionVersAction est une Structure
+	sfixe est chaîne
+	regExp est chaîne
+	fnAction est une procédure
+FIN
+stToken2Code est une Structure
+	token est chaîne // ex: "{blanks}" ou " [ \t\n]+"
+	code est chaîne  // ex : return (BLANK);
+FIN
+
+%}
+[ \t],   { // ignorer les lignes avec que des espaces ou tab }
+"%{"	 { _changeState(Declaration_CodeUser) }
+.* 	 { _changeState(Declaration_CodeUser) }
+"%}"	 { _changeState(Declaration_SymboleEtOption) } 
+.*	 { (s)=>{ _parseCodeUser(s) } 
+"%%"	 { _changeState(Expression) } 

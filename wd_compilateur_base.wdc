@@ -1,0 +1,250 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : wd_compilateur_base
+ major_version : 27
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x12ad83060009a1af
+ internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1-
+      // classe de base pour les compilateur généré par wd-flex-bison
+      wd_compilateur_base est une Classe
+      	// toutes les règles de production du lexer selon les l'état courant
+      	tableau_regle est un tableau dynamique de tableaux de ExpressionVersAction
+      
+      	// -- Variables d'état durant la compilation
+      	
+      	source_découpée_en_ligne est un tableau de chaînes
+      	// n° de ligne et de colonne en cours de compil
+      	numéro_ligne_en_cours	est un entier
+      	numéro_colonne_en_cours	est un entier
+      	// "" si tout est  ok ou erreur en cours
+      	m_sErreur	est chaine	
+      	
+      
+      	// valeur de l'état courant pour les lexer avec des états
+      	etat_courant_lexer est entier 
+      	
+      	
+      fin
+      // définie une règle de production, c.a.d. comment passer d'une expression chaine a une action
+      ExpressionVersAction est une structure
+       	// chaine ou regexp d'entrée. l'une des 2 est vide mais jamais les 2
+      	chaine_exacte	est chaine 
+      	regexp			est chaine
+      	// action
+      	action			est une procédure
+      FIN
+      // définie la regle a exécuter sur chaque token trouvé durant la compilation
+      RegleAExécuter est une structure
+      	// token trouvé. ex: " " ou "34"
+      	token			est chaine		
+      	// code a exécuter sur le token.
+      	action			est une procédure 
+      	// état :
+      	est_terminé est un booléen
+      fin
+      
+      
+      constant Etat_lexer_tous = 1
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1345875925447385566
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1345875925447451102
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : _ajoute_règle_production
+     procedure_id : 1345877295542599545
+     type_code : 12
+     code : |1+
+      // ajouter une règle de production au lexer
+      PROCÉDURE PROTÉGÉE _ajoute_règle_production( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, action est procédure )
+      
+      regle_production est un wd_compilateur_base::ExpressionVersAction
+      regle_production.chaine_exacte	= chaine_exacte
+      regle_production.regexp			= rexgExp
+      regle_production.action			= action
+      tableau_regle[valeur_etat].Ajoute( regle_production )
+     type : 458752
+   -
+     name : _recherche_règle
+     procedure_id : 1345879086544051140
+     type_code : 12
+     code : |1+
+      // renvoie une Regle_a_exécuter qui correspond a la ligne de texte <ligne_source>
+      procédure protégée _recherche_règle( valeur_etat est un entier, local ligne_source chaine ) : RegleAExécuter
+      dbgAssertion(valeur_etat> 0)
+      
+      règle_résultat est un RegleAExécuter 
+      
+      // parcourt linéaire de toutes les expression possibles dans l'état en cours
+      tabCourant est un  tableaux dynamique de ExpressionVersAction   <- tableau_regle[valeur_etat]
+      POUR TOUT règle_de_production de tabCourant
+      	// si c'est un chaine fixe
+      	si règle_de_production.regExp=""  ALORS
+      		si règle_de_production.chaine_exacte = ligne_source ALORS
+      			// trouvé 
+      			règle_résultat.token  = règle_de_production.chaine_exacte 
+      			règle_résultat.action = règle_de_production.action
+      			RENVOYER règle_résultat			
+      		FIN
+      	// si c'est une regexp qui matche
+      	sinon SI RegexVérifie( ligne_source, règle_de_production.regExp ) ALORS
+      		// trouvé 
+      		règle_résultat.token	= ligne_source 
+      		règle_résultat.action	= règle_de_production.action
+      		RENVOYER règle_résultat			
+      	FIN
+      FIN
+      // Essaie avec les expressions valides pour tous les états
+      si valeur_etat<>Etat_lexer_tous ALORS
+      	// rebond version générique
+      	renvoyer _recherche_règle(Etat_lexer_tous, ligne_source)
+      FIN
+      
+      // aucune règle valide => erreur 
+      résultat_en_erreur est un RegleAExécuter 
+      RENVOYER résultat_en_erreur
+      
+     type : 458752
+   -
+     name : _compile_modelgine
+     procedure_id : 1345880843185755993
+     type_code : 12
+     code : |1+
+      // compilation d'un texte en mode ligne a ligne
+      // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
+      PROCÉDURE protégée _compile_modelgine(source_a_compiler est chaine) : (booléen, chaine)
+      
+      // init de source_découpée_en_ligne
+      ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
+      
+      // parcourt des lignes
+      POUR numLigne = 1 _a_ :source_découpée_en_ligne.Occurrence()
+      	numéro_ligne_en_cours = numLigne
+      	soit texte_ligne_en_cours = :source_découpée_en_ligne[numLigne]
+      	
+      	// recherche d'une règle valide sur <ligne_en_cours>
+      	soit règle_a_exécuter <- _recherche_règle(etat_courant_lexer , texte_ligne_en_cours)
+      	// si on a trouvé aucune règle de production valide
+      	SI règle_a_exécuter.action = Null ALORS
+      		// erreur de compilation
+      		m_sErreur = ChaîneConstruit( <§R12ad88bb0018eb30¤fr-FR¤Erreur de syntaxe a ligne %1.\nLigne **%2** invalide.§>, numéro_ligne_en_cours, texte_ligne_en_cours ) 
+      		RENVOYER (Faux, m_sErreur)
+      	FIN
+      	// exécuter l'action sur le token
+      	règle_a_exécuter.action(règle_a_exécuter.token)
+      
+      FIN
+      
+      // succès de la compilation
+      RENVOYER (Vrai,"")
+      
+      
+     type : 458752
+   -
+     name : _compile
+     procedure_id : 1345964500559220854
+     type_code : 12
+     code : |1+
+      // compilation d'un texte 
+      // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
+      PROCÉDURE PROTÉGÉE _compile(source_a_compiler est chaine) : (booléen, chaine)
+      
+      // init de source_découpée_en_ligne
+      ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
+      // commence au début
+      :numéro_ligne_en_cours  = 1
+      :numéro_colonne_en_cours =1
+      
+      boucle
+      	// recherche d'une règle valide sur <ligne_en_cours>
+      	soit règle_a_exécuter <- _donne_token_suivant()
+      	// si c'est la fin
+      	si règle_a_exécuter.est_terminé ALORS
+      		// succès de la compilation
+      		RENVOYER (Vrai, "")
+      	FIN
+      	// si on a trouvé aucune règle de production valide
+      	SI règle_a_exécuter.action = Null ALORS
+      		// erreur de compilation
+      		text_ligne_courante	est chaine	= :source_découpée_en_ligne[:numéro_ligne_en_cours]
+      		chaine_restante		est chaine	= Milieu( text_ligne_courante, :numéro_colonne_en_cours)		
+      		m_sErreur = ChaîneConstruit( <§R12add3ab001fa452¤fr-FR¤Erreur de syntaxe a ligne %1.\n**%2** est une suite de caractères invalide.§>, numéro_ligne_en_cours, chaine_restante ) 
+      		RENVOYER (Faux, m_sErreur)
+      	FIN
+      	// on exécute l'action associée a la règle
+      	règle_a_exécuter.action( règle_a_exécuter.token )
+      
+      fin
+     type : 458752
+   -
+     name : _donne_token_suivant
+     procedure_id : 1345905848485735770
+     type_code : 12
+     code : |1-
+      // appelée par le parseur pour obtenir un nouveau token
+      // renvoie l'id du token et la chaine. ex: {64,"A"} ou {256,"// commentaire"}.
+      // renvoie (-1,"") si la fin du fichier est atteinte
+      procédure PROTÉGÉE _donne_token_suivant() : RegleAExécuter
+      
+      // si c'est la fin du fichier
+      si :numéro_ligne_en_cours>:source_découpée_en_ligne.Occurrence() ALORS
+      	regle_fin_de_compilation est RegleAExécuter 
+      	regle_fin_de_compilation.est_terminé = vrai
+      	renvoyer regle_fin_de_compilation
+      FIN
+      
+      // chaine courante a analyser
+      text_ligne_courante est chaine = :source_découpée_en_ligne[:numéro_ligne_en_cours]
+      chaine_restante est chaine = Milieu( text_ligne_courante, :numéro_colonne_en_cours)
+      // recherche d'une règle valide sur <chaineRestante>
+      soit règle_a_exécuter <- _recherche_règle(etat_courant_lexer , chaine_restante)
+      // si on a trouvé aucune règle de production valide
+      SI règle_a_exécuter.action = Null ALORS
+      	// on renvoie cette règle invalide
+      	RENVOYER règle_a_exécuter
+      FIN
+      
+      // on avance 
+      numéro_colonne_en_cours += taille(règle_a_exécuter.token)
+      si numéro_colonne_en_cours>=taille(text_ligne_courante) ALORS
+      	// ligne suivante
+      	numéro_colonne_en_cours = 1;
+      	numéro_ligne_en_cours++;
+      FIN
+      // OK
+      renvoyer règle_a_exécuter
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BwAAAAcAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x12ad82f6000660cd
+  internal_properties : BwAAAAcAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BwAAAAcAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
