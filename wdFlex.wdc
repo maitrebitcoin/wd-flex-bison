@@ -23,7 +23,7 @@ class :
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
       	code_wl_declaration est chaine unicode
       	// règles de productions pour le lexer
-      	m_tabToken2Code est un tableau de stToken2Code
+      	tab_règle_production_lex est un tableau de stToken2Code
       	
       fin
       EEtat est un enumeration
@@ -52,60 +52,80 @@ class :
      code : |1-
       procédure Constructeur()
       
-      // Init un tableau a vide
+      // Init un tableau a 7 él&ments vide
       :tableau_regle = allouer un tableau de 7 tableaux de wd_compilateur_base::RegleDeProduction 
-      // Init des expression et actions
-      
+      // Init des règles de production
       _ajoute_règle_production(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
       _ajoute_règle_production(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
       _ajoute_règle_production(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
-      _ajoute_règle_production(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ code_wl_declaration += [RC] + yyText } )
+      _ajoute_règle_production(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
       _ajoute_règle_production(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_production(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_production(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
-      _ajoute_règle_production(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parseCodeUser(yyText)  } )
+      _ajoute_règle_production(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText)  } )
       _ajoute_règle_production(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
       _ajoute_règle_production(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
-      
-      	// découper une déclaration de règle du lexer.
-      	// ex: 
-      	// {blanks}        { /* ignore */ }
-      	procédure interne _parseCodeUser(s est chaine) 
-      			s2 est chaine = remplace(s,TAB," ") // TAB ou " " sont équivalents
-      			// recherche le 1er espace
-      			nPosEspace est entier = position(s2," ")
-      			si nPosEspace<=0 alors
-      				// Erreur
-      				ExceptionDéclenche(1,"Erreur de syntaxe : " + s)
-      			FIN
-      			// récupération de l'expression de gauche, ex : "{blanks}"
-      			sExpression est chaine = Gauche(s2, nPosEspace)
-      			// sauter tous les espaces
-      			tantque s2[nPosEspace]=" "
-      				nPosEspace++
-      			FIN
-      			// récupération du code utilisateur si on trouve le token <sExpression>
-      			code_wl_user est chaine =  Milieu(s2,nPosEspace)
-      			// si il a des commentaires de fin de ligne, on les enlève
-      			position_marque_commentaire est un entier = position(code_wl_user,"//")
-      			SI 	position_marque_commentaire>0 ALORS
-      				code_wl_user = gauche(code_wl_user, position_marque_commentaire-1)	
-      			FIN
-      			// pas d'espace
-      			code_wl_user = SansEspace(code_wl_user,sscExtérieur)
-      			// enlever les {} autour du code si il sont présent
-      			si code_wl_user[1]="{" _et_ droite(code_wl_user,1)="}" ALORS
-      				code_wl_user = milieu(code_wl_user,2,taille(code_wl_user)-2)
-      			FIN
-      
-      	
-      			// ajoute a la table
-      			stInfo est un stToken2Code
-      			stInfo.token = sExpression
-      			stInfo.code_wl  = code_wl_user
-      			m_tabToken2Code.Ajoute(stInfo)
-      	fin
      type : 589824
+   -
+     name : _parse_ligne_regle_flex
+     procedure_id : 1346228860097493441
+     type_code : 12
+     code : |1-
+      // analyser une règle de production du lexer
+      // ex: 
+      // {blanks}        { /* ignore */ }
+      procédure  _parse_ligne_regle_flex(ligne est chaine) 
+      
+      	ligne_sans_tab est chaine = remplace(ligne,TAB," ") // TAB ou " " sont équivalents
+      	
+      	// recherche de la position de fin de la regexp
+      	pos_fin_rexp est entier
+      	dans_crochet est un booléen 
+      	pour pos_fin_rexp = 1 _a_ taille(ligne_sans_tab)
+      		c est chaine = ligne_sans_tab[pos_fin_rexp]
+      		selon c
+      			CAS " ":
+      				 si pas dans_crochet alors sortir
+      			cas "[": dans_crochet = vrai
+      			cas "]": dans_crochet = faux
+      		FIN
+      	FIN
+      	// si fin de rexep non trouvée
+      	si pos_fin_rexp>Taille(ligne_sans_tab) alors
+      		// Erreur
+      		ExceptionDéclenche(1,"Erreur de syntaxe : " + ligne)
+      	FIN
+      	// récupération de l'expression de gauche, ex : "{blanks}"
+      	expression_gauche est chaine = Gauche(ligne_sans_tab, pos_fin_rexp-1)
+      	// sauter tous les espaces
+      	pos_debut_code est un entier = pos_fin_rexp
+      	tantque expression_gauche[pos_debut_code]=" "
+      		pos_debut_code++
+      	FIN
+      	// récupération du code utilisateur si on trouve le token <sExpression>
+      	code_wl_user est chaine =  Milieu(ligne_sans_tab,pos_debut_code)
+      	// si il a des commentaires de fin de ligne, on les enlève
+      	position_marque_commentaire est un entier = position(code_wl_user,"//")
+      	SI 	position_marque_commentaire>0 ALORS
+      		code_wl_user = gauche(code_wl_user, position_marque_commentaire-1)	
+      	FIN
+      	// pas d'espace
+      	code_wl_user = SansEspace(code_wl_user,sscExtérieur)
+      	// "," tout seul est invalide en WL
+      	if (code_wl_user=";") code_wl_user= ""
+      	
+      	// enlever les {} autour du code si il sont présent
+      	si code_wl_user[1]="{" _et_ droite(code_wl_user,1)="}" ALORS
+      		code_wl_user = milieu(code_wl_user,2,taille(code_wl_user)-2)
+      	FIN
+      
+      	// ajoute a la table
+      	stInfo est un stToken2Code
+      	stInfo.token    = expression_gauche
+      	stInfo.code_wl  = code_wl_user
+      	tab_règle_production_lex.Ajoute(stInfo)
+      	
+     type : 458752
    -
      name : Destructeur
      procedure_id : 1309967138408498122
@@ -242,10 +262,11 @@ class :
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", code_wl_declaration_yaml)
       
       // code pour déclarer les règle de production
-      // ex : _add( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
-      code_init_ChaineVersToken est chaine
+      // ex : _ajoute_règle_production( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
+      nombre_etat_max_lexer est un entier =1
+      code_init_ChaineVersToken est chaine = ChaîneConstruit(":tableau_regle = allouer un tableau de %1 tableaux de wd_compilateur_base::RegleDeProduction " , nombre_etat_max_lexer)
       token_vers_code_wl est stToken2Code
-      pour tout token_vers_code_wl de :m_tabToken2Code
+      pour tout token_vers_code_wl de :tab_règle_production_lex
       	param_etat est chaine = "Etat_lexer_tous"
       	chaine_exacte est chaine  = """""" // 2 quotes = chaine vide
       	rexgExp est chaine 		 
@@ -263,6 +284,13 @@ class :
       
       code_init_ChaineVersToken_yaml est chaine ANSI = _to_yaml( code_init_ChaineVersToken)
       code_de_travail= Remplace(code_de_travail,"//%CODE_INIT_CHAINEVERSTOKEN%", code_init_ChaineVersToken_yaml)
+      
+      // init du code avant compilation
+      code_avant_compilation est chaine = "etat_courant_lexer=1"
+      code_avant_compilation_yaml est chaine ANSI = _to_yaml( code_avant_compilation )
+      code_de_travail= Remplace(code_de_travail,"//%CODE_AVANT_COMPILE%", code_avant_compilation_yaml)
+      
+      
       
       // OK
       RENVOYER (vrai, code_de_travail, "")

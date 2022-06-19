@@ -60,7 +60,8 @@ window :
       -
         code : |1+
          fichier_source est chaine = "c:\temp\source.wl.l"
-         fichier_dest est chaine = "c:\temp\parseur_test_01.wdc"
+         //fichier_dest est chaine = "c:\temp\parseur_test_01.wdc"
+         fichier_dest est chaine = "C:\Temp\out_flex\mon_compilateur\parseur_test_01.wdc"
          
          RésultatDeLaCompilation=""
          

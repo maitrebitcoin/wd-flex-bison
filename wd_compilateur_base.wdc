@@ -19,7 +19,7 @@ class :
       wd_compilateur_base est une Classe
       	// toutes les règles de production du lexer selon les l'état courant
       	tableau_regle est un tableau dynamique de tableaux de RegleDeProduction
-      	numero_regle_courante est entier // durant la déclartaion
+      	numero_regle_en_déclation est entier // durant la déclaration des règles
       
       	// -- Variables d'état durant la compilation
       	
@@ -89,7 +89,7 @@ class :
       regle_production.chaine_exacte	= chaine_exacte
       regle_production.regexp			= rexgExp
       regle_production.action			= action
-      regle_production.numero_regle	= :numero_regle_courante++
+      regle_production.numero_regle	= :numero_regle_en_déclation++
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
    -

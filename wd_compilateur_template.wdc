@@ -48,6 +48,8 @@ class :
       //  (faux,"message d'erreur") en cas d'erreur
       PROCÉDURE compile(source_a_compiler est chaine) : (booléen, chaine)
       
+      //%CODE_AVANT_COMPILE%
+      
       // rebond sur la méthode protégée de la classe de base
       renvoyer _compile(source_a_compiler)
       
