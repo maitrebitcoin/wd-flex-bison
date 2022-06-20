@@ -100,15 +100,27 @@ class :
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
    -
-     name : _recherche_règle
+     name : _recherche_meilleure_règle
      procedure_id : 1345879086544051140
      type_code : 12
      code : |1+
       // renvoie une règle_a_exécuter qui correspond au texte <texte_source>
-      procédure protégée _recherche_règle( valeur_etat est un entier, local texte_source chaine ) : RegleAExécuter
+      procédure protégée _recherche_meilleure_règle( valeur_etat est un entier, local texte_source chaine ) : RegleAExécuter
       dbgAssertion(valeur_etat> 0)
       
       règle_résultat est un RegleAExécuter 
+      // comme flex on garde la rèle qui produit le plus long token.
+      	procédure interne _garde_meilleure_regle( regle_ok est un RegleAExécuter  )
+      		// si 1er regle trouvée
+      		SI règle_résultat.règle=null ALORS
+      			règle_résultat = regle_ok
+      			retour
+      		FIN
+      		// la nouvelle regle est meilleur
+      		SI taille(regle_ok.token) > Taille(règle_résultat.token) ALORS
+      			règle_résultat = regle_ok
+      		FIN
+      	FIN
       
       // parcourt linéaire de toutes les expression possibles dans l'état en cours
       tabCourant est un  tableaux dynamique de RegleDeProduction   <- tableau_regle[valeur_etat]
@@ -117,30 +129,31 @@ class :
       	si règle_de_production.regExp=""  ALORS
       		si texte_source.CommencePar( règle_de_production.chaine_exacte )  ALORS
       			// trouvé 
-      			règle_résultat.token  = règle_de_production.chaine_exacte 
-      			règle_résultat.règle  = règle_de_production
-      			RENVOYER règle_résultat			
+      			regle_chaine_fixe est un RegleAExécuter
+      			regle_chaine_fixe.token  = règle_de_production.chaine_exacte 
+      			regle_chaine_fixe.règle  = règle_de_production
+      			_garde_meilleure_regle( regle_chaine_fixe )
       		FIN
       	// si c'est une regexp 
       	sinon
       		chaine_qui_matche est chaine
       		 SI texte_source.VérifieExpressionRégulière (  règle_de_production.regexp_debut, chaine_qui_matche) ALORS
       			// trouvé 
-      			règle_résultat.token	= chaine_qui_matche 
-      			règle_résultat.règle	= règle_de_production
-      			RENVOYER règle_résultat			
+      			regle_regexp est un RegleAExécuter
+      			regle_regexp.token	= chaine_qui_matche 
+      			regle_regexp.règle	= règle_de_production
+      			_garde_meilleure_regle( regle_regexp )	
       		fin
       	FIN
       FIN
       // Essaie avec les expressions valides pour tous les états
-      si valeur_etat<>Etat_lexer_tous ALORS
+      si valeur_etat<>Etat_lexer_tous _et_ règle_résultat.règle=null ALORS
       	// rebond version générique
-      	renvoyer _recherche_règle(Etat_lexer_tous, texte_source)
+      	renvoyer _recherche_meilleure_règle(Etat_lexer_tous, texte_source)
       FIN
       
-      // aucune règle valide => erreur 
-      résultat_en_erreur est un RegleAExécuter 
-      RENVOYER résultat_en_erreur
+      // renvoie la meilleure règle trouvée ou .règle.null => erreur 
+      RENVOYER règle_résultat
       
      type : 458752
    -
@@ -161,7 +174,7 @@ class :
       	soit texte_ligne_en_cours = :source_découpée_en_ligne[numLigne]
       	
       	// recherche d'une règle valide sur <ligne_en_cours>
-      	soit règle_a_exécuter <- _recherche_règle(etat_courant_lexer , texte_ligne_en_cours)
+      	soit règle_a_exécuter <- _recherche_meilleure_règle(etat_courant_lexer , texte_ligne_en_cours)
       	// si on a trouvé aucune règle de production valide
       	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
@@ -242,7 +255,7 @@ class :
       text_ligne_courante est chaine = :source_découpée_en_ligne[:numéro_ligne_en_cours]
       chaine_restante est chaine = Milieu( text_ligne_courante, :numéro_colonne_en_cours)
       // recherche d'une règle valide sur <chaineRestante>
-      soit règle_a_exécuter <- _recherche_règle(etat_courant_lexer , chaine_restante)
+      soit règle_a_exécuter <- _recherche_meilleure_règle(etat_courant_lexer , chaine_restante)
       // si on a trouvé aucune règle de production valide
       SI règle_a_exécuter.règle = Null ALORS
       	// on renvoie cette règle invalide
