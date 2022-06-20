@@ -70,61 +70,63 @@ class :
      name : _parse_ligne_regle_flex
      procedure_id : 1346228860097493441
      type_code : 12
-     code : |1-
+     code : |1+
       // analyser une règle de production du lexer
       // ex: 
       // {blanks}        { /* ignore */ }
       procédure  _parse_ligne_regle_flex(ligne est chaine) 
       
-      	ligne_sans_tab est chaine = remplace(ligne,TAB," ") // TAB ou " " sont équivalents
-      	
-      	// recherche de la position de fin de la regexp
-      	pos_fin_rexp est entier
-      	dans_crochet est un booléen 
-      	pour pos_fin_rexp = 1 _a_ taille(ligne_sans_tab)
-      		c est chaine = ligne_sans_tab[pos_fin_rexp]
-      		selon c
-      			CAS " ":
-      				 si pas dans_crochet alors sortir
-      			cas "[": dans_crochet = vrai
-      			cas "]": dans_crochet = faux
-      		FIN
-      	FIN
-      	// si fin de rexep non trouvée
-      	si pos_fin_rexp>Taille(ligne_sans_tab) alors
-      		// Erreur
-      		ExceptionDéclenche(1,"Erreur de syntaxe : " + ligne)
-      	FIN
-      	// récupération de l'expression de gauche, ex : "{blanks}"
-      	expression_gauche est chaine = Gauche(ligne_sans_tab, pos_fin_rexp-1)
-      	// sauter tous les espaces
-      	pos_debut_code est un entier = pos_fin_rexp
-      	tantque expression_gauche[pos_debut_code]=" "
-      		pos_debut_code++
-      	FIN
-      	// récupération du code utilisateur si on trouve le token <sExpression>
-      	code_wl_user est chaine =  Milieu(ligne_sans_tab,pos_debut_code)
-      	// si il a des commentaires de fin de ligne, on les enlève
-      	position_marque_commentaire est un entier = position(code_wl_user,"//")
-      	SI 	position_marque_commentaire>0 ALORS
-      		code_wl_user = gauche(code_wl_user, position_marque_commentaire-1)	
-      	FIN
-      	// pas d'espace
-      	code_wl_user = SansEspace(code_wl_user,sscExtérieur)
-      	// "," tout seul est invalide en WL
-      	if (code_wl_user=";") code_wl_user= ""
-      	
-      	// enlever les {} autour du code si il sont présent
-      	si code_wl_user[1]="{" _et_ droite(code_wl_user,1)="}" ALORS
-      		code_wl_user = milieu(code_wl_user,2,taille(code_wl_user)-2)
-      	FIN
+      // ignorer les lignes vides
+      si ligne="" ALORS retour
       
-      	// ajoute a la table
-      	stInfo est un stToken2Code
-      	stInfo.token    = expression_gauche
-      	stInfo.code_wl  = code_wl_user
-      	tab_règle_production_lex.Ajoute(stInfo)
-      	
+      ligne_sans_tab est chaine = remplace(ligne,TAB," ") // TAB ou " " sont équivalents
+      
+      // recherche de la position de fin de la regexp
+      pos_fin_rexp est entier
+      dans_crochet est un booléen 
+      pour pos_fin_rexp = 1 _a_ taille(ligne_sans_tab)
+      	c est chaine = ligne_sans_tab[pos_fin_rexp]
+      	selon c
+      		CAS " ":
+      			 si pas dans_crochet alors sortir
+      		cas "[": dans_crochet = vrai
+      		cas "]": dans_crochet = faux
+      	FIN
+      FIN
+      // si fin de rexep non trouvée
+      si pos_fin_rexp>Taille(ligne_sans_tab) alors
+      	// Erreur
+      	ExceptionDéclenche(1,"Erreur de syntaxe : " + ligne)
+      FIN
+      // récupération de l'expression de gauche, ex : "{blanks}"
+      expression_gauche est chaine = Gauche(ligne_sans_tab, pos_fin_rexp-1)
+      // sauter tous les espaces
+      pos_debut_code est un entier = pos_fin_rexp
+      tantque expression_gauche[pos_debut_code]=" "
+      	pos_debut_code++
+      FIN
+      // récupération du code utilisateur si on trouve le token <sExpression>
+      code_wl_user est chaine =  Milieu(ligne_sans_tab,pos_debut_code)
+      // si il a des commentaires de fin de ligne, on les enlève
+      position_marque_commentaire est un entier = position(code_wl_user,"//")
+      SI 	position_marque_commentaire>0 ALORS
+      	code_wl_user = gauche(code_wl_user, position_marque_commentaire-1)	
+      FIN
+      // pas d'espace
+      code_wl_user = SansEspace(code_wl_user,sscExtérieur)
+      // "," tout seul est invalide en WL
+      if (code_wl_user=";") code_wl_user= ""
+      
+      // enlever les {} autour du code si il sont présent
+      si code_wl_user[1]="{" _et_ droite(code_wl_user,1)="}" ALORS
+      	code_wl_user = milieu(code_wl_user,2,taille(code_wl_user)-2)
+      FIN
+      
+      // ajoute a la table
+      stInfo est un stToken2Code
+      stInfo.token    = expression_gauche
+      stInfo.code_wl  = code_wl_user
+      tab_règle_production_lex.Ajoute(stInfo)
      type : 458752
    -
      name : Destructeur
@@ -165,8 +167,27 @@ class :
       	RENVOYER (Faux, message_erreur)
       FIN	
       
+      // + on copie les dépendances
+      _copie_dépendance(nom_fichier_dest)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
+      
+      
       // succès de la génération d'une classe WL pour compiler
       renvoyer (Vrai,"")
+     type : 458752
+   -
+     name : _copie_dépendance
+     procedure_id : 1346588512062157735
+     type_code : 12
+     code : |1+
+      procédure _copie_dépendance(nom_fichier_dest est chaine)
+      
+      répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
+      fCopieFichier("..\wd_compilateur_base.wdc",répertoire_destination)
+      
      type : 458752
    -
      name : _charge_fichier_source

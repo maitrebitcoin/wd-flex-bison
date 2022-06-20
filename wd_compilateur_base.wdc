@@ -42,6 +42,7 @@ class :
        	// chaine ou regexp d'entrée. l'une des 2 est vide mais jamais les 2
       	chaine_exacte	est chaine 
       	regexp			est chaine
+      	regexp_debut	est chaine // version modifié pour vérifier le début d'une chaine	
       	// action
       	action			est une procédure
       	// pour debug
@@ -90,6 +91,12 @@ class :
       regle_production.regexp			= rexgExp
       regle_production.action			= action
       regle_production.numero_regle	= :numero_regle_en_déclation++
+      
+      // contruit une regexp pour vérifier que le début du texte match la regexp
+      si rexgExp<>"" alors
+      	regle_production.regexp_debut	=  ChaîneConstruit("(%1).*",rexgExp) // pour vérifier qu'un début de chaine correspond
+      fin
+      
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
    -
@@ -97,8 +104,8 @@ class :
      procedure_id : 1345879086544051140
      type_code : 12
      code : |1+
-      // renvoie une Regle_a_exécuter qui correspond a la ligne de texte <ligne_source>
-      procédure protégée _recherche_règle( valeur_etat est un entier, local ligne_source chaine ) : RegleAExécuter
+      // renvoie une règle_a_exécuter qui correspond au texte <texte_source>
+      procédure protégée _recherche_règle( valeur_etat est un entier, local texte_source chaine ) : RegleAExécuter
       dbgAssertion(valeur_etat> 0)
       
       règle_résultat est un RegleAExécuter 
@@ -108,24 +115,27 @@ class :
       POUR TOUT règle_de_production de tabCourant
       	// si c'est un chaine fixe
       	si règle_de_production.regExp=""  ALORS
-      		si règle_de_production.chaine_exacte = ligne_source ALORS
+      		si texte_source.CommencePar( règle_de_production.chaine_exacte )  ALORS
       			// trouvé 
       			règle_résultat.token  = règle_de_production.chaine_exacte 
       			règle_résultat.règle  = règle_de_production
       			RENVOYER règle_résultat			
       		FIN
-      	// si c'est une regexp qui matche
-      	sinon SI RegexVérifie( ligne_source, règle_de_production.regExp ) ALORS
-      		// trouvé 
-      		règle_résultat.token	= ligne_source 
-      		règle_résultat.règle	= règle_de_production
-      		RENVOYER règle_résultat			
+      	// si c'est une regexp 
+      	sinon
+      		chaine_qui_matche est chaine
+      		 SI texte_source.VérifieExpressionRégulière (  règle_de_production.regexp_debut, chaine_qui_matche) ALORS
+      			// trouvé 
+      			règle_résultat.token	= chaine_qui_matche 
+      			règle_résultat.règle	= règle_de_production
+      			RENVOYER règle_résultat			
+      		fin
       	FIN
       FIN
       // Essaie avec les expressions valides pour tous les états
       si valeur_etat<>Etat_lexer_tous ALORS
       	// rebond version générique
-      	renvoyer _recherche_règle(Etat_lexer_tous, ligne_source)
+      	renvoyer _recherche_règle(Etat_lexer_tous, texte_source)
       FIN
       
       // aucune règle valide => erreur 
@@ -202,6 +212,10 @@ class :
       		m_sErreur = ChaîneConstruit( <§R12add3ab001fa452¤fr-FR¤Erreur de syntaxe a ligne %1.\n**%2** est une suite de caractères invalide.§>, numéro_ligne_en_cours, chaine_restante ) 
       		RENVOYER (Faux, m_sErreur)
       	FIN
+      	SI en_mode_debug ALORS
+      		// trace chaque token
+      		Trace( règle_a_exécuter.règle.numero_regle + ":" + :etat_courant_lexer+ ":"   + règle_a_exécuter.token + tab + numéro_ligne_en_cours)
+      	FIN	
       	// on exécute l'action associée a la règle
       	règle_a_exécuter.règle.action( règle_a_exécuter.token )
       
@@ -237,7 +251,7 @@ class :
       
       // on avance 
       numéro_colonne_en_cours += taille(règle_a_exécuter.token)
-      si numéro_colonne_en_cours>=taille(text_ligne_courante) ALORS
+      si numéro_colonne_en_cours>taille(text_ligne_courante) ALORS
       	// ligne suivante
       	numéro_colonne_en_cours = 1;
       	numéro_ligne_en_cours++;
