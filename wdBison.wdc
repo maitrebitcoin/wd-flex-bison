@@ -1,0 +1,63 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : wdBison
+ major_version : 27
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x12b2a785001d1d06
+ internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1-
+      wdBison est une Classe
+      	hérite de wd_compilateur_base
+      	
+      	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
+      	code_wl_declaration			est chaine unicode
+      	// règles de productions trouvée dans le .y
+      	tab_règle_grammaire	est un tableau de RegleDeGrammaire	
+      fin
+      // Ex:  A ->     A b
+      //            |  c
+      RegleDeGrammaire est une structure
+      	Nom est chaine 
+      	// nom des
+      	tableau_regle est un tableau de chaînes
+      	// code WL a produire
+      	code_wl		est chaine
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1347323428211662086
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1347323428211727622
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BwAAAAcAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x12b2a779001aef01
+  internal_properties : BwAAAAcAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BwAAAAcAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
