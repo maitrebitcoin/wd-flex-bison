@@ -49,12 +49,12 @@ class :
      name : Constructeur
      procedure_id : 1309967138408432586
      type_code : 27
-     code : |1-
+     code : |1+
       procédure Constructeur()
       
       // Init un tableau a 7 él&ments vide
       :tableau_regle = allouer un tableau de 7 tableaux de wd_compilateur_base::RegleDeProduction 
-      // Init des règles de production
+      // Init des règles de parsing pour produire le lexer
       _ajoute_règle_production(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
       _ajoute_règle_production(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
       _ajoute_règle_production(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )

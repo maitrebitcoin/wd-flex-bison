@@ -129,6 +129,7 @@ class :
       	si règle_de_production.regExp=""  ALORS
       		si texte_source.CommencePar( règle_de_production.chaine_exacte )  ALORS
       			// trouvé 
+      			
       			regle_chaine_fixe est un RegleAExécuter
       			regle_chaine_fixe.token  = règle_de_production.chaine_exacte 
       			regle_chaine_fixe.règle  = règle_de_production

@@ -50,6 +50,12 @@ project :
      internal_properties : BwAAAAcAAAC4luA8C7D4IzoBr2aEvtZZSG8HnzqxMkGOvzcDhL5W+hrEGoeeZaEmh7MtiwvFvTOdpQ==
      physical_name : .\wd_compilateur_base.wdc
      type : 4
+   -
+     name : wdBison
+     identifier : 0x42b2a7850b771d06
+     internal_properties : BwAAAAcAAAC7l+MnhMFpckuX2niV7EWI324GnjnF5PiiZsuchrxW+ho6ykMlJv+YGAT++ro2wjaepg==
+     physical_name : .\wdBison.wdc
+     type : 4
   other_elements : []
   net_assemblies : []
   uwp_api : []
