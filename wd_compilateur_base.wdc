@@ -60,6 +60,8 @@ class :
       
       
       constant Etat_lexer_tous = 1
+      
+      constant Erreur_compilation= 891
      type : 131072
   procedures :
    -
@@ -239,7 +241,7 @@ class :
      name : _donne_token_suivant
      procedure_id : 1345905848485735770
      type_code : 12
-     code : |1-
+     code : |1+
       // appelée par le parseur pour obtenir un nouveau token
       // renvoie l'id du token et la chaine. ex: {64,"A"} ou {256,"// commentaire"}.
       // renvoie (-1,"") si la fin du fichier est atteinte
@@ -272,6 +274,19 @@ class :
       FIN
       // OK
       renvoyer règle_a_exécuter
+     type : 458752
+   -
+     name : _erreur
+     procedure_id : 1348058675073396831
+     type_code : 12
+     code : |1-
+      // appelée en car d'erreur de syntaxe
+      PROCÉDURE _erreur( texte_erreur est chaine) 
+      
+      // construit une erreur plus complètre
+      message_complet est chaine = "Erreur a la ligne " + :numéro_ligne_en_cours + rc + texte_erreur
+      
+      ExceptionDéclenche(Erreur_compilation,message_complet)
      type : 458752
   procedure_templates : []
   property_templates : []

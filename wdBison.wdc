@@ -18,6 +18,9 @@ class :
       wdBison est une Classe
       	hérite de wd_compilateur_base
       	
+      	// Remplis durant la phase de compilation
+      	règle_en_cours est RegleDeGrammaire dynamique
+      	
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
       	code_wl_declaration			est chaine unicode
       	// règles de productions trouvée dans le .y
@@ -32,15 +35,43 @@ class :
       	// code WL a produire
       	code_wl		est chaine
       fin
+      EEtat est un enumeration
+      	Tout_Etat					= 1 
+      	Declaration_SymboleEtOption	= 2
+      	Declaration_CodeUser		= 3 // entre [% et %]
+      	Avant_Règles				= 4
+      	Declaration_Règles			= 5 // entre  %% et %% final
+      	Apres_Règles				= 6 // après le %% final
+      	
+      	
+      FIN
+      constant  SYNTAX_ERROR_MISSING_TOKEN = "Erreur de syntaxe, il manque un '%1'."
      type : 131072
   procedures :
    -
      name : Constructeur
      procedure_id : 1347323428211662086
      type_code : 27
-     code : |1+
+     code : |1-
       procédure Constructeur()
       
+      // Init un tableau a 7 él&ments vide
+      :tableau_regle = allouer un tableau de 7 tableaux de wd_compilateur_base::RegleDeProduction 
+      // Init des règles de parsing pour produire le lexer
+      _ajoute_règle_production(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
+      _ajoute_règle_production(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
+      _ajoute_règle_production(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
+      _ajoute_règle_production(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
+      _ajoute_règle_production(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_production(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_production(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
+      _ajoute_règle_production(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_bison(yyText)  } )
+      _ajoute_règle_production(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
+      _ajoute_règle_production(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
+      
+      procédure interne  _changeState( e EEtat )
+      	:etat_courant_lexer = e.Valeur
+      fin
      type : 589824
    -
      name : Destructeur
@@ -48,8 +79,63 @@ class :
      type_code : 28
      code : |1+
       procédure Destructeur()
-      
      type : 655360
+   -
+     name : _parse_ligne_regle_bison
+     procedure_id : 1348056261301673528
+     type_code : 12
+     code : |1+
+      // Analyser une règle de grammaire
+      // Ex
+      // expression: T_INT				{ $$ = $1; }
+      //			 | expression T_PLUS expression	{ $$ = $1 + $3; }
+      //;
+      procédure _parse_ligne_regle_bison( ligne_règle_grammaire est chaine)
+      
+      si ligne_règle_grammaire="" retour
+      
+      // ";" marque une fin de regle
+      si ligne_règle_grammaire="" alors
+      	_fin_de_regle()
+      FIN
+      
+      // si c'est la 1ere ligne de déclaration
+      SI regle_en_cours=Null ALORS
+      	// init
+      	regle_en_cours = allouer une RegleDeGrammaire
+      	
+      	// extrait le nom avant le :
+      	postion_deux_point est un entier = ligne_règle_grammaire.Position(":")
+      	si postion_deux_point<=0 ALORS
+      		_erreur( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, ":") )
+      		retour
+      	FIN
+      	règle_en_cours.Nom = ligne_règle_grammaire.gauche(postion_deux_point)
+      sinon
+      	// on recherche | 
+      	postion_ou est un entier = ligne_règle_grammaire.Position("|")
+      	SI postion_ou<=0 ALORS
+      		_erreur( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "|" )  )
+      		RETOUR
+      	FIN
+      		
+      FIN
+     type : 458752
+   -
+     name : _fin_de_regle
+     procedure_id : 1348057322158645907
+     type_code : 12
+     code : |1+
+      procédure _fin_de_regle()
+      
+      // si on a un regle on l'ajoute au tableau des regles
+      si regle_en_cours<>null ALORS
+      	tab_règle_grammaire.Ajoute( regle_en_cours )
+      FIN
+      
+      règle_en_cours = Null
+      
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
