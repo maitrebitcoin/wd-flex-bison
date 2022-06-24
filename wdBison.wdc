@@ -100,6 +100,7 @@ class :
       FIN
       
       // si c'est la 1ere ligne de déclaration
+      suite_ligne est chaine
       SI regle_en_cours=Null ALORS
       	// init
       	regle_en_cours = allouer une RegleDeGrammaire
@@ -111,6 +112,7 @@ class :
       		retour
       	FIN
       	règle_en_cours.Nom = ligne_règle_grammaire.gauche(postion_deux_point)
+      	suite_ligne        = ligne_règle_grammaire.Milieu(postion_deux_point+1)
       sinon
       	// on recherche | 
       	postion_ou est un entier = ligne_règle_grammaire.Position("|")
@@ -118,8 +120,58 @@ class :
       		_erreur( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "|" )  )
       		RETOUR
       	FIN
-      		
+      	suite_ligne        = ligne_règle_grammaire.Milieu(postion_ou+1)	
       FIN
+      
+      // analyse des regles : 
+      // ex: "expression T_PLUS expression 	{ $$ = $1 + $3; }"
+      code_wl_user est chaine 
+      regles_separee_par_espace est chaine 
+      (regles_separee_par_espace,code_wl_user) = _extrait_code_utilisateur(suite_ligne)
+      
+      suite_ligne = Remplace(suite_ligne, TAB, " ")
+      suite_ligne= SansEspace(suite_ligne)
+      POUR TOUTE CHAÎNE token_ou_regle DE suite_ligne
+      	règle_en_cours.tableau_regle.Ajoute(token_ou_regle)
+      FIN
+      
+     type : 458752
+   -
+     name : _extrait_code_utilisateur
+     procedure_id : 1348065280733259854
+     type_code : 12
+     code : |1+
+      // découpe la partie droite d'une ligne en <règles>,<code wl>
+      // ex:  "expression T_PLUS expression 	{ $$ = $1 + $3; }" => ("expression T_PLUS expression","$$ = $1 + $3;")
+      procédure _extrait_code_utilisateur( suite_ligne  chaine) : (chaine, chaine)
+      
+      suite_ligne	= Remplace(suite_ligne, TAB, " ")
+      suite_ligne	= SansEspace(suite_ligne)
+      
+      postion_accolade est un entier = suite_ligne.Position("{")
+      si postion_accolade<0 ALORS
+      	_erreur( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "{") )
+      FIN
+      // découpe la chaine
+      regles_separee_par_espace est chaine = suite_ligne.Gauche(postion_accolade)
+      code_wl_user est chaine 		     = suite_ligne.milieu(postion_accolade+1)
+      
+      // si il a des commentaires de fin de ligne, on les enlève
+      position_marque_commentaire	est un entier	= code_wl_user.position("//")
+      SI 	position_marque_commentaire>0 ALORS
+      	code_wl_user = Gauche(code_wl_user, position_marque_commentaire-1)	
+      FIN
+      // pas d'espace
+      code_wl_user = SansEspace(code_wl_user,sscExtérieur)
+      // "," tout seul est invalide en WL
+      IF (code_wl_user=";") code_wl_user= ""
+      
+      // enlever les {} autour du code si il sont présent
+      SI code_wl_user[1]="{" _ET_ Droite(code_wl_user,1)="}" ALORS
+      	code_wl_user = Milieu(code_wl_user,2,Taille(code_wl_user)-2)
+      FIN
+      
+      renvoyer (regles_separee_par_espace,code_wl_user)
      type : 458752
    -
      name : _fin_de_regle

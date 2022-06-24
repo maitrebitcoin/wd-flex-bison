@@ -96,7 +96,7 @@ class :
       // si fin de rexep non trouvée
       si pos_fin_rexp>Taille(ligne_sans_tab) alors
       	// Erreur
-      	ExceptionDéclenche(1,"Erreur de syntaxe : " + ligne)
+      	_erreur("Erreur de syntaxe")
       FIN
       // récupération de l'expression de gauche, ex : "{blanks}"
       expression_gauche est chaine = Gauche(ligne_sans_tab, pos_fin_rexp-1)
@@ -105,7 +105,7 @@ class :
       tantque expression_gauche[pos_debut_code]=" "
       	pos_debut_code++
       FIN
-      // récupération du code utilisateur si on trouve le token <sExpression>
+      // récupération du code utilisateur si on trouve le token <ligne_sans_tab>
       code_wl_user est chaine =  Milieu(ligne_sans_tab,pos_debut_code)
       // si il a des commentaires de fin de ligne, on les enlève
       position_marque_commentaire est un entier = position(code_wl_user,"//")
