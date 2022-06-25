@@ -145,7 +145,7 @@ class :
       procédure génère_compilateur(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
       
       // chargement du fichier .l
-      source_lexer est chaine UNICODE = _charge_fichier_source(nom_fichier_source_lex)
+      source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_lex)
       SI ErreurDétectée ALORS
       	// erreur
       	RENVOYER (Faux, ErreurInfo())
@@ -188,29 +188,6 @@ class :
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
       fCopieFichier("..\wd_compilateur_base.wdc",répertoire_destination)
       
-     type : 458752
-   -
-     name : _charge_fichier_source
-     procedure_id : 1346004001379230591
-     type_code : 12
-     code : |1+
-      procédure _charge_fichier_source(nom_fichier_source est chaine) : chaîne UNICODE
-      
-      // chargement du fichier en binaire
-      contenu_fichier_bin est un buffer = fChargeBuffer(nom_fichier_source)
-      SI ErreurDétectée ALORS
-      	renvoyer ""
-      FIN
-      si contenu_fichier_bin="" ALORS
-      	renvoyer ""
-      FIN
-      // est-ce de l'utf8 ?
-      contenu_fichier_utf8 est chaine ANSI = UTF8VersAnsi(contenu_fichier_bin)
-      si contenu_fichier_utf8<>"" ALORS
-      	renvoyer UTF8VersUnicode(contenu_fichier_bin)
-      FIN
-      // ce n'est pas de l'utf8, on traite comme du latin 1
-      RENVOYER AnsiVersUnicode(contenu_fichier_bin,alphabetAnsi)
      type : 458752
    -
      name : _changeState

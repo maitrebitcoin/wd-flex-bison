@@ -52,7 +52,7 @@ class :
      name : Constructeur
      procedure_id : 1347323428211662086
      type_code : 27
-     code : |1-
+     code : |1+
       procédure Constructeur()
       
       // Init un tableau a 7 él&ments vide
@@ -68,17 +68,22 @@ class :
       _ajoute_règle_production(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_bison(yyText)  } )
       _ajoute_règle_production(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
       _ajoute_règle_production(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
-      
-      procédure interne  _changeState( e EEtat )
-      	:etat_courant_lexer = e.Valeur
-      fin
      type : 589824
+   -
+     name : _changeState
+     procedure_id : 1348427754499041265
+     type_code : 12
+     code : |1-
+      procédure  _changeState( e EEtat )
+      	:etat_courant_lexer = e.Valeur
+     type : 458752
    -
      name : Destructeur
      procedure_id : 1347323428211727622
      type_code : 28
      code : |1+
       procédure Destructeur()
+      
      type : 655360
    -
      name : _parse_ligne_regle_bison
@@ -95,8 +100,9 @@ class :
       si ligne_règle_grammaire="" retour
       
       // ";" marque une fin de regle
-      si ligne_règle_grammaire="" alors
+      si SansEspace(ligne_règle_grammaire)=";" alors
       	_fin_de_regle()
+      	retour
       FIN
       
       // si c'est la 1ere ligne de déclaration
@@ -111,7 +117,7 @@ class :
       		_erreur( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, ":") )
       		retour
       	FIN
-      	règle_en_cours.Nom = ligne_règle_grammaire.gauche(postion_deux_point)
+      	règle_en_cours.Nom = ligne_règle_grammaire.gauche(postion_deux_point-1)
       	suite_ligne        = ligne_règle_grammaire.Milieu(postion_deux_point+1)
       sinon
       	// on recherche | 
@@ -131,7 +137,7 @@ class :
       
       suite_ligne = Remplace(suite_ligne, TAB, " ")
       suite_ligne= SansEspace(suite_ligne)
-      POUR TOUTE CHAÎNE token_ou_regle DE suite_ligne
+      POUR TOUTE CHAÎNE token_ou_regle DE regles_separee_par_espace separée par " "
       	règle_en_cours.tableau_regle.Ajoute(token_ou_regle)
       FIN
       
@@ -148,13 +154,16 @@ class :
       suite_ligne	= Remplace(suite_ligne, TAB, " ")
       suite_ligne	= SansEspace(suite_ligne)
       
-      postion_accolade est un entier = suite_ligne.Position("{")
-      si postion_accolade<0 ALORS
-      	_erreur( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "{") )
+      // recherche is le code est présent
+      position_accolade est un entier = suite_ligne.Position("{")
+      regles_separee_par_espace	est chaine		
+      code_wl_user				est chaine	
+      si position_accolade>0 ALORS
+      	regles_separee_par_espace = suite_ligne.Gauche(position_accolade-1)
+      	code_wl_user			  = suite_ligne.Milieu(position_accolade+1)
+      sinon
+      	regles_separee_par_espace = suite_ligne
       FIN
-      // découpe la chaine
-      regles_separee_par_espace est chaine = suite_ligne.Gauche(postion_accolade)
-      code_wl_user est chaine 		     = suite_ligne.milieu(postion_accolade+1)
       
       // si il a des commentaires de fin de ligne, on les enlève
       position_marque_commentaire	est un entier	= code_wl_user.position("//")
@@ -163,13 +172,18 @@ class :
       FIN
       // pas d'espace
       code_wl_user = SansEspace(code_wl_user,sscExtérieur)
+      regles_separee_par_espace = SansEspace(regles_separee_par_espace,sscExtérieur)
       // "," tout seul est invalide en WL
-      IF (code_wl_user=";") code_wl_user= ""
+      si (code_wl_user=";") code_wl_user= ""
       
-      // enlever les {} autour du code si il sont présent
-      SI code_wl_user[1]="{" _ET_ Droite(code_wl_user,1)="}" ALORS
-      	code_wl_user = Milieu(code_wl_user,2,Taille(code_wl_user)-2)
-      FIN
+      // enlever les {} autour du code 
+      SI code_wl_user<>"" alors
+      	SI code_wl_user.Droite(1)="}" ALORS
+      		code_wl_user = Milieu(code_wl_user,2,Taille(code_wl_user)-2)
+      	sinon
+      		_erreur( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "}") )
+      	FIN
+      fin
       
       renvoyer (regles_separee_par_espace,code_wl_user)
      type : 458752
@@ -187,6 +201,37 @@ class :
       
       règle_en_cours = Null
       
+     type : 458752
+   -
+     name : génère_compilateur
+     procedure_id : 1348426779541106813
+     type_code : 12
+     code : |1-
+      // génération d'une classe WL sur le disque
+      // renvoie (vrai,"") ou (faux,<message d'erreur>)
+      PROCÉDURE génère_compilateur(nom_fichier_source_bison est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
+      
+      // chargement du fichier .l
+      source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_bison)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
+      
+      // init a l'état initial
+      _changeState(Declaration_SymboleEtOption)
+      // compilation avec le mode spécial ligne a ligne
+      soit (ok,message_erreur) = _compile_mode_ligne(source_lexer)
+      SI PAS ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN
+      
+      
+      fSauveTexte(nom_fichier_dest,"OK")
+      
+      //OK
+      renvoyer (vrai,"")
      type : 458752
   procedure_templates : []
   property_templates : []
