@@ -55,16 +55,16 @@ class :
       // Init un tableau a 7 él&ments vide
       :tableau_regle = allouer un tableau de 7 tableaux de wd_compilateur_base::RegleDeProduction 
       // Init des règles de parsing pour produire le lexer
-      _ajoute_règle_production(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
-      _ajoute_règle_production(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
-      _ajoute_règle_production(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
-      _ajoute_règle_production(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
-      _ajoute_règle_production(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
-      _ajoute_règle_production(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
-      _ajoute_règle_production(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
-      _ajoute_règle_production(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText)  } )
-      _ajoute_règle_production(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
-      _ajoute_règle_production(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
+      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
+      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
+      _ajoute_règle_production_lex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
+      _ajoute_règle_production_lex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
+      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_production_lex(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_production_lex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
+      _ajoute_règle_production_lex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText)  } )
+      _ajoute_règle_production_lex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
+      _ajoute_règle_production_lex(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
      type : 589824
    -
      name : _parse_ligne_regle_flex
@@ -277,7 +277,7 @@ class :
       		rexgExp       = token_vers_code_wl.token
       	fin
       	// construit la chaine finale
-      	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,code_action_lambda )
+      	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,code_action_lambda )
       FIN
       
       code_init_ChaineVersToken_yaml est chaine ANSI = _to_yaml( code_init_ChaineVersToken)
