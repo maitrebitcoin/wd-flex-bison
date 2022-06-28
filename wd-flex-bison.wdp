@@ -22,7 +22,7 @@ project :
     64bits : true
     new_features_help :
      name : ""
-     internal_properties : BwAAAAcAAABWrt4ar3JF8nit/XY7Zd+Q7Cgh21VQuZ44wh2giucaHAUsH0vaDRJIx+0UY7Kv9i1OmHoBA6ypn5G7
+     internal_properties : BwAAAAcAAABgvNhgpXBDBB5Dg+xZOoHSWtjv3IUQaY6YMpVwYnN2QKG463d+obX7vh5jvNSNkEtsvhD7BaKjmZ+J
  elements :
   identifier : 0x422def4602f38467
   elements :
@@ -45,12 +45,6 @@ project :
      physical_name : .\test_flex.wdw
      type : 2
    -
-     name : wd_compilateur_base
-     identifier : 0x42ad83060322a1de
-     internal_properties : BwAAAAcAAAC4luA8C7D4IzoBr2aEvtZZSG8HnzqxMkGOvzcDhL5W+hrEGoeeZaEmh7MtiwvFvTOdpQ==
-     physical_name : .\wd_compilateur_base.wdc
-     type : 4
-   -
      name : util_flex_bison
      identifier : 0x42b693470e58fc8e
      internal_properties : BwAAAAcAAAC4luA8C7D4IzrqWfGH5Kv7Pr3FHaC4EQS2GcmCUsBcpFyWNFj/F5AXh7MtiwvFvTOdpQ==
@@ -61,6 +55,12 @@ project :
      identifier : 0x42b2a7850b771d06
      internal_properties : BwAAAAcAAAC7l+MnhMFpckuX2niV7EWI324GnjnF5PiiZsuchrxW+ho6ykMlJv+YGAT++ro2wjaepg==
      physical_name : .\wdBison.wdc
+     type : 4
+   -
+     name : wd_lexer_base
+     identifier : 0x42ad83060322a1de
+     internal_properties : BwAAAAcAAAC4luA8C7D4IzoBr2aEvtZZSG8HnzqxMkGOvzcDhL5W+hrEGoeeZaEmh7MtiwvFvTOdpQ==
+     physical_name : .\wd_lexer_base.wdc
      type : 4
   other_elements : []
   net_assemblies : []

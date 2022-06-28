@@ -16,7 +16,7 @@ class :
    -
      code : |1+
       wd_compilateur_template est une Classe
-      	hérite de wd_compilateur_base
+      	hérite de wd_lexer_base
       //%CODE_DECLARATION_MEMBRE%
       fin
      type : 131072

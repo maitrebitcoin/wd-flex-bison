@@ -1,14 +1,14 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : wd_compilateur_base
+ name : wd_lexer_base
  major_version : 27
  minor_version : 0
  type : 4
  description : ""
  subtype : 0
 class :
- identifier : 0x12ad83060009a1af
+ identifier : 0x12ba8ccd005f67fc
  internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
  code_elements :
   type_code : 10
@@ -16,9 +16,9 @@ class :
    -
      code : |1-
       // classe de base pour les compilateur généré par wd-flex-bison
-      wd_compilateur_base est une Classe
+      wd_lexer_base est une Classe
       	// toutes les règles de production du lexer selon les l'état courant
-      	tableau_regle est un tableau dynamique de tableaux de RegleDeProduction
+      	tableau_regle est un tableau dynamique de tableaux de RegleDeProductionLex
       	numero_regle_en_déclation est entier // durant la déclaration des règles
       
       	// -- Variables d'état durant la compilation
@@ -38,7 +38,7 @@ class :
       	
       fin
       // définie une règle de production, c.a.d. comment passer d'une expression chaine a une action
-      RegleDeProduction est une structure
+      RegleDeProductionLex est une structure
        	// chaine ou regexp d'entrée. l'une des 2 est vide mais jamais les 2
       	chaine_exacte	est chaine 
       	regexp			est chaine
@@ -53,11 +53,21 @@ class :
       	// token trouvé. ex: " " ou "34". correspond a yytext dans flex
       	token			est chaine		
       	// regle ou null si aucune n'a été trouvé 
-      	règle 		    est RegleDeProduction dynamique
+      	règle 		    est RegleDeProductionLex dynamique
       	// état :
       	est_terminé est un booléen
       fin
       
+      // défini une unité lexicale (token) renvoyée par le lexer
+      STToken est une Structure
+      	// n° du token.  de 32 a 127 pour les caractère ansi simple. ex " ". apres 256 pour ceux déclara avec %token. 
+      	valeur			est entier
+      	// chaine correspondante. ex: " " ou "34". 
+      	// correspond a yytext dans flex
+      	valeur_chaine	est chaîne		
+      	// regle ou null si aucune n'a été trouvé 
+      	règle			est wd_lexer_base::RegleDeProductionLex dynamique
+      FIN
       
       constant Etat_lexer_tous = 1
       
@@ -66,7 +76,7 @@ class :
   procedures :
    -
      name : Constructeur
-     procedure_id : 1345875925447385566
+     procedure_id : 1349545850453387260
      type_code : 27
      code : |1+
       procédure Constructeur()
@@ -74,7 +84,7 @@ class :
      type : 589824
    -
      name : Destructeur
-     procedure_id : 1345875925447451102
+     procedure_id : 1349545850453452796
      type_code : 28
      code : |1+
       procédure Destructeur()
@@ -82,13 +92,13 @@ class :
      type : 655360
    -
      name : _ajoute_règle_production_lex
-     procedure_id : 1345877295542599545
+     procedure_id : 1349545850453518332
      type_code : 12
      code : |1+
       // ajouter une règle de production au lexer
       PROCÉDURE PROTÉGÉE _ajoute_règle_production_lex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, action est procédure )
       
-      regle_production est un wd_compilateur_base::RegleDeProduction
+      regle_production est un wd_lexer_base::RegleDeProductionLex
       regle_production.chaine_exacte	= chaine_exacte
       regle_production.regexp			= rexgExp
       regle_production.action			= action
@@ -103,9 +113,9 @@ class :
      type : 458752
    -
      name : _recherche_meilleure_règle
-     procedure_id : 1345879086544051140
+     procedure_id : 1349545850453583868
      type_code : 12
-     code : |1+
+     code : |1-
       // renvoie une règle_a_exécuter qui correspond au texte <texte_source>
       procédure protégée _recherche_meilleure_règle( valeur_etat est un entier, local texte_source chaine ) : RegleAExécuter
       dbgAssertion(valeur_etat> 0)
@@ -125,7 +135,7 @@ class :
       	FIN
       
       // parcourt linéaire de toutes les expression possibles dans l'état en cours
-      tabCourant est un  tableaux dynamique de RegleDeProduction   <- tableau_regle[valeur_etat]
+      tabCourant est un  tableaux dynamique de RegleDeProductionLex   <- tableau_regle[valeur_etat]
       POUR TOUT règle_de_production de tabCourant
       	// si c'est un chaine fixe
       	si règle_de_production.regExp=""  ALORS
@@ -158,18 +168,29 @@ class :
       // renvoie la meilleure règle trouvée ou .règle.null => erreur 
       RENVOYER règle_résultat
       
+      // indiquer le fichier source à compiler
+     type : 458752
+   -
+     name : set_source
+     procedure_id : 1349545850453649404
+     type_code : 12
+     code : |1-
+      PROCÉDURE set_source( source_a_compiler est chaîne UNICODE )
+      
+      // init de source_découpée_en_ligne
+      ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
      type : 458752
    -
      name : _compile_mode_ligne
-     procedure_id : 1345880843185755993
+     procedure_id : 1349545850453714940
      type_code : 12
      code : |1+
       // compilation d'un texte en mode ligne a ligne
       // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
       PROCÉDURE protégée _compile_mode_ligne(source_a_compiler est chaine UNICODE) : (booléen, chaine)
       
-      // init de source_découpée_en_ligne
-      ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
+      // init de la source et de <source_découpée_en_ligne>
+      set_source(source_a_compiler)
       
       // parcourt des lignes
       POUR numLigne = 1 _a_ :source_découpée_en_ligne.Occurrence()
@@ -199,7 +220,7 @@ class :
      type : 458752
    -
      name : _compile
-     procedure_id : 1345964500559220854
+     procedure_id : 1349545850453780476
      type_code : 12
      code : |1+
       // compilation d'un texte 
@@ -239,7 +260,7 @@ class :
      type : 458752
    -
      name : _donne_token_suivant
-     procedure_id : 1345905848485735770
+     procedure_id : 1349545850453846012
      type_code : 12
      code : |1+
       // appelée par le parseur pour obtenir un nouveau token
@@ -277,7 +298,7 @@ class :
      type : 458752
    -
      name : _erreur
-     procedure_id : 1348058675073396831
+     procedure_id : 1349545850453911548
      type_code : 12
      code : |1-
       // appelée en car d'erreur de syntaxe

@@ -16,7 +16,7 @@ class :
    -
      code : |1+
       wdFlex est une Classe
-      	hérite de wd_compilateur_base
+      	hérite de wd_lexer_base
       	
       	// Remplis durant la phase de compilation
       
@@ -53,7 +53,7 @@ class :
       procédure Constructeur()
       
       // Init un tableau a 7 él&ments vide
-      :tableau_regle = allouer un tableau de 7 tableaux de wd_compilateur_base::RegleDeProduction 
+      :tableau_regle = allouer un tableau de 7 tableaux de wd_lexer_base::RegleDeProductionLex 
       // Init des règles de parsing pour produire le lexer
       _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
       _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
@@ -186,7 +186,7 @@ class :
       procédure _copie_dépendance(nom_fichier_dest est chaine)
       
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
-      fCopieFichier("..\wd_compilateur_base.wdc",répertoire_destination)
+      fCopieFichier("..\wd_lexer_base.wdc",répertoire_destination)
       
      type : 458752
    -
