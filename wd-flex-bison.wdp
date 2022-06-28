@@ -57,6 +57,12 @@ project :
      physical_name : .\wdBison.wdc
      type : 4
    -
+     name : wd_compiler_base
+     identifier : 0x42ba8def0898d50b
+     internal_properties : BwAAAAcAAAC0kpyYJxwUFz7iTxWpFLz8jP8LA7JOhPJS6ocOvnSguATqIbTjLZIPi7chn2eZYVehoQ==
+     physical_name : .\wd_compiler_base.wdc
+     type : 4
+   -
      name : wd_lexer_base
      identifier : 0x42ad83060322a1de
      internal_properties : BwAAAAcAAAC4luA8C7D4IzoBr2aEvtZZSG8HnzqxMkGOvzcDhL5W+hrEGoeeZaEmh7MtiwvFvTOdpQ==

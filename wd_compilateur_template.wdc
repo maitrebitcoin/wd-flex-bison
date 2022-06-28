@@ -16,7 +16,7 @@ class :
    -
      code : |1+
       wd_compilateur_template est une Classe
-      	hérite de wd_lexer_base
+      	hérite de wd_compiler_base
       //%CODE_DECLARATION_MEMBRE%
       fin
      type : 131072
@@ -46,12 +46,19 @@ class :
       // renvoie 
       //  (vrai,"") en cas de succès. 
       //  (faux,"message d'erreur") en cas d'erreur
-      PROCÉDURE compile(source_a_compiler est chaine) : (booléen, chaine)
+      PROCÉDURE compile(source_a_compiler est chaine UNICODE) : (booléen, chaine)
       
       //%CODE_AVANT_COMPILE%
       
       // rebond sur la méthode protégée de la classe de base
-      renvoyer _compile(source_a_compiler)
+      ok est un booléen =	 _compile_chaine(source_a_compiler)
+      si pas ok alors
+      	// Echec
+      	renvoyer (faux, :get_texte_erreur())
+      FIN
+      // OK
+      renvoyer (vrai,"")
+      
       
      type : 458752
   procedure_templates : []

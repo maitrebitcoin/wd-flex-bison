@@ -266,7 +266,7 @@ class :
       // appelée par le parseur pour obtenir un nouveau token
       // renvoie l'id du token et la chaine. ex: {64,"A"} ou {256,"// commentaire"}.
       // renvoie (-1,"") si la fin du fichier est atteinte
-      procédure PROTÉGÉE _donne_token_suivant() : RegleAExécuter
+      procédure _donne_token_suivant() : RegleAExécuter
       
       // si c'est la fin du fichier
       si :numéro_ligne_en_cours>:source_découpée_en_ligne.Occurrence() ALORS
