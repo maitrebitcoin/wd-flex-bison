@@ -78,9 +78,12 @@ class :
      name : Constructeur
      procedure_id : 1349545850453387260
      type_code : 27
-     code : |1+
+     code : |1-
       procédure Constructeur()
       
+      // init parcourt de la chaine source
+      :numéro_ligne_en_cours  = 1
+      :numéro_colonne_en_cours =1
      type : 589824
    -
      name : Destructeur
@@ -174,11 +177,12 @@ class :
      name : set_source
      procedure_id : 1349545850453649404
      type_code : 12
-     code : |1-
+     code : |1+
       PROCÉDURE set_source( source_a_compiler est chaîne UNICODE )
       
       // init de source_découpée_en_ligne
       ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
+      
      type : 458752
    -
      name : _compile_mode_ligne
@@ -235,7 +239,7 @@ class :
       
       boucle
       	// recherche d'une règle valide sur <ligne_en_cours>
-      	soit règle_a_exécuter <- _donne_token_suivant()
+      	soit règle_a_exécuter <- donne_token_suivant()
       	// si c'est la fin
       	si règle_a_exécuter.est_terminé ALORS
       		// succès de la compilation
@@ -259,14 +263,14 @@ class :
       fin
      type : 458752
    -
-     name : _donne_token_suivant
+     name : donne_token_suivant
      procedure_id : 1349545850453846012
      type_code : 12
      code : |1+
       // appelée par le parseur pour obtenir un nouveau token
       // renvoie l'id du token et la chaine. ex: {64,"A"} ou {256,"// commentaire"}.
       // renvoie (-1,"") si la fin du fichier est atteinte
-      procédure _donne_token_suivant() : RegleAExécuter
+      procédure donne_token_suivant() : RegleAExécuter
       
       // si c'est la fin du fichier
       si :numéro_ligne_en_cours>:source_découpée_en_ligne.Occurrence() ALORS
