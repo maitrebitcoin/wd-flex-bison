@@ -219,13 +219,13 @@ class :
       
      type : 458752
    -
-     name : _compile
+     name : _compile_OBOSOLETE
      procedure_id : 1349545850453780476
      type_code : 12
      code : |1+
       // compilation d'un texte 
       // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
-      PROCÉDURE PROTÉGÉE _compile(source_a_compiler est chaine) : (booléen, chaine)
+      PROCÉDURE PROTÉGÉE _compile_OBOSOLETE(source_a_compiler est chaine) : (booléen, chaine)
       
       // init de source_découpée_en_ligne
       ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)

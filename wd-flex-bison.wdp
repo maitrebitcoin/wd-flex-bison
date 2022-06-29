@@ -27,10 +27,10 @@ project :
   identifier : 0x422def4602f38467
   elements :
    -
-     name : wd_compilateur_template
+     name : modele_compilateur_genere
      identifier : 0x422df05b037cbb23
      internal_properties : BwAAAAcAAADwTih0s+jA2/JJhL+OSvaUHF2rswhfW6e2VcR0y0fVY11VMglySSKOv3tlU9MN9evVXQ==
-     physical_name : .\wd_compilateur_template.wdc
+     physical_name : .\modele_compilateur_genere.wdc
      type : 4
    -
      name : wdFlex
@@ -45,6 +45,12 @@ project :
      physical_name : .\test_flex.wdw
      type : 2
    -
+     name : modele_lexer_genere
+     identifier : 0x42bbe0840bca64aa
+     internal_properties : BwAAAAcAAADxQ++7BMGCEALW+OwOnmN3JQa0cJgvUzkzI7kjiKQvvHzXoSAMuoJ/CxG/+Ns/+ON0
+     physical_name : .\modele_lexer_genere.wdc
+     type : 4
+   -
      name : util_flex_bison
      identifier : 0x42b693470e58fc8e
      internal_properties : BwAAAAcAAAC4luA8C7D4IzrqWfGH5Kv7Pr3FHaC4EQS2GcmCUsBcpFyWNFj/F5AXh7MtiwvFvTOdpQ==
@@ -57,10 +63,10 @@ project :
      physical_name : .\wdBison.wdc
      type : 4
    -
-     name : wd_compiler_base
+     name : wd_compilateur_base
      identifier : 0x42ba8def0898d50b
      internal_properties : BwAAAAcAAAC0kpyYJxwUFz7iTxWpFLz8jP8LA7JOhPJS6ocOvnSguATqIbTjLZIPi7chn2eZYVehoQ==
-     physical_name : .\wd_compiler_base.wdc
+     physical_name : .\wd_compilateur_base.wdc
      type : 4
    -
      name : wd_lexer_base

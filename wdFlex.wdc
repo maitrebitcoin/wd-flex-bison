@@ -245,7 +245,7 @@ class :
       	FIN
       
       // chargement du code  wl template
-      template_code est chaine ansi = fChargeBuffer("..\\wd_compilateur_template.wdc")
+      template_code est chaine ansi = fChargeBuffer("..\\modele_lexer_genere.wdc")
       si ErreurDétectée ALORS
       	// erreur
       	renvoyer (Faux, "", erreurinfo())
@@ -253,7 +253,7 @@ class :
       
       //  Modifier le nom de la classe
       code_de_travail est une chaine ansi = template_code
-      code_de_travail = Remplace(code_de_travail, "wd_compilateur_template", nom_classe_générée)
+      code_de_travail = Remplace(code_de_travail, "modele_lexer_genere", nom_classe_générée)
       
       // Insérer le code user de déclaration
       code_wl_declaration_yaml est chaine ansi = _to_yaml( :code_wl_declaration )
