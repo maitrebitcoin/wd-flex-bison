@@ -19,21 +19,24 @@ class :
       	hérite de wd_lexer_base
       	
       	// Remplis durant la phase de compilation
-      	règle_en_cours est RegleDeGrammaireSource dynamique
+      	règle_en_cours				est RegleDeGrammaireSource dynamique
       	
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
       	code_wl_declaration			est chaine unicode
       	// règles de productions trouvée dans le .y
-      	tab_règle_grammaire	est un tableau de RegleDeGrammaireSource	
+      	tab_règle_grammaire			est un tableau de RegleDeGrammaireSource	
+      	// token => valeur a déclarer au lexer
+      	token_vers_int				est un tableau associatif d'entiers
+      	indice_token_pour_déclation est entier
       fin
       // Ex:  A ->     A b
       //            |  c
       RegleDeGrammaireSource est une structure
-      	Nom est chaine 
+      	Nom				est chaine 
       	// sous règles possible pour produire un 
-      	tableau_regle est un tableau de chaînes
+      	tableau_regle	est un tableau de chaînes
       	// code WL a produire
-      	code_wl		est chaine
+      	code_wl			est chaine
       fin
       EEtat est un enumeration
       	Tout_Etat					= 1 
@@ -60,7 +63,7 @@ class :
       :tableau_regle = allouer un tableau de 7 tableaux de wd_lexer_base::RegleDeProductionLex
       // Init des règles de parsing pour produire le lexer
       _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
-      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
+      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ _parse_ligne_option(yytext)} ) // pas d'options pour l'instant, on ignore tout
       _ajoute_règle_production_lex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
       _ajoute_règle_production_lex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
       _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
@@ -84,8 +87,36 @@ class :
      type_code : 28
      code : |1+
       procédure Destructeur()
-      
      type : 655360
+   -
+     name : _déclareToken
+     procedure_id : 1351448645516420928
+     type_code : 12
+     code : |1-
+      procédure _déclareToken(nom_token est chaine)
+      dbgAssertion(nom_token<>"")
+      :indice_token_pour_déclation++
+      :token_vers_int[indice_token_pour_déclation] = nom_token
+     type : 458752
+   -
+     name : _parse_ligne_option
+     procedure_id : 1351447305486574048
+     type_code : 12
+     code : |1+
+      // analyse d'une de lignes option.
+      //ex:
+      //%token T_NEWLINE T_QUIT
+      procédure _parse_ligne_option(ligne_option est chaine)
+      
+      si gauche(ligne_option="%token ") ALORS
+      	suite_ligne_option est chaine = milieu(ligne_option,8)
+      	suite_ligne_option=Remplace(suite_ligne_option,tab, " ") // TAB et " " traités de façon identiques
+      	POUR TOUTE CHAÎNE nom_token DE suite_ligne_option SÉPARÉE PAR " "
+      		_déclareToken(nom_token)
+      	FIN
+      	
+      FIN
+     type : 458752
    -
      name : _parse_ligne_regle_bison
      procedure_id : 1348056261301673528
@@ -204,32 +235,98 @@ class :
       
      type : 458752
    -
+     name : _parse_grammaire
+     procedure_id : 1350679575801374233
+     type_code : 12
+     code : |1+
+      // analyser le fichier .y
+      procédure _parse_grammaire(nom_fichier_source_bison est chaine) : (booléen, chaine)
+      
+      // chargement du fichier .y
+      source_bison est chaine UNICODE = charge_fichier_source(nom_fichier_source_bison)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
+      // init a l'état initial
+      _changeState(Declaration_SymboleEtOption)
+      :indice_token_pour_déclation = 256
+      // compilation avec le mode spécial ligne a ligne
+      soit (ok,message_erreur) = _compile_mode_ligne(source_bison)
+      SI PAS ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN
+      // OK
+      renvoyer (vrai,"")
+     type : 458752
+   -
+     name : _génere_structure_grmmaire
+     procedure_id : 1351446382068455741
+     type_code : 12
+     code : |1+
+      procédure _génere_structure_grmmaire()
+      //TODO
+     type : 458752
+   -
+     name : _genére_code_wl
+     procedure_id : 1351446540982348307
+     type_code : 12
+     code : |1+
+      procédure _genére_code_wl(nom_fichier_dest)
+      //TODO
+      fSauveTexte(nom_fichier_dest,"TODO")
+      renvoyer (faux,"TODO")
+     type : 458752
+   -
+     name : _copie_dépendance
+     procedure_id : 1350684411934757931
+     type_code : 12
+     code : |1-
+      PROCÉDURE _copie_dépendance(nom_fichier_dest est chaine)
+      
+      répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
+      fCopieFichier("..\modele_lexer_genere.wdc",      répertoire_destination)
+      fCopieFichier("..\modele_compilateur_genere.wdc",répertoire_destination)
+     type : 458752
+   -
      name : génère_compilateur
      procedure_id : 1348426779541106813
      type_code : 12
      code : |1+
       // génération d'une classe WL sur le disque
       // renvoie (vrai,"") ou (faux,<message d'erreur>)
-      PROCÉDURE génère_compilateur(nom_fichier_source_bison est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
+      PROCÉDURE génère_compilateur(nom_fichier_source_lex est chaîne, nom_fichier_source_bison est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
       
-      // chargement du fichier .l
-      source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_bison)
-      SI ErreurDétectée ALORS
-      	// erreur
-      	RENVOYER (Faux, ErreurInfo())
-      FIN
       
-      // init a l'état initial
-      _changeState(Declaration_SymboleEtOption)
-      // compilation avec le mode spécial ligne a ligne
-      soit (ok,message_erreur) = _compile_mode_ligne(source_lexer)
+      // compilation du fichier .y
+      soit (ok,message_erreur) = _parse_grammaire(nom_fichier_source_bison)
       SI PAS ok ALORS
       	// erreur
       	RENVOYER (Faux, message_erreur)
       FIN
+      // génération des structure internes
+      _génere_structure_grmmaire()
+      
+      // compilation du ficher .l
+      nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fExtension+fFichier)+"_lex" + ["\"] + fExtraitChemin(nom_fichier_dest,fExtension)
+      flex est un wdFlex
+      flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_vers_int)
+      
+      // génération de la classe "compilateur" sur disque
+      (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
+      SI PAS ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN	
       
       
-      fSauveTexte(nom_fichier_dest,"OK")
+      // + on copie les dépendances
+      _copie_dépendance(nom_fichier_dest)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
       
       //OK
       renvoyer (vrai,"")

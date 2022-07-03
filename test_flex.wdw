@@ -69,7 +69,9 @@ window :
          compilateur.en_mode_debug = InterrupteurModeDebug
          
          fSauveTexte(fichier_source,CodeSourceLexer)
-         soit (b,sErr) = compilateur.génère_compilateur(fichier_source, fichier_dest)
+         token_vers_int				est un tableau associatif d'entiers
+         token_vers_int["T_PLUS"]=260
+         soit (b,sErr) = compilateur.génère_lexer(fichier_source, fichier_dest,token_vers_int)
          si pas b ALORS
          	RésultatDeLaCompilation = sErr
          	retour
@@ -186,8 +188,10 @@ window :
      p_codes :
       -
         code : |1+
-         fichier_source est chaine = "c:\temp\source.wl.y"
-         fSauveTexte(fichier_source,CodeSourceGrammaire)
+         fichier_source_l est chaine = "c:\temp\source.wl.l"
+         fichier_source_y est chaine = "c:\temp\source.wl.y"
+         fSauveTexte(fichier_source_l,CodeSourceLexer)
+         fSauveTexte(fichier_source_y,CodeSourceGrammaire)
          //fichier_dest est chaine = "c:\temp\parseur_test_01.wdc"
          fichier_dest est chaine = "C:\Temp\out_flex\mon_compilateur\parseur_test_02.wdc"
          
@@ -197,7 +201,7 @@ window :
          compilateurBison.en_mode_debug = InterrupteurModeDebug
          
          
-         soit (b,sErr) = compilateurBison.génère_compilateur(fichier_source, fichier_dest)
+         soit (b,sErr) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
          si pas b ALORS
          	RésultatDeLaCompilation = sErr
          	retour

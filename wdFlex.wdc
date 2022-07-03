@@ -22,6 +22,8 @@ class :
       
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
       	code_wl_declaration est chaine unicode
+      	// code de déclaration des valeurs des tokens. selon le tableau fourni par la grammaire
+      	code_wl_declaration_token est une chaîne 
       	// règles de productions pour le lexer
       	tab_règle_production_lex est un tableau de stToken2Code
       	
@@ -136,13 +138,13 @@ class :
       procédure Destructeur()
      type : 655360
    -
-     name : génère_compilateur
+     name : génère_lexer
      procedure_id : 1309967391812349201
      type_code : 12
      code : |1+
-      // génération d'une classe WL sur le disque
+      // génération d'une classe WL lexer sur le disque
       // renvoie (vrai,"") ou (faux,<message d'erreur>)
-      procédure génère_compilateur(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
+      procédure génère_lexer(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine, token_vers_int est un tableau associatif d'entiers) : (booléen, chaine)
       
       // chargement du fichier .l
       source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_lex)
@@ -160,6 +162,15 @@ class :
       	RENVOYER (Faux, message_erreur)
       FIN
       
+      // code de déclaration des token
+      // EX : 
+      // CONSTANT T_PLUS=257
+      // CONSTANT T_MINUS=258Z
+      :code_wl_declaration_token=""
+      POUR TOUT valeur_token,nomToken DE token_vers_int
+      	:code_wl_declaration_token += [RC]+"CONSTANT " + nomToken+"=" + valeur_token
+      FIN
+      
       // génération de la classe sur disque
       (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
       SI PAS ok ALORS
@@ -167,27 +178,8 @@ class :
       	RENVOYER (Faux, message_erreur)
       FIN	
       
-      // + on copie les dépendances
-      _copie_dépendance(nom_fichier_dest)
-      SI ErreurDétectée ALORS
-      	// erreur
-      	RENVOYER (Faux, ErreurInfo())
-      FIN
-      
-      
       // succès de la génération d'une classe WL pour compiler
       renvoyer (Vrai,"")
-     type : 458752
-   -
-     name : _copie_dépendance
-     procedure_id : 1346588512062157735
-     type_code : 12
-     code : |1+
-      procédure _copie_dépendance(nom_fichier_dest est chaine)
-      
-      répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
-      fCopieFichier("..\wd_lexer_base.wdc",répertoire_destination)
-      
      type : 458752
    -
      name : _changeState
@@ -258,6 +250,9 @@ class :
       // Insérer le code user de déclaration
       code_wl_declaration_yaml est chaine ansi = _to_yaml( :code_wl_declaration )
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", code_wl_declaration_yaml)
+      // Insérer le  code de déclaration des tokens
+      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_TOKEN%", code_wl_declaration_token)
+      
       
       // code pour déclarer les règle de production
       // ex : _ajoute_règle_production( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
@@ -283,15 +278,9 @@ class :
       code_init_ChaineVersToken_yaml est chaine ANSI = _to_yaml( code_init_ChaineVersToken)
       code_de_travail= Remplace(code_de_travail,"//%CODE_INIT_CHAINEVERSTOKEN%", code_init_ChaineVersToken_yaml)
       
-      // init du code avant compilation
-      code_avant_compilation est chaine = "etat_courant_lexer=1"
-      code_avant_compilation_yaml est chaine ANSI = _to_yaml( code_avant_compilation )
-      code_de_travail= Remplace(code_de_travail,"//%CODE_AVANT_COMPILE%", code_avant_compilation_yaml)
+      //
       
       
-      
-      // OK
-      RENVOYER (vrai, code_de_travail, "")
       
      type : 458752
   procedure_templates : []

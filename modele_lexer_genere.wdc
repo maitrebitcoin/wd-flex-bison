@@ -14,11 +14,14 @@ class :
   type_code : 10
   p_codes :
    -
-     code : |1+
+     code : |1-
       modele_lexer_genere est une Classe
       	hérite de wd_lexer_base
+      
       //%CODE_DECLARATION_MEMBRE%
+      
       fin
+      //%CODE_DECLARATION_TOKEN%
      type : 131072
   procedures :
    -
@@ -38,27 +41,45 @@ class :
       procédure Destructeur()
      type : 655360
    -
-     name : compile_OBOSLETE
+     name : token_suivant
      procedure_id : 1349919937818880808
      type_code : 12
      code : |1+
-      // compilation de <source_a_compiler>
-      // renvoie 
-      //  (vrai,"") en cas de succès. 
-      //  (faux,"message d'erreur") en cas d'erreur
-      PROCÉDURE compile_OBOSLETE(source_a_compiler est chaine UNICODE) : (booléen, chaine)
+      // appelée par le compilateur pour obtenir un nouveau mot (=token).
+      // renvoie l'id du token  ex: "A"=>64 ou "// commentaire"=>256.
+      // renvoie -1 si la fin du fichier est atteinte
+      PROCÉDURE token_suivant() : entier
       
-      //%CODE_AVANT_COMPILE%
+      // avance jusqu'au la fin du fichier, une erreur de syntaxe ou 
+      boucle
+      	// appel de la classe de base pour avoir la regle lexicale 
+      	règle_a_exécuter est wd_lexer_base::RegleAExécuter  = donne_token_suivant()
+      	// si aucune règle de correspond au texte en cours
+      	si règle_a_exécuter = null alors 
+      		// erreur de syntaxe
+      		RENVOYER wd_compilateur_base::TOKEN_AUCUN
+      	FIN
+      	// si c'est la fin du fichier
+      	SI règle_a_exécuter.est_terminé ALORS
+      		RENVOYER wd_compilateur_base::TOKEN_EOF
+      	FIN
+      	// Initialisation des variable pour le code utilisateur
+      	:règle_lex_en_cours = règle_a_exécuter.règle
+      	:yytext		        = règle_a_exécuter.token
+      	
+      	SELON règle_a_exécuter.règle.numero_regle
+      		CAS wd_compilateur_base::TOKEN_EOF : RENVOYER wd_compilateur_base::TOKEN_EOF
+      			// code généré a partir de sources .l
+      			//%CODE_GESTION_TOKEN%
+      			
+      		AUTRE CAS
+      			// erreur de syntaxe
+      			RENVOYER wd_compilateur_base::TOKEN_AUCUN
+      	FIN
+      
+      fin//BOUCLE
       
       
-      // rebond sur la méthode protégée de la classe de base
-      //ok est un booléen =	 _compile_chaine(source_a_compiler)
-      //si pas ok alors
-      //	// Echec
-      //	renvoyer (faux, :get_texte_erreur())
-      //FIN
-      // OK
-      renvoyer (vrai,"")
       
       
      type : 458752

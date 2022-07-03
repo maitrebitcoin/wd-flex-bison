@@ -23,8 +23,8 @@ class :
       	tab_règle_grammaire	est un tableau de RegleDeGrammaire		
       fin
       
-      CONSTANT TOKEN_EOF  = -1 // fin de fichier
-      CONSTANT TOKEN_NONE = 0  // aucun token valide
+      CONSTANT TOKEN_EOF   = -1 // fin de fichier
+      CONSTANT TOKEN_AUCUN = 0  // aucun token valide
       EActionSurToken est une Enumération
       	Shift			= 1 // lire le token suivant
       	Reduce			= 2 // regroupe les token
@@ -74,17 +74,17 @@ class :
       
       
       BOUCLE
-      	// récupération du token suivant
+      	// récupération du token suivant 
       	yyline = m_lexer:numéro_ligne_en_cours
-      	token_courant est wd_lexer_base::STToken  <-  m_lexer.donne_token_suivant()
+      	valeur_token_courant est entier =  m_lexer.token_suivant()
       	// si c'est la fin du fichier
-      	SI token_courant.valeur = TOKEN_EOF  ALORS
+      	SI valeur_token_courant = TOKEN_EOF  ALORS
       		// erreur de la compilation
       		_erreur(<§R12ba93c90093b02d¤fr-FR¤Il manque la fin§>)
       		renvoyer faux
       	FIN
       	// si on a trouvé aucune règle de production valide
-      	SI token_courant.valeur = TOKEN_NONE ALORS
+      	SI valeur_token_courant = ::TOKEN_AUCUN ALORS
       		// erreur de compilation
       		text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
       		chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)			
@@ -93,10 +93,10 @@ class :
       	FIN
       	SI en_mode_debug ALORS
       		// trace chaque token
-      		Trace( token_courant.règle.numero_regle + tab +  token_courant.valeur_chaine + TAB + m_lexer:numéro_ligne_en_cours)
+      		Trace( valeur_token_courant + tab + m_lexer:yytext + TAB + m_lexer:numéro_ligne_en_cours)
       	FIN	
       	// on calcule ce qu'on doit faire avec ce token
-      	action_token est EActionSurToken = _calcule_action_token(token_courant, pile_token)
+      	action_token est EActionSurToken = _calcule_action_token(valeur_token_courant, pile_token)
       	si action_token = ErrorCompile ALORS
       		RENVOYER Faux		
       	FIN
@@ -109,14 +109,14 @@ class :
      procedure_id : 1349920938546755514
      type_code : 12
      code : |1+
-      PROCÉDURE _calcule_action_token(tok est wd_lexer_base::STToken, pile est chaine) : EActionSurToken
+      PROCÉDURE _calcule_action_token(token est un entier, pile est chaine) : EActionSurToken
       
-      SI tok.valeur = TOKEN_EOF ALORS
+      SI token = TOKEN_EOF ALORS
       	RENVOYER ErrorCompile
       FIN
       
       // calcul nouvel état avec ce nouveau token
-      pile_avec_token	est chaine	= pile + [","] + tok.valeur
+      pile_avec_token	est chaine	= pile + [","] + token
       
       // recherche les règles qui peuvent correspondre
       nombre_regle_possible	est entier		= 0

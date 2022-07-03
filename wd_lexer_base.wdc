@@ -27,6 +27,10 @@ class :
       	// n° de ligne et de colonne en cours de compil
       	numéro_ligne_en_cours	est un entier
       	numéro_colonne_en_cours	est un entier
+      	// valeur texte du dernier token trouvé
+      	yytext est une chaîne
+      	// règle qui a produit ce  token (poru debug)
+      	règle_lex_en_cours est RegleDeProductionLex dynamique
       	// "" si tout est  ok ou erreur en cours
       	m_sErreur	est chaine	
       	
@@ -56,6 +60,9 @@ class :
       	règle 		    est RegleDeProductionLex dynamique
       	// état :
       	est_terminé est un booléen
+      	// position dans le ficher source
+      	numéro_ligne 	est entier
+      	numéro_colonne	est entier
       fin
       
       // défini une unité lexicale (token) renvoyée par le lexer
@@ -93,6 +100,15 @@ class :
       procédure Destructeur()
       
      type : 655360
+   -
+     name : token_suivant
+     procedure_id : 1351426629513457257
+     type_code : 12
+     code : |1-
+      // méthode surchargée dans le lexer généré a partir des sources.
+      PROCÉDURE virtuelle token_suivant() : entier 
+      renvoyer wd_compilateur_base::TOKEN_AUCUN
+     type : 458752
    -
      name : _ajoute_règle_production_lex
      procedure_id : 1349545850453518332
@@ -289,14 +305,19 @@ class :
       	// on renvoie cette règle invalide
       	RENVOYER règle_a_exécuter
       FIN
+      // on note la position dans la rège
+      règle_a_exécuter.numéro_ligne   = :numéro_ligne_en_cours
+      règle_a_exécuter.numéro_colonne = :numéro_colonne_en_cours
       
-      // on avance 
+      // on avance dans le source
       numéro_colonne_en_cours += taille(règle_a_exécuter.token)
       si numéro_colonne_en_cours>taille(text_ligne_courante) ALORS
       	// ligne suivante
       	numéro_colonne_en_cours = 1;
       	numéro_ligne_en_cours++;
       FIN
+      
+      
       // OK
       renvoyer règle_a_exécuter
      type : 458752
