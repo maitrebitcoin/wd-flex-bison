@@ -270,14 +270,60 @@ class :
       //TODO
      type : 458752
    -
+     name : _genère_code_bison_apres_compilation
+     procedure_id : 1352147977867092570
+     type_code : 12
+     code : |1-
+      procédure _genère_code_bison_apres_compilation(nom_classe_générée est chaîne ANSI) :  (booléen, chaîne ANSI, chaîne)
+      
+      // chargement du code  wl template
+      template_code est chaîne ANSI = fChargeBuffer("..\\modele_compilateur_genere.wdc")
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, "", ErreurInfo())
+      FIN
+      
+      //  Modifier le nom de la classe
+      code_de_travail est une chaîne ANSI = template_code
+      code_de_travail = Remplace(code_de_travail, "modele_compilateur_genere", nom_classe_générée)
+      
+      // TODO
+      
+      //OK
+      renvoyer (vrai, code_de_travail, "" )
+     type : 458752
+   -
      name : _genére_code_wl
      procedure_id : 1351446540982348307
      type_code : 12
      code : |1+
       procédure _genére_code_wl(nom_fichier_dest)
-      //TODO
-      fSauveTexte(nom_fichier_dest,"TODO")
-      renvoyer (faux,"TODO")
+      
+      dbgAssertion(nom_fichier_dest<>"")
+      
+      // nom de la classe a crée
+      // ex: "c:\temp^mon_parseur.wdc" => "parseur.wdc"
+      nom_classe_générée	est chaîne ANSI	= fExtraitChemin(nom_fichier_dest,fFichier)
+      
+      // génération en mémoire du code WL
+      ok					est un booléen
+      code_wl_résultat	est une chaîne ANSI
+      message_erreur		est chaîne
+      (ok,code_wl_résultat,message_erreur) = _genère_code_bison_apres_compilation(nom_classe_générée)
+      SI PAS ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN
+      
+      // sauver le fichier généré sur disque
+      fSauveTexte(nom_fichier_dest,code_wl_résultat)
+      SI ErreurDétectée ALORS
+      	// erreur
+      	RENVOYER (Faux, ErreurInfo())
+      FIN
+      // OK
+      RENVOYER (Vrai, "")
+      
      type : 458752
    -
      name : _copie_dépendance
@@ -310,9 +356,13 @@ class :
       _génere_structure_grmmaire()
       
       // compilation du ficher .l
-      nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fExtension+fFichier)+"_lex" + ["\"] + fExtraitChemin(nom_fichier_dest,fExtension)
+      nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire+fFichier)+"_lex" + fExtraitChemin(nom_fichier_dest,fExtension)
       flex est un wdFlex
-      flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_vers_int)
+      (ok,message_erreur) = flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_vers_int)
+      SI PAS ok ALORS
+      	// erreur
+      	RENVOYER (Faux, message_erreur)
+      FIN	
       
       // génération de la classe "compilateur" sur disque
       (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)

@@ -274,6 +274,7 @@ class :
       	// construit la chaine finale
       	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,indice_règle )
       	code_gestion_sToken       += [RC] + chaineconstruit( "\\ %1"+rc+" cas %2 : %3"+rc , token_vers_code_wl.token, indice_règle, token_vers_code_wl.code_wl )
+      	indice_règle++
       FIN
       
       code_init_ChaineVersToken_yaml est chaine ANSI = _to_yaml( code_init_ChaineVersToken)
