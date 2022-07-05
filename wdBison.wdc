@@ -333,8 +333,8 @@ class :
       PROCÉDURE _copie_dépendance(nom_fichier_dest est chaine)
       
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
-      fCopieFichier("..\modele_lexer_genere.wdc",      répertoire_destination)
-      fCopieFichier("..\modele_compilateur_genere.wdc",répertoire_destination)
+      fCopieFichier("..\wd_lexer_base.wdc",      répertoire_destination)
+      fCopieFichier("..\wd_compilateur_base.wdc",répertoire_destination)
      type : 458752
    -
      name : génère_compilateur

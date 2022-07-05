@@ -50,7 +50,7 @@ class :
       // renvoie -1 si la fin du fichier est atteinte
       PROCÉDURE token_suivant() : entier
       
-      // avance jusqu'au la fin du fichier, une erreur de syntaxe ou 
+      // avance jusqu'au la fin du fichier ou une erreur de syntaxe 
       boucle
       	// appel de la classe de base pour avoir la regle lexicale 
       	règle_a_exécuter est wd_lexer_base::RegleAExécuter  = donne_token_suivant()
@@ -70,7 +70,7 @@ class :
       	SELON règle_a_exécuter.règle.numero_regle
       		CAS wd_compilateur_base::TOKEN_EOF : RENVOYER wd_compilateur_base::TOKEN_EOF
       			// code généré a partir de sources .l
-      			//%CODE_GESTION_TOKEN%
+      //%CODE_GESTION_TOKEN%
       			
       		AUTRE CAS
       			// erreur de syntaxe

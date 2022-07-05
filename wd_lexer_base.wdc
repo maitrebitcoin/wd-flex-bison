@@ -109,12 +109,12 @@ class :
       renvoyer wd_compilateur_base::TOKEN_AUCUN
      type : 458752
    -
-     name : _ajoute_règle_production
+     name : _ajoute_règle_production_lex
      procedure_id : 1349545850453518332
      type_code : 12
      code : |1+
       // ajouter une règle de production au lexer
-      PROCÉDURE PROTÉGÉE _ajoute_règle_production( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, indice est entier )
+      PROCÉDURE PROTÉGÉE _ajoute_règle_production_lex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, indice est entier )
       dbgAssertion(indice>=1)
       
       regle_production est un wd_lexer_base::RegleDeProductionLex

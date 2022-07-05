@@ -257,8 +257,8 @@ class :
       // code pour déclarer les règle de production
       // ex : _ajoute_règle_production( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
       nombre_etat_max_lexer est un entier = :tab_règle_production_lex.Occurrence()
-      code_init_ChaineVersToken est chaine = ChaîneConstruit(":tableau_regle = allouer un tableau de %1 tableaux de wd_compilateur_base::RegleDeProduction " , nombre_etat_max_lexer)
-      code_gestion_sToken est chaine = "" //pour remplacer //%CODE_GESTION_TOKEN%
+      code_init_ChaineVersToken est chaine = ChaîneConstruit(":tableau_regle = allouer un tableau de %1 tableaux de wd_lexer_base::RegleDeProductionLex " , nombre_etat_max_lexer)
+      code_gestion_token est chaine = rc //pour remplacer //%CODE_GESTION_TOKEN%
       token_vers_code_wl est stToken2Code
       indice_règle est entier = 1
       pour tout token_vers_code_wl de :tab_règle_production_lex
@@ -273,13 +273,12 @@ class :
       	fin
       	// construit la chaine finale
       	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,indice_règle )
-      	code_gestion_sToken       += [RC] + chaineconstruit( "\\ %1"+rc+" cas %2 : %3"+rc , token_vers_code_wl.token, indice_règle, token_vers_code_wl.code_wl )
+      	code_gestion_token       +=  chaineconstruit( tab+ "// %1"+rc+tab+tab+" cas %2 : %3"+rc , token_vers_code_wl.token, indice_règle, token_vers_code_wl.code_wl )
       	indice_règle++
       FIN
       
-      code_init_ChaineVersToken_yaml est chaine ANSI = _to_yaml( code_init_ChaineVersToken)
-      code_de_travail= Remplace(code_de_travail,"//%CODE_INIT_CHAINEVERSTOKEN%", code_init_ChaineVersToken_yaml)
-      code_de_travail= Remplace(code_de_travail,"//%CODE_GESTION_TOKEN%",       code_gestion_sToken)
+      code_de_travail= Remplace(code_de_travail,"//%CODE_INIT_CHAINEVERSTOKEN%", _to_yaml(code_init_ChaineVersToken))
+      code_de_travail= Remplace(code_de_travail,"//%CODE_GESTION_TOKEN%",	 	   _to_yaml(code_gestion_token ))
       
       // OK
       renvoyer (vrai,code_de_travail,"")
