@@ -22,7 +22,7 @@ project :
     64bits : true
     new_features_help :
      name : ""
-     internal_properties : BwAAAAcAAABgvNhgpXBDBB5Dg+xZOoHSWtjv3IUQaY6YMpVwYnN2QKG463d+obX7vh5jvNSNkEtsvhD7BaKjmZ+J
+     internal_properties : BwAAAAcAAAA6cuIOs2aZzlwBwSoGqXnamrABgvI8iVIe0kn8ei69oWaj5A6bXW8jVk4zvJ3L0gmqfFYl77i9s+VP
  elements :
   identifier : 0x422def4602f38467
   elements :
@@ -73,6 +73,12 @@ project :
      identifier : 0x42ad83060322a1de
      internal_properties : BwAAAAcAAAC4luA8C7D4IzoBr2aEvtZZSG8HnzqxMkGOvzcDhL5W+hrEGoeeZaEmh7MtiwvFvTOdpQ==
      physical_name : .\wd_lexer_base.wdc
+     type : 4
+   -
+     name : wdFlexBisonBase
+     identifier : 0x42c3c69f08b6224d
+     internal_properties : BwAAAAcAAABDP7vv3ImhuhNAk7xMLU4ndTC8/NMIRZF2AZl18jBavgLuAaEG+iXhYNzGMvLuin5Gzg==
+     physical_name : .\wdFlexBisonBase.wdc
      type : 4
   other_elements : []
   net_assemblies : []

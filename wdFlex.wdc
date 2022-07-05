@@ -16,7 +16,7 @@ class :
    -
      code : |1+
       wdFlex est une Classe
-      	hérite de wd_lexer_base
+      	hérite de wdFlexBisonBase
       	
       	// Remplis durant la phase de compilation
       
@@ -57,16 +57,16 @@ class :
       // Init un tableau a 7 él&ments vide
       :tableau_regle = allouer un tableau de 7 tableaux de wd_lexer_base::RegleDeProductionLex 
       // Init des règles de parsing pour produire le lexer
-      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
-      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
-      _ajoute_règle_production_lex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
-      _ajoute_règle_production_lex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
-      _ajoute_règle_production_lex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
-      _ajoute_règle_production_lex(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
-      _ajoute_règle_production_lex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
-      _ajoute_règle_production_lex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText)  } )
-      _ajoute_règle_production_lex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
-      _ajoute_règle_production_lex(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
+      _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
+      _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ } ) // pas d'options pour l'instant, on ignore tout
+      _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
+      _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
+      _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_BisonnFlex(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_BisonnFlex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
+      _ajoute_règle_BisonnFlex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText)  } )
+      _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
+      _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
      type : 589824
    -
      name : _parse_ligne_regle_flex
@@ -256,15 +256,15 @@ class :
       
       // code pour déclarer les règle de production
       // ex : _ajoute_règle_production( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
-      nombre_etat_max_lexer est un entier =1
+      nombre_etat_max_lexer est un entier = :tab_règle_production_lex.Occurrence()
       code_init_ChaineVersToken est chaine = ChaîneConstruit(":tableau_regle = allouer un tableau de %1 tableaux de wd_compilateur_base::RegleDeProduction " , nombre_etat_max_lexer)
+      code_gestion_sToken est chaine = "" //pour remplacer //%CODE_GESTION_TOKEN%
       token_vers_code_wl est stToken2Code
+      indice_règle est entier = 1
       pour tout token_vers_code_wl de :tab_règle_production_lex
       	param_etat est chaine = "Etat_lexer_tous"
       	chaine_exacte est chaine  = """""" // 2 quotes = chaine vide
       	rexgExp est chaine 		 
-      	// ex :  (yytext; )=>{ m_sCode_Declaration += [RC] + yytext  } )
-      	code_action_lambda est chaine = ChaîneConstruit(" (yytext)=> { %1 }", token_vers_code_wl.code_wl )
       	// si c'est au format "A" => on prend la chaine exacte
       	si token_vers_code_wl.token[1] = """" alors
       		chaine_exacte = token_vers_code_wl.token
@@ -272,14 +272,16 @@ class :
       		rexgExp       = token_vers_code_wl.token
       	fin
       	// construit la chaine finale
-      	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,code_action_lambda )
+      	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,indice_règle )
+      	code_gestion_sToken       += [RC] + chaineconstruit( "\\ %1"+rc+" cas %2 : %3"+rc , token_vers_code_wl.token, indice_règle, token_vers_code_wl.code_wl )
       FIN
       
       code_init_ChaineVersToken_yaml est chaine ANSI = _to_yaml( code_init_ChaineVersToken)
       code_de_travail= Remplace(code_de_travail,"//%CODE_INIT_CHAINEVERSTOKEN%", code_init_ChaineVersToken_yaml)
+      code_de_travail= Remplace(code_de_travail,"//%CODE_GESTION_TOKEN%",       code_gestion_sToken)
       
-      //
-      
+      // OK
+      renvoyer (vrai,code_de_travail,"")
       
       
      type : 458752

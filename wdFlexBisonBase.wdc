@@ -1,0 +1,74 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : wdFlexBisonBase
+ major_version : 27
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x12c3c69f003d223d
+ internal_properties : BwAAAAcAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      // classe de base pour wdBison et wdFlex
+      wdFlexBisonBase est une Classe
+      	hérite de wd_lexer_base
+      	numero_regle_en_déclation est entier // durant la déclaration des règles
+      	
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1352142699347452477
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1352142699347518013
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : _ajoute_règle_BisonnFlex
+     procedure_id : 1352143077304793269
+     type_code : 12
+     code : |1+
+      // ajouter une règle de production intene a wdFlex ou wdBison
+      // pour compilation de .l et des .y
+      PROCÉDURE PROTÉGÉE _ajoute_règle_BisonnFlex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, action est procédure )
+      
+      regle_production est un wd_lexer_base::RegleDeProductionLex
+      regle_production.chaine_exacte	= chaine_exacte
+      regle_production.regexp			= rexgExp
+      regle_production.action			= action
+      regle_production.numero_regle	= :numero_regle_en_déclation++
+      
+      // contruit une regexp pour vérifier que le début du texte match la regexp
+      si rexgExp<>"" alors
+      	regle_production.regexp_debut	=  ChaîneConstruit("(%1).*",rexgExp) // pour vérifier qu'un début de chaine correspond
+      fin
+      
+      tableau_regle[valeur_etat].Ajoute( regle_production )
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BwAAAAcAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x12c3c69a003a0f23
+  internal_properties : BwAAAAcAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BwAAAAcAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
