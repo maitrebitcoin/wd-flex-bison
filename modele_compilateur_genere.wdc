@@ -15,6 +15,14 @@ class :
   p_codes :
    -
      code : |1+
+      // ****************************************************************
+      // compilateur généré par wd-flex-bison 
+      // https://github.com/maitrebitcoin/wd-flex-bison
+      //
+      // ****************************************************************
+      // générateur : %VERSION_LEX_BISON%
+      // date de génération : le %DATE%
+      
       modele_compilateur_genere est une Classe
       	hérite de wd_compilateur_base
       //%CODE_DECLARATION_MEMBRE%
@@ -28,7 +36,7 @@ class :
      code : |1-
       procédure Constructeur()
       
-      //%CODE_INIT_CHAINEVERSTOKEN%
+      //%CODE_INIT_GRAMMAIRE%
      type : 589824
    -
      name : Destructeur

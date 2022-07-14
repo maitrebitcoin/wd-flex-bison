@@ -231,10 +231,7 @@ class :
       // renvoie (vrai, <code WL du lexer>, "") ou (faux, "", <message d'erreur>)
       procédure _genère_code_lexer_apres_compilation(nom_classe_générée est chaine ansi) :  (booléen, chaine ansi, chaine)
       
-      	procédure interne _to_yaml( local code_wl  est une chaîne UNICODE) : chaine ansi
-      		code_yaml_utf8 est chaine ansi =  UnicodeVersAnsi( Remplace( code_wl, RC, rc+"      "), alphabetUTF8) // 6 espace après les Rc pour respecter le format yaml de wd
-      		renvoyer code_yaml_utf8 
-      	FIN
+      
       
       // chargement du code  wl template
       template_code est chaine ansi = fChargeBuffer("..\\modele_lexer_genere.wdc")

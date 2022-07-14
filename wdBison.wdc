@@ -22,12 +22,14 @@ class :
       	règle_en_cours				est RegleDeGrammaireSource dynamique
       	
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
-      	code_wl_declaration			est chaine unicode
+      	code_wl_declaration_membre	est chaine unicode
       	// règles de productions trouvée dans le .y
-      	tab_règle_grammaire			est un tableau de RegleDeGrammaireSource	
+      	tab_règle_grammaire_source	est un tableau de RegleDeGrammaireSource	
       	// token => valeur a déclarer au lexer
       	token_vers_int				est un tableau associatif d'entiers
       	indice_token_pour_déclation est entier
+      	// code  a mettre dans l'init pour déclarer les règles
+      	code_wl_init				est chaîne UNICODE		
       fin
       // Ex:  A ->     A b
       //            |  c
@@ -65,7 +67,7 @@ class :
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ _parse_ligne_option(yytext)} ) // pas d'options pour l'instant, on ignore tout
       _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
-      _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
+      _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration_membre += [RC] + yyText } )
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
@@ -228,7 +230,7 @@ class :
       
       // si on a un regle on l'ajoute au tableau des regles
       si regle_en_cours<>null ALORS
-      	tab_règle_grammaire.Ajoute( regle_en_cours )
+      	tab_règle_grammaire_source.Ajoute( regle_en_cours )
       FIN
       
       règle_en_cours = Null
@@ -266,8 +268,28 @@ class :
      procedure_id : 1351446382068455741
      type_code : 12
      code : |1+
+      // génère les donnée de 
+      // tab_règle_grammaire	est un tableau de RegleDeGrammaire	
+      
       procédure _génere_structure_grammaire()
-      //TODO
+      
+      //regle_source est RegleDeGrammaireSource
+      indice_règle_grammaire	est entier	= 1
+      pour tout regle_source de tab_règle_grammaire_source
+      	// code a a exécuter 
+      	code_wl est chaine = """"+regle_source.code_wl+""""
+      			
+      	// pour tous les cas qui valident cette règle
+      	POUR tout regle_possible de regle_source.tableau_regle	
+      	
+      		// ex : _ajoute_regle_grammaire(1,"addition","+", ""  )
+      		code_init_une_règle est chaine
+      		code_init_une_règle = ChaîneConstruit("_ajoute_regle_grammaire(%1,""%2"",""%3"",%4)", indice_règle_grammaire, regle_source.Nom, regle_possible, code_wl  )
+      		// ajout de toutes les rèkles
+      		:code_wl_init += [RC] + code_wl_init
+      		indice_règle_grammaire++
+      	fin
+      FIN
      type : 458752
    -
      name : _genère_code_bison_apres_compilation
@@ -283,11 +305,21 @@ class :
       	RENVOYER (Faux, "", ErreurInfo())
       FIN
       
-      //  Modifier le nom de la classe
+      // Modifier le nom de la classe
       code_de_travail est une chaîne ANSI = template_code
       code_de_travail = Remplace(code_de_travail, "modele_compilateur_genere", nom_classe_générée)
       
-      // TODO
+      // Init date & n° de version
+      code_de_travail = Remplace(code_de_travail, "%DATE%", DateVersChaîne(DateSys(), maskDateSystème))
+      code_de_travail = Remplace(code_de_travail, "%VERSION_LEX_BISON%", ProjetInfo(piNomProjet) + " " + ExeInfo(exeVersion) )
+      
+      
+      
+      // Mettre le code user de déclaramtion de grammaire
+      code_de_travail = Remplace(code_de_travail, "/%CODE_DECLARATION_MEMBRE%%", _to_yaml(:code_wl_declaration_membre))
+      
+      // Mettre le code d'init pour déclarer les règles de grammaire
+      code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init))
       
       //OK
       renvoyer (vrai, code_de_travail, "" )

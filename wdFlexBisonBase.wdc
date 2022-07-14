@@ -61,6 +61,17 @@ class :
       
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
+   -
+     name : _to_yaml
+     procedure_id : 1355640739753991409
+     type_code : 12
+     code : |1-
+      // convestion d'un chaine de code WL en ce qu'il faut mettre dans un fichier au format "texte" .wdc
+      PROCÉDURE _to_yaml( LOCAL code_wl  est une chaîne UNICODE) : chaîne ANSI
+      
+      code_yaml_utf8 est chaîne ANSI =  UnicodeVersAnsi( Remplace( code_wl, RC, RC+"      "), alphabetUTF8) // 6 espace après les Rc pour respecter le format yaml de wd
+      RENVOYER code_yaml_utf8 
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :

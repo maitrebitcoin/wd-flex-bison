@@ -49,7 +49,6 @@ class :
      type_code : 27
      code : |1+
       procédure Constructeur()
-      
      type : 589824
    -
      name : Destructeur
@@ -59,11 +58,29 @@ class :
       procédure Destructeur()
      type : 655360
    -
+     name : _ajoute_regle_grammaire
+     procedure_id : 1355635959454801733
+     type_code : 12
+     code : |1+
+      // appelé par la classe générée pour déclarer les règles de grammaires 
+      procédure PROTÉGÉE _ajoute_regle_grammaire( nom chaine, indice est un entier, liste_indices_token est une chaîne, code_wl_source est chaine )
+      dbgAssertion(nom<>"")
+      dbgAssertion(indice>0)
+      
+      nouvelle_règle est RegleDeGrammaire 
+      nouvelle_règle.indice			   = indice
+      nouvelle_règle.nom 				   = nom
+      nouvelle_règle.liste_indices_token = liste_indices_token
+      nouvelle_règle.code_wl			   = code_wl_source
+      :tab_règle_grammaire.Ajoute(nouvelle_règle)
+     type : 458752
+   -
      name : _compile_chaine
      procedure_id : 1349920938546689978
      type_code : 12
      code : |1-
-      PROCÉDURE _compile_chaine( source_a_compiler est chaîne UNICODE, lexer est un modele_lexer_genere) : booléen
+      // point d'entrée interne du compilateur généré
+      PROCÉDURE protégée _compile_chaine( source_a_compiler est chaîne UNICODE, lexer est un modele_lexer_genere) : booléen
       
       // pile des token en attende de pouvoir générer une règle valide (= faire un reduce)
       pile_token est chaine	
