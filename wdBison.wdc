@@ -262,11 +262,11 @@ class :
       renvoyer (vrai,"")
      type : 458752
    -
-     name : _génere_structure_grmmaire
+     name : _génere_structure_grammaire
      procedure_id : 1351446382068455741
      type_code : 12
      code : |1+
-      procédure _génere_structure_grmmaire()
+      procédure _génere_structure_grammaire()
       //TODO
      type : 458752
    -
@@ -353,7 +353,7 @@ class :
       	RENVOYER (Faux, message_erreur)
       FIN
       // génération des structure internes
-      _génere_structure_grmmaire()
+      _génere_structure_grammaire()
       
       // compilation du ficher .l
       nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire+fFichier)+"_lex" + fExtraitChemin(nom_fichier_dest,fExtension)
