@@ -117,7 +117,7 @@ class :
       
       procédure interne _déclareToken(nom)
       	:token_int_vers_nom[indice_token_pour_déclation ] = nom
-      	:token_int_vers_nom[nom ] = indice_token_pour_déclation
+      	:token_nom_vers_int[nom ] = indice_token_pour_déclation
       	indice_token_pour_déclation ++
       fin
       
