@@ -286,7 +286,7 @@ class :
       		code_init_une_règle est chaine
       		code_init_une_règle = ChaîneConstruit("_ajoute_regle_grammaire(%1,""%2"",""%3"",%4)", indice_règle_grammaire, regle_source.Nom, regle_possible, code_wl  )
       		// ajout de toutes les rèkles
-      		:code_wl_init += [RC] + code_wl_init
+      		:code_wl_init += [RC] + code_init_une_règle
       		indice_règle_grammaire++
       	fin
       FIN
