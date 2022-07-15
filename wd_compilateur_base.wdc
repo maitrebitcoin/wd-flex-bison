@@ -63,7 +63,7 @@ class :
      type_code : 12
      code : |1+
       // appelé par la classe générée pour déclarer les règles de grammaires 
-      procédure PROTÉGÉE _ajoute_regle_grammaire( nom chaine, indice est un entier, liste_indices_token est une chaîne, code_a_executer est chaine )
+      procédure PROTÉGÉE _ajoute_regle_grammaire( nom chaine, indice est un entier, liste_indices_token est une chaîne, code_a_executer est procédure )
       dbgAssertion(nom<>"")
       dbgAssertion(indice>0)
       

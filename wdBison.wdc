@@ -351,7 +351,8 @@ class :
       	POUR tout element_regle de regle_source.tableau_element_regle	
       		
       		// code a a exécuter 
-      		code_wl_source est chaine = """"+element_regle.code_wl+""""		
+      		code_wl_source est chaine = element_regle.code_wl
+      	
       		// construire les règles a suivre
       		regle_possible_format_chaine est chaine=""
       		sous_element_regle est SousElementRegle
@@ -359,7 +360,7 @@ class :
       			regle_possible_format_chaine += [","] + sous_element_regle.indice
       		FIN
       		// code exécuté a chaque réduction
-      		code_wl_gestion_regle est chaine =  ChaîneConstruit( "[]=>{ %1 }" , code_wl_source )
+      		code_wl_gestion_regle est chaine =  ChaîneConstruit( "()=>{ %1 }" , code_wl_source )
       		
       		// ex : _ajoute_regle_grammaire(1,"addition","+", ""  )
       		code_init_une_règle est chaine
