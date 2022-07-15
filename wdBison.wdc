@@ -80,10 +80,10 @@ class :
       :tableau_regle = allouer un tableau de 7 tableaux de wd_lexer_base::RegleDeProductionLex
       // Init des règles de parsing pour produire le lexer
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%{","",     (yyText)=>{ _changeState(Declaration_CodeUser) } )
+      _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "",".*",     (yyText)=>{ _parse_ligne_option(yytext)} ) // pas d'options pour l'instant, on ignore tout
       _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Declaration_SymboleEtOption) } )
       _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration_membre += [RC] + yyText } )
-      _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
       _ajoute_règle_BisonnFlex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_bison(yyText)  } )
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
@@ -113,6 +113,13 @@ class :
       //ex:
       //%token T_NEWLINE T_QUIT
       procédure _parse_ligne_option(ligne_option est chaine)
+      
+      
+      procédure interne _déclareToken(nom)
+      	:token_int_vers_nom[indice_token_pour_déclation ] = nom
+      	:token_int_vers_nom[nom ] = indice_token_pour_déclation
+      	indice_token_pour_déclation ++
+      fin
       
       si ChaîneCommencePar(ligne_option,"%token ") ALORS
       	suite_ligne_option est chaine = milieu(ligne_option,8)
