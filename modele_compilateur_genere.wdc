@@ -69,8 +69,6 @@ class :
       FIN
       // OK
       renvoyer (vrai,"")
-      
-      
      type : 458752
   procedure_templates : []
   property_templates : []

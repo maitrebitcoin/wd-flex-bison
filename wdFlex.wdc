@@ -144,7 +144,7 @@ class :
      code : |1+
       // génération d'une classe WL lexer sur le disque
       // renvoie (vrai,"") ou (faux,<message d'erreur>)
-      procédure génère_lexer(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine, token_vers_int est un tableau associatif d'entiers) : (booléen, chaine)
+      procédure génère_lexer(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine, token_nom_vers_int est un tableau associatif d'entiers) : (booléen, chaine)
       
       // chargement du fichier .l
       source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_lex)
@@ -167,7 +167,7 @@ class :
       // CONSTANT T_PLUS=257
       // CONSTANT T_MINUS=258Z
       :code_wl_declaration_token=""
-      POUR TOUT valeur_token,nomToken DE token_vers_int
+      POUR TOUT valeur_token,nomToken DE token_nom_vers_int
       	:code_wl_declaration_token += [RC]+"CONSTANT " + nomToken+"=" + valeur_token
       FIN
       

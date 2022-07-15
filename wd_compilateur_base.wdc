@@ -38,8 +38,8 @@ class :
       	Nom				est chaine
       	// liste des indice de token pour  séparé par ","
       	liste_indices_token est chaine
-      	// code WL a exécuter lors
-      	code_wl			est chaine
+      	// code a exécuter lors de la réduction
+      	code_a_executer est une procédure
       FIN
      type : 131072
   procedures :
@@ -63,7 +63,7 @@ class :
      type_code : 12
      code : |1+
       // appelé par la classe générée pour déclarer les règles de grammaires 
-      procédure PROTÉGÉE _ajoute_regle_grammaire( nom chaine, indice est un entier, liste_indices_token est une chaîne, code_wl_source est chaine )
+      procédure PROTÉGÉE _ajoute_regle_grammaire( nom chaine, indice est un entier, liste_indices_token est une chaîne, code_a_executer est chaine )
       dbgAssertion(nom<>"")
       dbgAssertion(indice>0)
       
@@ -71,7 +71,7 @@ class :
       nouvelle_règle.indice			   = indice
       nouvelle_règle.nom 				   = nom
       nouvelle_règle.liste_indices_token = liste_indices_token
-      nouvelle_règle.code_wl			   = code_wl_source
+      nouvelle_règle.code_a_executer	  = code_a_executer
       :tab_règle_grammaire.Ajoute(nouvelle_règle)
      type : 458752
    -
