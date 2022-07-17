@@ -389,7 +389,7 @@ class :
      procedure_id : 1352147977867092570
      type_code : 12
      code : |1-
-      procédure _genère_code_bison_apres_compilation(nom_classe_générée est chaîne ANSI) :  (booléen, chaîne ANSI, chaîne)
+      procédure _genère_code_bison_apres_compilation(nom_classe_principale_générée est chaîne ANSI, nom_classe_lex_générée est chaine ansi) :  (booléen, chaîne ANSI, chaîne)
       
       // chargement du code  wl template
       template_code est chaîne ANSI = fChargeBuffer("..\\modele_compilateur_genere.wdc")
@@ -400,19 +400,16 @@ class :
       
       // Modifier le nom de la classe
       code_de_travail est une chaîne ANSI = template_code
-      code_de_travail = Remplace(code_de_travail, "modele_compilateur_genere", nom_classe_générée)
-      
+      code_de_travail = Remplace(code_de_travail, "modele_compilateur_genere", nom_classe_principale_générée)
       // Init date & n° de version
       code_de_travail = Remplace(code_de_travail, "%DATE%", DateVersChaîne(DateSys(), maskDateSystème))
       code_de_travail = Remplace(code_de_travail, "%VERSION_LEX_BISON%", ProjetInfo(piNomProjet) + " " + ExeInfo(exeVersion) )
-      
-      
-      
       // Mettre le code user de déclaramtion de grammaire
       code_de_travail = Remplace(code_de_travail, "/%CODE_DECLARATION_MEMBRE%%", _to_yaml(:code_wl_declaration_membre))
-      
       // Mettre le code d'init pour déclarer les règles de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init))
+      // remplacement du nom de la classe lexer a utiliser
+      code_de_travail = Remplace(code_de_travail, "modele_lexer_genere", nom_classe_lex_générée)
       
       //OK
       renvoyer (vrai, code_de_travail, "" )
@@ -422,7 +419,7 @@ class :
      procedure_id : 1351446540982348307
      type_code : 12
      code : |1+
-      procédure _genére_code_wl(nom_fichier_dest)
+      procédure _genére_code_wl(nom_fichier_dest,nom_classe_lex)
       
       dbgAssertion(nom_fichier_dest<>"")
       
@@ -434,7 +431,7 @@ class :
       ok					est un booléen
       code_wl_résultat	est une chaîne ANSI
       message_erreur		est chaîne
-      (ok,code_wl_résultat,message_erreur) = _genère_code_bison_apres_compilation(nom_classe_générée)
+      (ok,code_wl_résultat,message_erreur) = _genère_code_bison_apres_compilation(nom_classe_générée,nom_classe_lex)
       SI PAS ok ALORS
       	// erreur
       	RENVOYER (Faux, message_erreur)
@@ -481,7 +478,8 @@ class :
       _génere_structure_grammaire()
       
       // compilation du ficher .l
-      nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire+fFichier)+"_lex" + fExtraitChemin(nom_fichier_dest,fExtension)
+      nom_classe_lex est chaine =  fExtraitChemin(nom_fichier_dest,fFichier)+"_lex"
+      nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)+ nom_classe_lex + fExtraitChemin(nom_fichier_dest,fExtension)
       flex est un wdFlex
       (ok,message_erreur) = flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_nom_vers_int)
       SI PAS ok ALORS
@@ -490,7 +488,7 @@ class :
       FIN	
       
       // génération de la classe "compilateur" sur disque
-      (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
+      (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest,nom_classe_lex)
       SI PAS ok ALORS
       	// erreur
       	RENVOYER (Faux, message_erreur)

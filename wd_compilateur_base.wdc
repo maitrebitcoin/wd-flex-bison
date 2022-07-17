@@ -80,7 +80,7 @@ class :
      type_code : 12
      code : |1-
       // point d'entrée interne du compilateur généré
-      PROCÉDURE protégée _compile_chaine( source_a_compiler est chaîne UNICODE, lexer est un modele_lexer_genere) : booléen
+      PROCÉDURE protégée _compile_chaine( source_a_compiler est chaîne UNICODE, lexer est un wd_lexer_base) : booléen
       
       // pile des token en attende de pouvoir générer une règle valide (= faire un reduce)
       pile_token est chaine	

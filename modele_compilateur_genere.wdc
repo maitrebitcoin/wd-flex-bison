@@ -54,12 +54,12 @@ class :
       // renvoie 
       //  (vrai,"") en cas de succès. 
       //  (faux,"message d'erreur") en cas d'erreur
-      PROCÉDURE compile(source_a_compiler est chaine UNICODE) : (booléen, chaine)
+      PROCÉDURE compile(local source_a_compiler est chaine UNICODE) : (booléen, chaine)
       
       //%CODE_AVANT_COMPILE%
       
       // Init lexe
-       lexer est un modele_lexer_genere // << Nom de classe remplacé ici
+      lexer est un modele_lexer_genere // << Nom de classe remplacé ici
       
       // rebond sur la méthode protégée de la classe de base
       ok est un booléen =	 _compile_chaine(source_a_compiler,lexer)
