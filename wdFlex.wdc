@@ -245,10 +245,9 @@ class :
       code_de_travail = Remplace(code_de_travail, "modele_lexer_genere", nom_classe_générée)
       
       // Insérer le code user de déclaration
-      code_wl_declaration_yaml est chaine ansi = _to_yaml( :code_wl_declaration )
-      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", code_wl_declaration_yaml)
+      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", _to_yaml( :code_wl_declaration ))
       // Insérer le  code de déclaration des tokens
-      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_TOKEN%", code_wl_declaration_token)
+      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_TOKEN%", _to_yaml(:code_wl_declaration_token))
       
       
       // code pour déclarer les règle de production
