@@ -235,7 +235,7 @@ class :
       // enlever les {} autour du code 
       SI code_wl_user<>"" alors
       	SI code_wl_user.Droite(1)="}" ALORS
-      		code_wl_user = Milieu(code_wl_user,2,Taille(code_wl_user)-2)
+      		code_wl_user = Milieu(code_wl_user,1,Taille(code_wl_user)-1)
       	sinon
       		_erreur( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "}") )
       	FIN
@@ -360,7 +360,18 @@ class :
       			regle_possible_format_chaine += [","] + sous_element_regle.indice
       		FIN
       		// code exécuté a chaque réduction
-      		code_wl_gestion_regle est chaine =  ChaîneConstruit( "()=>{ %1 }" , code_wl_source )
+      		// remplacer $$ et $1, $2, etc
+      		code_wl_source = Remplace(code_wl_source,"$$","RETOUR")
+      		numero_parametre est entier =1
+      		code_pararmètre est chaine
+      		POUR TOUT sous_element_regle DE element_regle.tableau_sous_element_regle
+      			nom_paramètre est chaine = "_P"+numero_parametre // ex : "_P1"
+      			code_pararmètre += [","] + nom_paramètre
+      			code_wl_source = Remplace(code_wl_source,"$"+numero_parametre,nom_paramètre)
+      			numero_parametre++
+      		FIN
+      	 
+      		code_wl_gestion_regle est chaine =  ChaîneConstruit( "(%1)=>{%2}" , code_pararmètre, code_wl_source )
       		
       		// ex : _ajoute_regle_grammaire(1,"addition","+", ""  )
       		code_init_une_règle est chaine
