@@ -121,7 +121,7 @@ class :
       		Trace( valeur_token_courant + tab + m_lexer:yytext + TAB + m_lexer:numéro_ligne_en_cours)
       	FIN	
       	// on calcule ce qu'on doit faire avec ce token
-      	action_token est EActionSurToken 
+      	action_token est EActionSurToken  
       	numero_regle_reduce est entier
       	(action_token,numero_regle_reduce)= _calcule_action_token(valeur_token_courant, pile_token)
       	selon action_token 
@@ -129,6 +129,11 @@ class :
       			// compilation terminée en erreur
       			RENVOYER Faux		
       		cas Shift	
+      			niveau_shifr est NiveauPile
+      			niveau_shifr.numero_règle	= valeur_token_courant
+      			niveau_shifr.valeur_user	= m_lexer:yytext
+      			Empile(  pile_compilation, niveau_shifr)
+      			
       			// lire le token suivant		
       			CONTINUE 
       		cas EndCompile
@@ -140,7 +145,9 @@ class :
       			P1 est variant 
       			Dépile(  pile_compilation, P1)
       			niveau_courant est NiveauPile
-      			niveau_courant.valeur_user =	tab_règle_grammaire[numero_regle_reduce].code_a_executer( P1 )
+      			niveau_courant.numero_règle = numero_regle_reduce
+      			niveau_courant.valeur_user  = tab_règle_grammaire[numero_regle_reduce].code_a_executer( P1 )
+      			Empile(  pile_compilation, niveau_courant)
       			
       	FIN
       	
