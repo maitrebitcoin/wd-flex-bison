@@ -129,10 +129,10 @@ class :
       			// compilation terminée en erreur
       			RENVOYER Faux		
       		cas Shift	
-      			niveau_shifr est NiveauPile
-      			niveau_shifr.numero_règle	= valeur_token_courant
-      			niveau_shifr.valeur_user	= m_lexer:yytext
-      			Empile(  pile_compilation, niveau_shifr)
+      			niveau_shift est NiveauPile
+      			niveau_shift.numero_règle	= valeur_token_courant
+      			niveau_shift.valeur_user	= m_lexer:yytext
+      			Empile(  pile_compilation, niveau_shift)
       			
       			// lire le token suivant		
       			CONTINUE 
