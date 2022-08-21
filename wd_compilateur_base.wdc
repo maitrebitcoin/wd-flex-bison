@@ -23,6 +23,8 @@ class :
       	tab_règle_grammaire	est un tableau de RegleDeGrammaire		
       	// pile de compilation
       	pile_compilation est une pile de NiveauPile
+      	// "" si tout est ok ou erreur en cours
+      	dernière_erreur	est chaine		
       fin
       
       CONSTANT TOKEN_EOF   = -1 // fin de fichier
@@ -42,6 +44,8 @@ class :
       	liste_indices_token est chaine
       	// code a exécuter lors de la réduction
       	code_a_executer est une procédure
+      	// nombre de paramètres
+      	nombre_de_paramètre est un entier
       FIN
       NiveauPile est une structure
       	// n° de la règle
@@ -49,6 +53,7 @@ class :
       	// valeur de $$
       	valeur_user est variant
       fin
+      constant SYNTAX_ERROR = <§R13025f3000e43747¤fr-FR¤Erreur de syntaxe : %1§>
      type : 131072
   procedures :
    -
@@ -79,7 +84,8 @@ class :
       nouvelle_règle.numero_règle		   = numero_règle
       nouvelle_règle.nom 				   = nom
       nouvelle_règle.liste_indices_token = liste_indices_token
-      nouvelle_règle.code_a_executer	  = code_a_executer
+      nouvelle_règle.nombre_de_paramètre = ChaîneOccurrence(liste_indices_token,",") + 1
+      nouvelle_règle.code_a_executer	   = code_a_executer
       :tab_règle_grammaire.Ajoute(nouvelle_règle)
      type : 458752
    -
@@ -105,7 +111,7 @@ class :
       	// si c'est la fin du fichier
       	SI valeur_token_courant = TOKEN_EOF  ALORS
       		// erreur de la compilation
-      		_erreur(<§R12ba93c90093b02d¤fr-FR¤Il manque la fin§>)
+      		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, <§R12ba93c90093b02d¤fr-FR¤Il manque la fin§>))
       		renvoyer faux
       	FIN
       	// si on a trouvé aucune règle de production valide
@@ -113,7 +119,7 @@ class :
       		// erreur de compilation
       		text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
       		chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)			
-      		_erreur( ChaîneConstruit(<§R12ba93d30094d5f5¤fr-FR¤Erreur de syntaxe : %1§>, chaine_restante ) )
+      		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, chaine_restante) )
       		RENVOYER Faux		
       	FIN
       	SI en_mode_debug ALORS
@@ -127,6 +133,9 @@ class :
       	selon action_token 
       		cas ErrorCompile 
       			// compilation terminée en erreur
+      			text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
+      			chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)		
+      			_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, chaine_restante) )
       			RENVOYER Faux		
       		cas Shift	
       			niveau_shift est NiveauPile
@@ -140,13 +149,38 @@ class :
       			// compilation terminée OK
       			renvoyer vrai
       		cas Reduce		
+      			// push du paramètre en cours
+      			niveau_local est NiveauPile
+      			niveau_local.numero_règle	= valeur_token_courant
+      			niveau_local.valeur_user	= m_lexer:yytext
+      			Empile(  pile_compilation, niveau_local)
+      			// récup de la règle de réduction 
+      			regle_reduce est RegleDeGrammaire dynamique = tab_règle_grammaire[numero_regle_reduce]
+      			// nombre de paramètre
+      			nbParamètre est entier = regle_reduce.nombre_de_paramètre
+      			
       			// regroupe les token
       			// exécuter l'action de la règle numero_regle_reduce
-      			P1 est variant 
-      			Dépile(  pile_compilation, P1)
+      			
+      			// récupération des paramètres dans la pile
+      			TableauDesParametres est un tableau de variant 
+      			pour i = 1 _a_ nbParamètre
+      				niveau_pile_i est NiveauPile
+      				Dépile(  pile_compilation, niveau_pile_i )
+      				TableauDesParametres.Ajoute(niveau_pile_i.valeur_user)
+      			fin//I
       			niveau_courant est NiveauPile
       			niveau_courant.numero_règle = numero_regle_reduce
-      			niveau_courant.valeur_user  = tab_règle_grammaire[numero_regle_reduce].code_a_executer( P1 )
+      			selon nbParamètre
+      				CAS 1
+      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1] )			
+      				CAS 2
+      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
+      				CAS 3
+      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
+      				AUTRE CAS
+      					dbgAssertion(faux,"A coder")	
+      			FIN
       			Empile(  pile_compilation, niveau_courant)
       			
       	FIN
@@ -193,16 +227,16 @@ class :
       RENVOYER (Shift,0)
      type : 458752
    -
-     name : _erreur
+     name : _erreur_de_compilation
      procedure_id : 1349920938546821050
      type_code : 12
      code : |1+
       // lever une erreur de compilation
-      procédure _erreur( message_erreur est chaine)
+      procédure _erreur_de_compilation( message_erreur est chaine)
       
       text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
       chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)		
-      m_lexer:_erreur( ChaîneConstruit("ligne %1: %2"+rc+ "%3" , m_lexer:numéro_ligne_en_cours,text_ligne_courante, message_erreur ) )
+      :dernière_erreur = ChaîneConstruit("ligne %1: %2"+rc+ "%3" , m_lexer:numéro_ligne_en_cours, text_ligne_courante, message_erreur ) 
      type : 458752
    -
      name : get_texte_erreur
@@ -211,7 +245,13 @@ class :
      code : |1+
       // renvoie le texte de la dernière erreur
       procédure get_texte_erreur() : chaîne
-      renvoyer m_lexer:m_sErreur
+      // si on a une erreur de comilation
+      si :dernière_erreur<>"" ALORS
+      	renvoyer :dernière_erreur
+      FIN
+      
+      // erreur du lexer
+      renvoyer m_lexer:dernière_erreur_lex
      type : 458752
   procedure_templates : []
   property_templates : []

@@ -31,7 +31,7 @@ class :
       	// règle qui a produit ce  token (poru debug)
       	règle_lex_en_cours est RegleDeProductionLex dynamique
       	// "" si tout est  ok ou erreur en cours
-      	m_sErreur	est chaine	
+      	dernière_erreur_lex	est chaine	
       	
       
       	// valeur de l'état courant pour les lexer avec des états
@@ -221,8 +221,8 @@ class :
       	// si on a trouvé aucune règle de production valide
       	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
-      		m_sErreur = ChaîneConstruit( <§R12ad88bb0018eb30¤fr-FR¤Erreur de syntaxe a ligne %1.\nLigne **%2** invalide.§>, numéro_ligne_en_cours, texte_ligne_en_cours ) 
-      		RENVOYER (Faux, m_sErreur)
+      		dernière_erreur_lex = ChaîneConstruit( <§R12ad88bb0018eb30¤fr-FR¤Erreur de syntaxe a ligne %1.\nLigne **%2** invalide.§>, numéro_ligne_en_cours, texte_ligne_en_cours ) 
+      		RENVOYER (Faux, dernière_erreur_lex)
       	FIN
       	si en_mode_debug alors
       		trace( règle_a_exécuter.règle.numero_regle + ":" + :etat_courant_lexer+ ":"   + règle_a_exécuter.token )
@@ -234,48 +234,6 @@ class :
       
       // succès de la compilation
       RENVOYER (Vrai,"")
-      
-      
-     type : 458752
-   -
-     name : _compile_OBOSOLETE
-     procedure_id : 1349545850453780476
-     type_code : 12
-     code : |1+
-      // compilation d'un texte 
-      // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
-      PROCÉDURE PROTÉGÉE _compile_OBOSOLETE(source_a_compiler est chaine) : (booléen, chaine)
-      
-      // init de source_découpée_en_ligne
-      ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
-      // commence au début
-      :numéro_ligne_en_cours  = 1
-      :numéro_colonne_en_cours =1
-      
-      boucle
-      	// recherche d'une règle valide sur <ligne_en_cours>
-      	soit règle_a_exécuter <- donne_token_suivant()
-      	// si c'est la fin
-      	si règle_a_exécuter.est_terminé ALORS
-      		// succès de la compilation
-      		RENVOYER (Vrai, "")
-      	FIN
-      	// si on a trouvé aucune règle de production valide
-      	SI règle_a_exécuter.règle = Null ALORS
-      		// erreur de compilation
-      		text_ligne_courante	est chaine	= :source_découpée_en_ligne[:numéro_ligne_en_cours]
-      		chaine_restante		est chaine	= Milieu( text_ligne_courante, :numéro_colonne_en_cours)		
-      		m_sErreur = ChaîneConstruit( <§R12add3ab001fa452¤fr-FR¤Erreur de syntaxe a ligne %1.\n**%2** est une suite de caractères invalide.§>, numéro_ligne_en_cours, chaine_restante ) 
-      		RENVOYER (Faux, m_sErreur)
-      	FIN
-      	SI en_mode_debug ALORS
-      		// trace chaque token
-      		Trace( règle_a_exécuter.règle.numero_regle + ":" + :etat_courant_lexer+ ":"   + règle_a_exécuter.token + tab + numéro_ligne_en_cours)
-      	FIN	
-      	// on exécute l'action associée a la règle
-      	règle_a_exécuter.règle.action( règle_a_exécuter.token )
-      
-      fin
      type : 458752
    -
      name : donne_token_suivant
@@ -324,7 +282,7 @@ class :
      name : _erreur
      procedure_id : 1349545850453911548
      type_code : 12
-     code : |1-
+     code : |1+
       // appelée en car d'erreur de syntaxe
       PROCÉDURE _erreur( texte_erreur est chaine) 
       
@@ -332,6 +290,7 @@ class :
       message_complet est chaine = "Erreur a la ligne " + :numéro_ligne_en_cours + rc + texte_erreur
       
       ExceptionDéclenche(Erreur_compilation,message_complet)
+      
      type : 458752
   procedure_templates : []
   property_templates : []
