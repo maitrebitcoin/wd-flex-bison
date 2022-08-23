@@ -98,7 +98,14 @@ class :
       
       // pile des token en attende de pouvoir générer une règle valide (= faire un reduce)
       pile_token est chaine	
-      yyline est entier
+      ligne_encours est entier // yylineno dans flex
+      colonne_encours est entier
+      	procédure interne _erreur_de_syntaxe()
+      		text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[ligne_encours]
+      		chaine_restante		est chaîne	= Milieu( text_ligne_courante,colonne_encours)		
+      		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, chaine_restante) )
+      	FIN
+      
       // Init lexer
       m_lexer <- lexer 
       m_lexer.set_source(source_a_compiler)
@@ -106,7 +113,8 @@ class :
       
       BOUCLE
       	// récupération du token suivant 
-      	yyline = m_lexer:numéro_ligne_en_cours
+      	ligne_encours   = m_lexer:numéro_ligne_en_cours
+      	colonne_encours = m_lexer:numéro_colonne_en_cours
       	valeur_token_courant est entier =  m_lexer.token_suivant()
       	// si c'est la fin du fichier
       	SI valeur_token_courant = TOKEN_EOF  ALORS
@@ -117,9 +125,7 @@ class :
       	// si on a trouvé aucune règle de production valide
       	SI valeur_token_courant = ::TOKEN_AUCUN ALORS
       		// erreur de compilation
-      		text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
-      		chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)			
-      		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, chaine_restante) )
+      		_erreur_de_syntaxe()
       		RENVOYER Faux		
       	FIN
       	SI en_mode_debug ALORS
@@ -133,9 +139,7 @@ class :
       	selon action_token 
       		cas ErrorCompile 
       			// compilation terminée en erreur
-      			text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
-      			chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)		
-      			_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, chaine_restante) )
+      			_erreur_de_syntaxe()
       			RENVOYER Faux		
       		cas Shift	
       			niveau_shift est NiveauPile
@@ -248,6 +252,7 @@ class :
       // si on a une erreur de comilation
       si :dernière_erreur<>"" ALORS
       	renvoyer :dernière_erreur
+      	
       FIN
       
       // erreur du lexer
