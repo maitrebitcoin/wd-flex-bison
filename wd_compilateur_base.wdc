@@ -186,6 +186,8 @@ class :
       					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
       				CAS 5
       					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
+      				CAS 6
+      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
       				AUTRE CAS
       					dbgAssertion(faux,"A coder")	
       			FIN
@@ -230,6 +232,7 @@ class :
       	// erreur de grammaire
       	renvoyer (ErrorCompile,0)
       FIN
+      
       
       
       RENVOYER (Shift,0)
