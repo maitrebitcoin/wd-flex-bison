@@ -128,10 +128,10 @@ class :
       		_erreur_de_syntaxe()
       		RENVOYER Faux		
       	FIN
-      	SI en_mode_debug ALORS
-      		// trace chaque token
-      		Trace( valeur_token_courant + tab + m_lexer:yytext + TAB + m_lexer:numéro_ligne_en_cours)
-      	FIN	
+      //	SI en_mode_debug ALORS
+      //		// trace chaque token
+      //		Trace( m_lexer:yytext + ":" + m_lexer.dump_token(valeur_token_courant) + " - ligne " + m_lexer:numéro_ligne_en_cours)
+      //	FIN	
       	// on calcule ce qu'on doit faire avec ce token
       	action_token est EActionSurToken  
       	numero_regle_reduce est entier

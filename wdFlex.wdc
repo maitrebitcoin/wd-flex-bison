@@ -26,7 +26,8 @@ class :
       	code_wl_declaration_token est une chaîne 
       	// règles de productions pour le lexer
       	tab_règle_production_lex est un tableau de stToken2Code
-      	
+      
+      	nom_fichier_source est chaine
       fin
       EEtat est un enumeration
       	Tout_Etat					= 1 
@@ -44,6 +45,9 @@ class :
       	token		est chaine		
       	// code WL a produire
       	code_wl		est chaine
+      	// chaine source + n° de ligne (en mode debug)
+      	numligne_source est un entier
+      	code_source est chaine
       FIN
      type : 131072
   procedures :
@@ -64,7 +68,7 @@ class :
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
-      _ajoute_règle_BisonnFlex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText)  } )
+      _ajoute_règle_BisonnFlex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText, yyline)  } )
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
      type : 589824
@@ -76,12 +80,13 @@ class :
       // analyser une règle de production du lexer
       // ex: 
       // {blanks}        { /* ignore */ }
-      procédure  _parse_ligne_regle_flex(ligne est chaine) 
+      procédure  _parse_ligne_regle_flex(ligne_source est chaine, numero_de_ligne est entier) 
+      dbgAssertion(numero_de_ligne>0)
       
       // ignorer les lignes vides
-      si ligne="" ALORS retour
+      si ligne_source="" ALORS retour
       
-      ligne_sans_tab est chaine = remplace(ligne,TAB," ") // TAB ou " " sont équivalents
+      ligne_sans_tab est chaine = remplace(ligne_source,TAB," ") // TAB ou " " sont équivalents
       
       // recherche de la position de fin de la regexp
       pos_fin_rexp est entier
@@ -126,8 +131,10 @@ class :
       
       // ajoute a la table
       stInfo est un stToken2Code
-      stInfo.token    = expression_gauche
-      stInfo.code_wl  = code_wl_user
+      stInfo.token   		    = expression_gauche
+      stInfo.code_wl  		= code_wl_user
+      stInfo.numligne_source  = numero_de_ligne
+      stInfo.code_source	    = ligne_source
       tab_règle_production_lex.Ajoute(stInfo)
      type : 458752
    -
@@ -145,6 +152,9 @@ class :
       // génération d'une classe WL lexer sur le disque
       // renvoie (vrai,"") ou (faux,<message d'erreur>)
       procédure génère_lexer(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine, token_nom_vers_int est un tableau associatif d'entiers) : (booléen, chaine)
+      
+      // noter le nom fichier source pour debug
+      :nom_fichier_source  = nom_fichier_source_lex
       
       // chargement du fichier .l
       source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_lex)
@@ -253,7 +263,8 @@ class :
       // code pour déclarer les règle de production
       // ex : _ajoute_règle_production( STATE,  "%{","",  ()=> { _changeState(Declaration_CodeUser) } )
       nombre_etat_max_lexer est un entier = :tab_règle_production_lex.Occurrence()
-      code_init_ChaineVersToken est chaine = ChaîneConstruit(":tableau_regle = allouer un tableau de %1 tableaux de wd_lexer_base::RegleDeProductionLex " , nombre_etat_max_lexer)
+      code_init_ChaineVersToken est chaine = "// source : """ + :nom_fichier_source + """" + rc
+      code_init_ChaineVersToken           += ChaîneConstruit(":tableau_regle = allouer un tableau de %1 tableaux de wd_lexer_base::RegleDeProductionLex " , nombre_etat_max_lexer)
       code_gestion_token est chaine = rc //pour remplacer //%CODE_GESTION_TOKEN%
       token_vers_code_wl est stToken2Code
       indice_règle est entier = 1
@@ -267,8 +278,14 @@ class :
       	sinon
       		rexgExp       = token_vers_code_wl.token
       	fin
+      	dbgAssertion(token_vers_code_wl.numligne_source>0)
+      	source_dump est chaine =  :nom_fichier_source + ":" + token_vers_code_wl.numligne_source
+      	SI :en_mode_debug ALORS
+      		source_dump += " "  + remplace(:source_découpée_en_ligne[token_vers_code_wl.numligne_source] ,"""","") // pas de " dans le dump
+      	FIN
+      
       	// construit la chaine finale
-      	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4 )", param_etat,chaine_exacte,rexgExp,indice_règle )
+      	code_init_ChaineVersToken += [RC] + chaineconstruit( "_ajoute_règle_production_lex( %1,%2,""%3"", %4, ""%5"" )", param_etat,chaine_exacte,rexgExp,indice_règle, source_dump )
       	code_gestion_token       +=  chaineconstruit( tab+ "// %1"+rc+tab+tab+" cas %2 : %3"+rc , token_vers_code_wl.token, indice_règle, token_vers_code_wl.code_wl )
       	indice_règle++
       FIN

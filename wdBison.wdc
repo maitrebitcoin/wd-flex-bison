@@ -481,6 +481,7 @@ class :
       nom_classe_lex est chaine =  fExtraitChemin(nom_fichier_dest,fFichier)+"_lex"
       nom_fichier_dest_lex est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)+ nom_classe_lex + fExtraitChemin(nom_fichier_dest,fExtension)
       flex est un wdFlex
+      flex:en_mode_debug = :en_mode_debug
       (ok,message_erreur) = flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_nom_vers_int)
       SI PAS ok ALORS
       	// erreur

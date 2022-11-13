@@ -20,6 +20,7 @@ class :
       	// toutes les règles de production du lexer selon les l'état courant
       	tableau_regle est un tableau dynamique de tableaux de RegleDeProductionLex
       
+      
       	// -- Variables d'état durant la compilation
       	
       	source_découpée_en_ligne est un tableau de chaînes UNICODE
@@ -28,6 +29,7 @@ class :
       	numéro_colonne_en_cours	est un entier
       	// valeur texte du dernier token trouvé
       	yytext est une chaîne
+      	yyline est un entier
       	// règle qui a produit ce  token (poru debug)
       	règle_lex_en_cours est RegleDeProductionLex dynamique
       	// "" si tout est  ok ou erreur en cours
@@ -49,7 +51,8 @@ class :
       	// action
       	action			est une procédure
       	// pour debug
-      	numero_regle    est un entier
+      	indice_regle_lex est un entier
+      	source_dump		 est chaine // ex : "calcul.l:12 \n  {return T_NEWLINE;}"
       FIN
       // définie la regle a exécuter sur chaque token trouvé durant la compilation
       RegleAExécuter est une structure
@@ -114,18 +117,23 @@ class :
      type_code : 12
      code : |1+
       // ajouter une règle de production au lexer
-      PROCÉDURE PROTÉGÉE _ajoute_règle_production_lex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, indice est entier )
+      PROCÉDURE PROTÉGÉE _ajoute_règle_production_lex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, indice est entier, source_dump est chaine )
       dbgAssertion(indice>=1)
       
       regle_production est un wd_lexer_base::RegleDeProductionLex
-      regle_production.chaine_exacte	= chaine_exacte
-      regle_production.regexp			= rexgExp
-      regle_production.numero_regle	= indice
+      regle_production.chaine_exacte	  = chaine_exacte
+      regle_production.regexp			  = rexgExp
+      regle_production.indice_regle_lex = indice
+      // code souce si mode debug
+      // ex: "calcul.l:11  [0-9]+	 {valeur_courante = yytext; return T_INT;}"
+      regle_production.source_dump = source_dump
       
-      // contruit une regexp pour vérifier que le début du texte match la regexp
+      
+      // construit une regexp pour vérifier que le début du texte match la regexp
       si rexgExp<>"" alors
       	regle_production.regexp_debut	=  ChaîneConstruit("(%1).*",rexgExp) // pour vérifier qu'un début de chaine correspond
       fin
+      
       
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
@@ -225,9 +233,11 @@ class :
       		RENVOYER (Faux, dernière_erreur_lex)
       	FIN
       	si en_mode_debug alors
-      		trace( règle_a_exécuter.règle.numero_regle + ":" + :etat_courant_lexer+ ":"   + règle_a_exécuter.token )
+      		trace( dump_token( règle_a_exécuter.règle.indice_regle_lex) + ":" + :etat_courant_lexer )
       	fin
       	// exécuter l'action sur le token trouvé
+      	yyline = numLigne
+      	yytext = règle_a_exécuter.token
       	règle_a_exécuter.règle.action(règle_a_exécuter.token)
       
       FIN
@@ -290,7 +300,31 @@ class :
       message_complet est chaine = "Erreur a la ligne " + :numéro_ligne_en_cours + rc + texte_erreur
       
       ExceptionDéclenche(Erreur_compilation,message_complet)
+     type : 458752
+   -
+     name : dump_token
+     procedure_id : 1400928717466872234
+     type_code : 12
+     code : |1+
+      /// renvoie un chaine de dump pour trace en mode debug pour un ° de regle donné
+      procédure dump_token( indice_regle est entier )
       
+      dump est une chaîne
+      // recheche de la regle par indice
+      valeur_etat est entier = Etat_lexer_tous
+      //regle est un RegleDeProductionLex dynamique
+      pour tout tabI de  :tableau_regle
+      	//tabCourant est un  tableaux dynamique de RegleDeProductionLex   <- :tableau_regle[valeur_etat]
+      	pour toute regle de tabI
+      		si regle.indice_regle_lex = indice_regle ALORS
+      			dump = regle.source_dump
+      			// trouvé
+      			sortir
+      		FIN
+      	FIN
+      fin
+      
+      renvoyer dump + " ([%token%])"
      type : 458752
   procedure_templates : []
   property_templates : []

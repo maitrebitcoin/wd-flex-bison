@@ -44,15 +44,15 @@ class :
      procedure_id : 1352143077304793269
      type_code : 12
      code : |1+
-      // ajouter une règle de production intene a wdFlex ou wdBison
+      // ajouter une règle de production interne a wdFlex ou wdBison
       // pour compilation de .l et des .y
       PROCÉDURE PROTÉGÉE _ajoute_règle_BisonnFlex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, action est procédure )
       
       regle_production est un wd_lexer_base::RegleDeProductionLex
-      regle_production.chaine_exacte	= chaine_exacte
-      regle_production.regexp			= rexgExp
-      regle_production.action			= action
-      regle_production.numero_regle	= :numero_regle_en_déclation++
+      regle_production.chaine_exacte	  = chaine_exacte
+      regle_production.regexp			  = rexgExp
+      regle_production.action			  = action
+      regle_production.indice_regle_lex = :numero_regle_en_déclation++
       
       // contruit une regexp pour vérifier que le début du texte match la regexp
       si rexgExp<>"" alors

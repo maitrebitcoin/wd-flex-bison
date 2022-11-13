@@ -59,7 +59,8 @@ class :
       //%CODE_AVANT_COMPILE%
       
       // Init lexe
-      lexer est un modele_lexer_genere // << Nom de classe remplacé ici
+      lexer est un modele_lexer_genere(:en_mode_debug) // << Nom de classe remplacé ici
+      lexer:en_mode_debug = :en_mode_debug
       
       // rebond sur la méthode protégée de la classe de base
       ok est un booléen =	 _compile_chaine(source_a_compiler,lexer)

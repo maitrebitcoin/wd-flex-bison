@@ -29,7 +29,8 @@ class :
      procedure_id : 1349919937818749736
      type_code : 27
      code : |1-
-      procédure Constructeur()
+      procédure Constructeur(mode_debug est un booléen)
+      ::en_mode_debug=mode_debug
       
       //%CODE_INIT_CHAINEVERSTOKEN%
      type : 589824
@@ -66,8 +67,15 @@ class :
       	// Initialisation des variable pour le code utilisateur
       	:règle_lex_en_cours = règle_a_exécuter.règle
       	:yytext		        = règle_a_exécuter.token
+      	:yyline		        = règle_a_exécuter.numéro_ligne
       	
-      	SELON règle_a_exécuter.règle.numero_regle
+      	SI en_mode_debug ALORS
+      		// trace chaque token trouvé et le code source .l associé.
+      		//ex : "7 > [0-9] {valeur_courante = yytext; return T_INT;}
+      		Trace( :yytext + " > " + règle_a_exécuter.règle.source_dump )
+      	FIN		
+      	
+      	SELON règle_a_exécuter.règle.indice_regle_lex
       		CAS wd_compilateur_base::TOKEN_EOF : RENVOYER wd_compilateur_base::TOKEN_EOF
       			// code généré a partir de sources .l
       //%CODE_GESTION_TOKEN%
