@@ -128,14 +128,15 @@ class :
       		_erreur_de_syntaxe()
       		RENVOYER Faux		
       	FIN
-      //	SI en_mode_debug ALORS
-      //		// trace chaque token
-      //		Trace( m_lexer:yytext + ":" + m_lexer.dump_token(valeur_token_courant) + " - ligne " + m_lexer:numéro_ligne_en_cours)
-      //	FIN	
       	// on calcule ce qu'on doit faire avec ce token
       	action_token est EActionSurToken  
       	numero_regle_reduce est entier
       	(action_token,numero_regle_reduce)= _calcule_action_token(valeur_token_courant, pile_token)
+      	SI en_mode_debug ALORS
+      		// trace chaque action de la grammaire
+      		Trace( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom)
+      	FIN	
+      	// effectuer l'action	
       	selon action_token 
       		cas ErrorCompile 
       			// compilation terminée en erreur
