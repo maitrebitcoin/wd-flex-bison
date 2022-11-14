@@ -11,7 +11,7 @@
 %%
 
 calcul:
-	   | mixed_expression
+	   | mixed_expression						{ trace("résultat = " + $1) }
 ;
 
 mixed_expression: T_FLOAT                 		 { $$ = $1 }

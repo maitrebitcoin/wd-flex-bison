@@ -21,6 +21,8 @@ class :
       	
       	// règles de productions générée par wdBidon en fonction du .y
       	tab_règle_grammaire	est un tableau de RegleDeGrammaire		
+      	//  #TODO token racine tel que défini par %start
+      	token_start est un entier
       	// pile de compilation
       	pile_compilation est une pile de NiveauPile
       	// "" si tout est ok ou erreur en cours
@@ -118,9 +120,14 @@ class :
       	valeur_token_courant est entier =  m_lexer.token_suivant()
       	// si c'est la fin du fichier
       	SI valeur_token_courant = TOKEN_EOF  ALORS
-      		// erreur de la compilation
-      		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, <§R12ba93c90093b02d¤fr-FR¤Il manque la fin§>))
-      		renvoyer faux
+      		// on devrait être arrivé a la recine si on en a défini une
+      		si token_start<>0 _et_ pile_token<>token_start alors
+      			// erreur de la compilation
+      			_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, <§R12ba93c90093b02d¤fr-FR¤Il manque la fin§>))
+      			renvoyer faux
+      		FIN
+      		// compilation OK
+      		RENVOYER vrai	
       	FIN
       	// si on a trouvé aucune règle de production valide
       	SI valeur_token_courant = ::TOKEN_AUCUN ALORS
@@ -134,7 +141,7 @@ class :
       	(action_token,numero_regle_reduce)= _calcule_action_token(valeur_token_courant, pile_token)
       	SI en_mode_debug ALORS
       		// trace chaque action de la grammaire
-      		Trace( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom)
+      		Trace( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom )
       	FIN	
       	// effectuer l'action	
       	selon action_token 
@@ -204,6 +211,10 @@ class :
      procedure_id : 1349920938546755514
      type_code : 12
      code : |1+
+      // calcul de l'action a effecuter dans la grammaire pour un nouveau token rencontré
+      // renvoie
+      // .L'action a effectuer
+      // .le n° de regle Reduce si l'action est un Reduce
       PROCÉDURE _calcule_action_token(token est un entier, pile est chaine) : (EActionSurToken,entier)
       
       SI token = TOKEN_EOF ALORS
@@ -212,31 +223,47 @@ class :
       
       // calcul nouvel état avec ce nouveau token
       pile_avec_token	est chaine	= pile + [","] + token
+      taille_pile est entier = ChaîneOccurrence(pile_avec_token,",")-1
       
       // recherche les règles qui peuvent correspondre
-      nombre_regle_possible	est entier		= 0
+      nb_reduce_possible	est entier		= 0
+      nb_shift_possible	est entier		= 0
       numero_regle est entier=1
+      numero_regle_reduce est entier=0
       POUR TOUT regle_de_grammaire DE :tab_règle_grammaire
       	// si c'est exactement cette règle
       	si regle_de_grammaire.liste_indices_token = pile_avec_token ALORS
       		// trouvé
-      		renvoyer  (Reduce,numero_regle)
+      		renvoyer  (Reduce,numero_regle )
       	FIN
-      	// si c'est un début possible
-      	si regle_de_grammaire.liste_indices_token.commencepar(pile_avec_token) ALORS
-      		nombre_regle_possible++
+      	// si cette règle est la fin de la pile
+      	si pile_avec_token.finitpar(regle_de_grammaire.liste_indices_token ) ALORS
+      		numero_regle_reduce= numero_regle
+      		nb_reduce_possible++
       	FIN
+      	// si cette règle peut être produite avec plus de token
+      	SI regle_de_grammaire.liste_indices_token.CommencePar( pile_avec_token ) ALORS
+      		nb_shift_possible++
+      	FIN	
       	numero_regle++
       FIN
-      // si aucune règle ne peut correspondre
-      si nombre_regle_possible=0 ALORS
-      	// erreur de grammaire
-      	renvoyer (ErrorCompile,0)
+      
+      // si 1 seule regle possible
+      si nb_reduce_possible=1 ALORS
+      	RENVOYER  (Reduce,numero_regle_reduce )
+      FIN
+      // si plusieurs regles encore possible
+      SI nb_reduce_possible>1 ALORS
+      	RENVOYER  (Shift,0 )
+      FIN
+      SI nb_shift_possible>0 ALORS
+      	RENVOYER  (Shift,0 )
       FIN
       
+      //  aucune règle ne peut correspondre
+      // => erreur de grammaire
+      renvoyer (ErrorCompile,0)
       
-      
-      RENVOYER (Shift,0)
      type : 458752
    -
      name : _erreur_de_compilation
@@ -246,7 +273,10 @@ class :
       // lever une erreur de compilation
       procédure _erreur_de_compilation( message_erreur est chaine)
       
-      text_ligne_courante	est chaîne	= m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
+      text_ligne_courante	est chaîne
+      si m_lexer:numéro_ligne_en_cours <= m_lexer:source_découpée_en_ligne.Occurrence()
+       	text_ligne_courante	 = m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
+       fin
       chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)		
       :dernière_erreur = ChaîneConstruit("ligne %1: %2"+rc+ "%3" , m_lexer:numéro_ligne_en_cours, text_ligne_courante, message_erreur ) 
      type : 458752
