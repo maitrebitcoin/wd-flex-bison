@@ -99,7 +99,9 @@ class :
       PROCÉDURE protégée _compile_chaine( source_a_compiler est chaîne UNICODE, lexer est un wd_lexer_base) : booléen
       
       // pile des token en attende de pouvoir générer une règle valide (= faire un reduce)
-      pile_token est chaine	
+      //représentation simplifiée au format chaine de :pile_compilation
+      pile_token est chaine
+      	
       ligne_encours est entier // yylineno dans flex
       colonne_encours est entier
       	procédure interne _erreur_de_syntaxe()
@@ -135,13 +137,16 @@ class :
       		_erreur_de_syntaxe()
       		RENVOYER Faux		
       	FIN
+      
+      	// calcul nouvel état avec ce nouveau token
+      	pile_avec_token	est chaine =  pile_token + [","] + valeur_token_courant
       	// on calcule ce qu'on doit faire avec ce token
       	action_token est EActionSurToken  
-      	numero_regle_reduce est entier
-      	(action_token,numero_regle_reduce)= _calcule_action_token(valeur_token_courant, pile_token)
+      	indice_regle_reduce est entier // indice dans :tab_règle_grammaire
+      	(action_token,indice_regle_reduce)= _calcule_action_token(pile_avec_token)
       	SI en_mode_debug ALORS
       		// trace chaque action de la grammaire
-      		Trace( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom )
+      		Trace( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom+ " pile="+pile_token )
       	FIN	
       	// effectuer l'action	
       	selon action_token 
@@ -153,54 +158,72 @@ class :
       			niveau_shift est NiveauPile
       			niveau_shift.numero_règle	= valeur_token_courant
       			niveau_shift.valeur_user	= m_lexer:yytext
-      			Empile(  pile_compilation, niveau_shift)
+      			Empile(  :pile_compilation, niveau_shift)
       			pile_token += [","] + valeur_token_courant		
       			// lire le token suivant		
       			CONTINUE 
       		cas EndCompile
       			// compilation terminée OK
       			renvoyer vrai
-      		cas Reduce		
-      			// push du paramètre en cours
-      			niveau_local est NiveauPile
-      			niveau_local.numero_règle	= valeur_token_courant
-      			niveau_local.valeur_user	= m_lexer:yytext
-      			Empile(  pile_compilation, niveau_local)
-      			// récup de la règle de réduction 
-      			regle_reduce est RegleDeGrammaire dynamique = tab_règle_grammaire[numero_regle_reduce]
-      			// nombre de paramètre
-      			nbParamètre est entier = regle_reduce.nombre_de_paramètre
-      			
-      			// regroupe les token
-      			// exécuter l'action de la règle numero_regle_reduce
-      			
-      			// récupération des paramètres dans la pile
-      			TableauDesParametres est un tableau de variant 
-      			pour i = 1 _a_ nbParamètre
-      				niveau_pile_i est NiveauPile
-      				Dépile(  pile_compilation, niveau_pile_i )
-      				TableauDesParametres.Ajoute(niveau_pile_i.valeur_user)
-      			fin//I
-      			niveau_courant est NiveauPile
-      			niveau_courant.numero_règle = numero_regle_reduce
-      			selon nbParamètre
-      				CAS 1
-      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1] )			
-      				CAS 2
-      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
-      				CAS 3
-      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
-      				CAS 4
-      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
-      				CAS 5
-      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
-      				CAS 6
-      					niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
-      				AUTRE CAS
-      					dbgAssertion(faux,"A coder")	
-      			FIN
-      			Empile(  pile_compilation, niveau_courant)
-      			pile_token = regle_reduce.numero_règle
+      		cas Reduce	
+      			bReduce est un booléen = vrai
+      			tantque  bReduce 
+      				// push du paramètre en cours
+      				niveau_local est NiveauPile
+      				niveau_local.numero_règle	= valeur_token_courant
+      				niveau_local.valeur_user	= m_lexer:yytext
+      				Empile(  :pile_compilation, niveau_local)
+      				// récup de la règle de réduction 
+      				regle_reduce est RegleDeGrammaire dynamique = tab_règle_grammaire[indice_regle_reduce]
+      				// nombre de paramètre
+      				nbParamètre est entier = regle_reduce.nombre_de_paramètre
+      				
+      				// regroupe les token
+      				// exécuter l'action de la règle numero_regle_reduce
+      				
+      				// récupération des paramètres dans la pile
+      				TableauDesParametres est un tableau de variant 
+      				pour i = 1 _a_ nbParamètre
+      					niveau_pile_i est NiveauPile
+      					Dépile(  :pile_compilation, niveau_pile_i )
+      					TableauDesParametres.Ajoute(niveau_pile_i.valeur_user)
+      				fin//I
+      				niveau_courant est NiveauPile
+      				niveau_courant.numero_règle = regle_reduce.numero_règle
+      				selon nbParamètre
+      					CAS 1
+      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1] )			
+      					CAS 2
+      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
+      					CAS 3
+      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
+      					CAS 4
+      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
+      					CAS 5
+      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
+      					CAS 6
+      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
+      					AUTRE CAS
+      						dbgAssertion(faux,"A coder")	
+      				FIN
+      
+      				// maj pile de compilation
+      				Empile(  :pile_compilation, niveau_courant)
+      				pile_token = ""
+      				pour tout niveau_pile de :pile_compilation
+      					pile_token += [","] + niveau_pile.numero_règle
+      				fin
+      				SI en_mode_debug ALORS
+      					// trace la réduction
+      					Trace( "REDUCE [%nbParamètre%]=>[%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
+      				FIN						
+      				// on regarde si on peut continuer a réduire 
+      				(action_token,indice_regle_reduce)= _calcule_action_token( pile_token)
+      				bReduce = (action_token =Reduce)
+      				si  bReduce ALORS		
+      					depile(  :pile_compilation, niveau_courant)
+      				FIN
+      			fin
       	FIN
       	
       	
@@ -214,43 +237,38 @@ class :
       // calcul de l'action a effecuter dans la grammaire pour un nouveau token rencontré
       // renvoie
       // .L'action a effectuer
-      // .le n° de regle Reduce si l'action est un Reduce
-      PROCÉDURE _calcule_action_token(token est un entier, pile est chaine) : (EActionSurToken,entier)
-      
-      SI token = TOKEN_EOF ALORS
-      	RENVOYER (ErrorCompile,0)
-      FIN
+      // .l'indice de regle Reduce si l'action est un Reduce dans :tab_règle_grammaire
+      PROCÉDURE _calcule_action_token( pile_avec_token est chaine) : (EActionSurToken,entier)
       
       // calcul nouvel état avec ce nouveau token
-      pile_avec_token	est chaine	= pile + [","] + token
       taille_pile est entier = ChaîneOccurrence(pile_avec_token,",")-1
       
       // recherche les règles qui peuvent correspondre
       nb_reduce_possible	est entier		= 0
       nb_shift_possible	est entier		= 0
-      numero_regle est entier=1
-      numero_regle_reduce est entier=0
+      i_regle est entier=1 // encours
+      i_dernière_regle_valide est entier=0 // dernière trouve ok
       POUR TOUT regle_de_grammaire DE :tab_règle_grammaire
       	// si c'est exactement cette règle
       	si regle_de_grammaire.liste_indices_token = pile_avec_token ALORS
       		// trouvé
-      		renvoyer  (Reduce,numero_regle )
+      		renvoyer  (Reduce,i_regle )
       	FIN
       	// si cette règle est la fin de la pile
       	si pile_avec_token.finitpar(regle_de_grammaire.liste_indices_token ) ALORS
-      		numero_regle_reduce= numero_regle
+      		i_dernière_regle_valide= i_regle
       		nb_reduce_possible++
       	FIN
       	// si cette règle peut être produite avec plus de token
       	SI regle_de_grammaire.liste_indices_token.CommencePar( pile_avec_token ) ALORS
       		nb_shift_possible++
       	FIN	
-      	numero_regle++
+      	i_regle++
       FIN
       
       // si 1 seule regle possible
       si nb_reduce_possible=1 ALORS
-      	RENVOYER  (Reduce,numero_regle_reduce )
+      	RENVOYER  (Reduce,i_dernière_regle_valide )
       FIN
       // si plusieurs regles encore possible
       SI nb_reduce_possible>1 ALORS

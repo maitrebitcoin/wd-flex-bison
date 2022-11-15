@@ -22,7 +22,7 @@ project :
     64bits : true
     new_features_help :
      name : ""
-     internal_properties : BwAAAAcAAACe5gYi57r9utafWUN+UHewOBosJG0RcbJ0Kr2siuUUBscCQSGrokx/sjYfWGyc4mko8MJJy+ThV1nz
+     internal_properties : BwAAAAcAAAATVft05V/JfCa3lcYmM48vDoyRLoJKed/wxne+lubuH0gWIcUPujllh27NRKGCrkjhhAXCwcOamw==
  elements :
   identifier : 0x422def4602f38467
   elements :
@@ -94,6 +94,14 @@ project :
  code_elements :
   type_code : 0
   p_codes :
+   -
+     code : |1+
+      //#TODO
+      //.Vérifier le projet dest n'est pas ouvert
+      //.supprimer le répertoire .cpl
+      //.mode trace plus fin
+      //.générer un diagramme
+     type : 196608
    -
      type : 196621
    -
