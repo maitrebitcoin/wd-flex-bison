@@ -31,7 +31,9 @@ class :
       	indice_token_pour_déclation est entier
       	// code a mettre dans l'init pour déclarer les règles. 
       	// remplacera CODE_INIT_GRAMMAIRE
-      	code_wl_init				est chaîne UNICODE		
+      	code_wl_init				est chaîne UNICODE	
+      	// options décalrées par %xxx. ex: "%start calcul". clé = nom de l'option en minuscules
+      	tab_options					est un tableau associatif de chaine
       	
       fin
       // Ex:  A ->     A b
@@ -42,6 +44,8 @@ class :
       	tableau_element_regle est un tableau de ElementRegle
       	// indice de la règle 
       	Indice      	est entier
+      	// indique si terminale = racine de l'arbre ou %start explicite
+      	bRacine 	    est un booléen
       fin
       ElementRegle est une structure
       	// sous règles possible pour produire A. ex: "nombre '+' nombre"
@@ -121,6 +125,7 @@ class :
       	indice_token_pour_déclation ++
       fin
       
+      // gestion de %token
       si ChaîneCommencePar(ligne_option,"%token ") ALORS
       	suite_ligne_option est chaine = milieu(ligne_option,8)
       	suite_ligne_option=Remplace(suite_ligne_option,tab, " ") // TAB et " " traités de façon identiques
@@ -128,6 +133,18 @@ class :
       	POUR TOUTE CHAÎNE nom_token DE suite_ligne_option SÉPARÉE PAR " "
       		_déclareToken(nom_token)
       	FIN
+      	
+      FIN
+      
+      // gestion de %xxxx (générique)
+      //ex: "%start calcul"
+      SI ChaîneCommencePar(ligne_option,"%") ALORS
+      	nom_option est chaine
+      	valeur_otion est chaine
+      	si RegexVérifie(ligne_option,"%([a-z]*)[\t\ ]*(.*)", nom_option,  valeur_otion) ALORS
+      		tab_options[nom_option] = valeur_otion
+      	FIN
+      	
       	
       FIN
      type : 458752
@@ -328,6 +345,7 @@ class :
       
       //regle_source est RegleDeGrammaireSource
       indice_règle	est entier	= :indice_token_pour_déclation+ 1
+      indice_1er_règle est entier = indice_règle
       //1- numéroter toutes les règles
       POUR TOUT regle_source de tab_règle_grammaire_source
       	regle_source.indice = indice_règle
@@ -343,6 +361,22 @@ class :
       		FIN
       	FIN
       FIN
+      //.3 trouve la règles racine
+      // si %start est précise on l'utilise, sinon on prend la 1er règle rencontrée
+      //inspiré de https://www.gnu.org/software/bison/manual/html_node/Start-Decl.html
+      si :tab_options["start"].existe ALORS
+      	nom_règlè_start est chaine = :tab_options["start"]
+      	POUR TOUT regle_source de tab_règle_grammaire_source
+      		regle_source.bRacine =  (regle_source.nom = nom_règlè_start )
+      	fin
+      sinon
+      	// la 1ere regle
+      	POUR TOUT regle_source de tab_règle_grammaire_source
+      		regle_source.bRacine = (regle_source.indice =  indice_1er_règle )
+      	FIN
+      fin
+      
+      
       //3- calculer le code WL a mettre dans la classe destination
       pour tout regle_source de tab_règle_grammaire_source
       		
@@ -354,11 +388,18 @@ class :
       		code_wl_source est chaine = element_regle.code_wl
       	
       		// construire les règles a suivre
+      		// ex: "256,258,256"
       		regle_possible_format_chaine est chaine=""
       		sous_element_regle est SousElementRegle
       		POUR TOUT sous_element_regle de element_regle.tableau_sous_element_regle
       			regle_possible_format_chaine += [","] + sous_element_regle.indice
       		FIN
+      		// si c'est une règle terminale il faut arriver a la fin du flux
+      		// CONSTANT TOKEN_EOF   = 0 // fin de fichier
+      		si regle_source.bRacine ALORS
+      			regle_possible_format_chaine += [","] + "0"
+      		FIN
+      		
       		// code exécuté a chaque réduction
       		// remplacer $$ et $1, $2, etc
       		code_wl_source = Remplace(code_wl_source,"$$","RETOUR")
@@ -404,8 +445,8 @@ class :
       // Init date & n° de version
       code_de_travail = Remplace(code_de_travail, "%DATE%", DateVersChaîne(DateSys(), maskDateSystème))
       code_de_travail = Remplace(code_de_travail, "%VERSION_LEX_BISON%", ProjetInfo(piNomProjet) + " " + ExeInfo(exeVersion) )
-      // Mettre le code user de déclaramtion de grammaire
-      code_de_travail = Remplace(code_de_travail, "/%CODE_DECLARATION_MEMBRE%%", _to_yaml(:code_wl_declaration_membre))
+      // Mettre le code user de déclaration de grammaire
+      code_de_travail = Remplace(code_de_travail, "/%CODE_DECLARATION_MEMBRE%", _to_yaml(:code_wl_declaration_membre))
       // Mettre le code d'init pour déclarer les règles de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init))
       // remplacement du nom de la classe lexer a utiliser

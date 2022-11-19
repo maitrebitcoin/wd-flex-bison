@@ -29,8 +29,8 @@ class :
       	dernière_erreur	est chaine		
       fin
       
-      CONSTANT TOKEN_EOF   = -1 // fin de fichier
-      CONSTANT TOKEN_AUCUN = 0  // aucun token valide
+      CONSTANT TOKEN_EOF   = 0 // fin de fichier
+      CONSTANT TOKEN_AUCUN = -1  // aucun token valide
       EActionSurToken est une Enumération
       	Shift			= 1 // lire le token suivant
       	Reduce			= 2 // regroupe les token
@@ -42,7 +42,7 @@ class :
       	numero_règle	est entier
       	// nom pour debug
       	Nom				est chaine
-      	// liste des indice de token pour  séparé par ","
+      	// liste des indice de token pour valider la rgèrel séparé par ","
       	liste_indices_token est chaine
       	// code a exécuter lors de la réduction
       	code_a_executer est une procédure
@@ -110,6 +110,71 @@ class :
       		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, chaine_restante) )
       	FIN
       
+      	//  execution du code utilisateur pour un règle de grammaire
+      	procédure interne _executeCodeUserRegle(regle_reduce est RegleDeGrammaire dynamique) :  NiveauPile
+      		// nombre de paramètre
+      		nbParamètre				est entier						= regle_reduce.nombre_de_paramètre
+      		// récupération des paramètres dans la pile
+      		TableauDesParametres	est un tableau de variant 
+      		POUR i = 1 _a_ nbParamètre
+      			niveau_pile_i est NiveauPile
+      			Dépile(  :pile_compilation, niveau_pile_i )
+      			TableauDesParametres.Insère(1,niveau_pile_i.valeur_user)
+      		FIN//I
+      		// exécution du code
+      		niveau_courant est NiveauPile
+      		niveau_courant.numero_règle = regle_reduce.numero_règle
+      		SELON nbParamètre
+      			CAS 1
+      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1] )			
+      			CAS 2
+      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
+      			CAS 3
+      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
+      			CAS 4
+      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
+      			CAS 5
+      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
+      			CAS 6
+      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
+      			AUTRE CAS
+      				dbgAssertion(Faux,"A coder")	
+      		FIN		
+      		renvoyer niveau_courant 
+      	fin
+      //  execution du code utilisateur pour un règle de grammaire si la procédure ne renvoie pas de valeur
+      	PROCÉDURE INTERNE _executeCodeUserRegle_SansValRetour(regle_reduce est RegleDeGrammaire dynamique)
+      		// nombre de paramètre
+      		nbParamètre				est entier						= regle_reduce.nombre_de_paramètre
+      		// récupération des paramètres dans la pile
+      		TableauDesParametres	est un tableau de variant 
+      		POUR i = 1 _a_ nbParamètre
+      			niveau_pile_i est NiveauPile
+      			Dépile(  :pile_compilation, niveau_pile_i )
+      			TableauDesParametres.Insère(1,niveau_pile_i.valeur_user)
+      		FIN//I
+      		// exécution du code
+      		niveau_courant est NiveauPile
+      		niveau_courant.numero_règle = regle_reduce.numero_règle
+      		SELON nbParamètre
+      			CAS 1
+      				regle_reduce.code_a_executer( TableauDesParametres[1] )			
+      			CAS 2
+      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
+      			CAS 3
+      				 regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
+      			CAS 4
+      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
+      			CAS 5
+      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
+      			CAS 6
+      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
+      			AUTRE CAS
+      				dbgAssertion(Faux,"A coder")			
+      		fin
+      	fin
+      	
+      
       // Init lexer
       m_lexer <- lexer 
       m_lexer.set_source(source_a_compiler)
@@ -120,17 +185,7 @@ class :
       	ligne_encours   = m_lexer:numéro_ligne_en_cours
       	colonne_encours = m_lexer:numéro_colonne_en_cours
       	valeur_token_courant est entier =  m_lexer.token_suivant()
-      	// si c'est la fin du fichier
-      	SI valeur_token_courant = TOKEN_EOF  ALORS
-      		// on devrait être arrivé a la recine si on en a défini une
-      		si token_start<>0 _et_ pile_token<>token_start alors
-      			// erreur de la compilation
-      			_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, <§R12ba93c90093b02d¤fr-FR¤Il manque la fin§>))
-      			renvoyer faux
-      		FIN
-      		// compilation OK
-      		RENVOYER vrai	
-      	FIN
+      
       	// si on a trouvé aucune règle de production valide
       	SI valeur_token_courant = ::TOKEN_AUCUN ALORS
       		// erreur de compilation
@@ -155,6 +210,12 @@ class :
       			_erreur_de_syntaxe()
       			RENVOYER Faux		
       		cas Shift	
+      			// si c'est la fin du fichier
+      			SI valeur_token_courant = TOKEN_EOF  ALORS			
+      				// erreur de la compilation
+      				_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, "Il manque la fin"))
+      				RENVOYER Faux
+      			FIN
       			niveau_shift est NiveauPile
       			niveau_shift.numero_règle	= valeur_token_courant
       			niveau_shift.valeur_user	= m_lexer:yytext
@@ -166,47 +227,39 @@ class :
       			// compilation terminée OK
       			renvoyer vrai
       		cas Reduce	
+      			// push du paramètre en cours
+      			niveau_local est NiveauPile
+      			niveau_local.numero_règle	= valeur_token_courant
+      			niveau_local.valeur_user	= m_lexer:yytext
+      			Empile(  :pile_compilation, niveau_local)
+      			// réduction tant que c'est possible			
       			bReduce est un booléen = vrai
       			tantque  bReduce 
-      				// push du paramètre en cours
-      				niveau_local est NiveauPile
-      				niveau_local.numero_règle	= valeur_token_courant
-      				niveau_local.valeur_user	= m_lexer:yytext
-      				Empile(  :pile_compilation, niveau_local)
       				// récup de la règle de réduction 
       				regle_reduce est RegleDeGrammaire dynamique = tab_règle_grammaire[indice_regle_reduce]
-      				// nombre de paramètre
-      				nbParamètre est entier = regle_reduce.nombre_de_paramètre
-      				
-      				// regroupe les token
-      				// exécuter l'action de la règle numero_regle_reduce
-      				
-      				// récupération des paramètres dans la pile
-      				TableauDesParametres est un tableau de variant 
-      				pour i = 1 _a_ nbParamètre
-      					niveau_pile_i est NiveauPile
-      					Dépile(  :pile_compilation, niveau_pile_i )
-      					TableauDesParametres.Ajoute(niveau_pile_i.valeur_user)
-      				fin//I
+      		
+      				// si c'est la fin du fichier
+      				SI valeur_token_courant = TOKEN_EOF  ALORS		
+      					//-------------------------------------------------------	
+      					// exécuter  du code user de  regle_reduce sans valeur de retour : racine
+      					_executeCodeUserRegle_SansValRetour(regle_reduce);
+      					// si on est pas a la racine
+      					SI :pile_compilation.Occurrence<>0  ALORS			
+      						// erreur de la compilation
+      						_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, ""))
+      						RENVOYER Faux
+      					FIN	
+      					// c'est une la règle finale, elle termine par TOKEN_EOF
+      					// compilation OK
+      					RENVOYER Vrai	
+      				FIN		
+      					
+      				///-------------------------------------------------------			
+      				/// exécuter  du code user de  regle_reduce
+      				// + Dépile(  :pile_compilation )  nbParamètre
       				niveau_courant est NiveauPile
-      				niveau_courant.numero_règle = regle_reduce.numero_règle
-      				selon nbParamètre
-      					CAS 1
-      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1] )			
-      					CAS 2
-      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
-      					CAS 3
-      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
-      					CAS 4
-      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
-      					CAS 5
-      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
-      					CAS 6
-      						niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
-      					AUTRE CAS
-      						dbgAssertion(faux,"A coder")	
-      				FIN
-      
+      				niveau_courant = _executeCodeUserRegle(regle_reduce)
+      			
       				// maj pile de compilation
       				Empile(  :pile_compilation, niveau_courant)
       				pile_token = ""
@@ -215,19 +268,17 @@ class :
       				fin
       				SI en_mode_debug ALORS
       					// trace la réduction
-      					Trace( "REDUCE [%nbParamètre%]=>[%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
-      				FIN						
+      					Trace( "REDUCE [%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
+      				FIN		
+      							
       				// on regarde si on peut continuer a réduire 
       				(action_token,indice_regle_reduce)= _calcule_action_token( pile_token)
       				bReduce = (action_token =Reduce)
-      				si  bReduce ALORS		
-      					depile(  :pile_compilation, niveau_courant)
-      				FIN
-      			fin
-      	FIN
-      	
-      	
-      FIN
+      			fin	//		TANTQUE  bReduce 
+      
+      	FIN //	SELON action_token 
+      
+      FIN //BOUCLE
      type : 458752
    -
      name : _calcule_action_token

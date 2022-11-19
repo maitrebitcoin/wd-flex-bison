@@ -30,13 +30,14 @@ class :
       	// valeur texte du dernier token trouvé
       	yytext est une chaîne
       	yyline est un entier
-      	// règle qui a produit ce  token (poru debug)
+      	// règle qui a produit ce  token (pour debug)
       	règle_lex_en_cours est RegleDeProductionLex dynamique
       	// "" si tout est  ok ou erreur en cours
       	dernière_erreur_lex	est chaine	
       	
       
       	// valeur de l'état courant pour les lexer avec des états
+      	//#TODO : a supprimer complexifie le code et pas codé derrière
       	etat_courant_lexer est entier 
       	
       	en_mode_debug est un booléen 
