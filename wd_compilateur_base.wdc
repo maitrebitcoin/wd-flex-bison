@@ -241,7 +241,10 @@ class :
       				// si c'est la fin du fichier
       				SI valeur_token_courant = TOKEN_EOF  ALORS		
       					//-------------------------------------------------------	
-      					// exécuter  du code user de  regle_reduce sans valeur de retour : racine
+      					// exécuter  du code user de  regle_reduce sans valeur de retour : 
+      					// 
+      					// 
+      					// racine
       					_executeCodeUserRegle_SansValRetour(regle_reduce);
       					// si on est pas a la racine
       					SI :pile_compilation.Occurrence<>0  ALORS			
