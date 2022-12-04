@@ -16,10 +16,12 @@ Gabarits
 *.waudit
 *.wdcoverage
 *.wpf
+*.dll
+*.exe
 HstDuree.log
 Folder.ico
 desktop.ini
-Exe\Ligne de commande
+
 #
 #WEBDEV
 *\res
