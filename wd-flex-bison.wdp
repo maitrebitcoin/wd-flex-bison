@@ -35,8 +35,8 @@ project :
     generation_name : wd_flex_bison.exe
     version :
      major_version : 1
-     generation_version : 6
-     internal_generation_version : 7
+     generation_version : 7
+     internal_generation_version : 8
     language : 1
     64bits : true
  elements :
@@ -130,7 +130,7 @@ project :
       // Support de la ligne de commande
       SI configuration_est_ligne_de_commande()
       	genere_compilateur()
-      	retour	
+      	retour
       FIN
      type : 196608
    -

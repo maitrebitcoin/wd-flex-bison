@@ -15,6 +15,15 @@ procedure_set :
   p_codes :
    -
      code : |1-
+      exit_code est un entier
+      
+      constant
+      	EXIT_CODE_OK    = 0
+      	EXIT_CODE_ERROR = 1
+      FIN
+     type : 720896
+   -
+     code : |1-
       
      type : 720898
   procedures :
@@ -40,8 +49,9 @@ procedure_set :
       
       si LigneCommande()="" ALORS
       	_erreur_LC()
-      	retour
+      	RETOUR
       FIN
+      
       
       // décodage de la ligne de commande
       option_debug		est un booléen	
@@ -57,7 +67,7 @@ procedure_set :
       		autre cas
       			// option iconnu
       			_erreur_LC("invalid oprion : " + options_lc)
-      			RETOUR			
+      			retour			
       	fin	
       	// option suivante
       	options_lc =  LigneCommande(i++)
@@ -91,8 +101,8 @@ procedure_set :
       si message_suppl<>"" ALORS
       	dbgSortieStandard(message_suppl)
       FIN
-      
       dbgSortieStandard(message_d_erreur)
+      exit_code= EXIT_CODE_ERROR
      type : 458752
    -
      name : _genere_compilateur
@@ -114,11 +124,11 @@ procedure_set :
       SI PAS b ALORS
       	sErrU est une chaîne UNICODE = sErr
       	dbgSortieStandard( sErrU )
-      	FinProgramme(1)
+      	renvoyer EXIT_CODE_ERROR
       FIN
       // OK
       dbgSortieStandard(ChaîneConstruit("%1 generated.", fichier_dest))
-      FinProgramme(0)
+      RENVOYER EXIT_CODE_OK
      type : 458752
   procedure_templates : []
   property_templates : []
