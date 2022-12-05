@@ -32,7 +32,7 @@ class :
       	// code a mettre dans l'init pour déclarer les règles. 
       	// remplacera CODE_INIT_GRAMMAIRE
       	code_wl_init				est chaîne UNICODE	
-      	// options décalrées par %xxx. ex: "%start calcul". clé = nom de l'option en minuscules
+      	// options déclarées par %xxx. ex: "%start calcul". clé = nom de l'option en minuscules
       	tab_options					est un tableau associatif de chaine
       	
       fin

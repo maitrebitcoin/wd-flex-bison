@@ -161,7 +161,7 @@ window :
          
          
          compilateurBison  est un wdBison
-         compilateurBison.en_mode_debug = InterrupteurModeDebug
+         compilateurBison.dest_en_mode_debug = InterrupteurModeDebug
          
          
          soit (b,sErr) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
