@@ -433,7 +433,7 @@ class :
       procédure _genère_code_bison_apres_compilation(nom_classe_principale_générée est chaîne ANSI, nom_classe_lex_générée est chaine ansi) :  (booléen, chaîne ANSI, chaîne)
       
       // chargement du code  wl template
-      template_code est chaîne ANSI = fChargeBuffer("..\\modele_compilateur_genere.wdc")
+      template_code est chaîne ANSI = fChargeRessource("modele_compilateur_genere.wdc")
       SI ErreurDétectée ALORS
       	// erreur
       	RENVOYER (Faux, "", ErreurInfo())
@@ -492,12 +492,18 @@ class :
      name : _copie_dépendance
      procedure_id : 1350684411934757931
      type_code : 12
-     code : |1-
+     code : |1+
       PROCÉDURE _copie_dépendance(nom_fichier_dest est chaine)
-      
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
-      fCopieFichier("..\wd_lexer_base.wdc",      répertoire_destination)
-      fCopieFichier("..\wd_compilateur_base.wdc",répertoire_destination)
+      
+      _wd_lexer_base_bin est un buffer = fChargeRessource("wd_lexer_base.wdc")
+      fSauveBuffer( ComplèteRep(répertoire_destination) + "wd_lexer_base.wdc", _wd_lexer_base_bin  )
+      si ErreurDétectée alors retour
+      
+      
+      _wd_compilateur_base_base_bin est un buffer = fChargeRessource("wd_compilateur_base.wdc")
+      fSauveBuffer( ComplèteRep(répertoire_destination) + "wd_compilateur_base.wdc", _wd_compilateur_base_base_bin  )
+      
      type : 458752
    -
      name : génère_compilateur

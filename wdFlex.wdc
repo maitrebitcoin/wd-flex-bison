@@ -242,9 +242,8 @@ class :
       procédure _genère_code_lexer_apres_compilation(nom_classe_générée est chaine ansi) :  (booléen, chaine ansi, chaine)
       
       
-      
       // chargement du code  wl template
-      template_code est chaine ansi = fChargeBuffer("..\\modele_lexer_genere.wdc")
+      template_code est chaine ansi = fChargeRessource("modele_lexer_genere.wdc")
       si ErreurDétectée ALORS
       	// erreur
       	renvoyer (Faux, "", erreurinfo())
