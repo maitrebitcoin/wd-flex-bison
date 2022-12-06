@@ -35,8 +35,8 @@ project :
     generation_name : wd_flex_bison.exe
     version :
      major_version : 1
-     generation_version : 7
-     internal_generation_version : 8
+     generation_version : 20
+     internal_generation_version : 21
     language : 1
     64bits : true
  elements :
@@ -122,6 +122,8 @@ project :
    -
      code : |1+
       //#TODO
+      //.trace => dbgSortieStandard
+      // option pour créer un projet complet
       //.Vérifier le projet dest n'est pas ouvert
       //.supprimer le répertoire .cpl
       //.mode trace plus fin
@@ -133,6 +135,16 @@ project :
       	retour
       FIN
      type : 196608
+   -
+     code : |1-
+      
+      // valeur de retour du processus pour le mode ligne de commande : EXIT_CODE_OK ou EXIT_CODE_ERROR
+      renvoyer get_exit_code()
+     type : 196610
+   -
+     code : |1-
+      
+     type : 196619
    -
      type : 196621
    -

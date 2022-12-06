@@ -28,6 +28,14 @@ procedure_set :
      type : 720898
   procedures :
    -
+     name : get_exit_code
+     procedure_id : 1409304754113194371
+     type_code : 15
+     code : |1-
+      procédure get_exit_code()
+      renvoyer exit_code
+     type : 458752
+   -
      name : configuration_est_ligne_de_commande
      procedure_id : 1408603364467988822
      type_code : 15
@@ -77,7 +85,7 @@ procedure_set :
       fichier_source_y	est chaine		= LigneCommande(2)
       fichier_dest		est chaine		= LigneCommande(3)
       // exécution
-      _genere_compilateur(fichier_source_l,fichier_source_y,fichier_dest,option_verbose,option_debug)
+      exit_code = _genere_compilateur(fichier_source_l,fichier_source_y,fichier_dest,option_verbose,option_debug)
       
      type : 458752
    -
@@ -99,9 +107,9 @@ procedure_set :
       wd_flex_bison calc.l calc.y "C:\Temp\out_flex\mon_compilateur\calc.wd" -debug
       ]
       si message_suppl<>"" ALORS
-      	dbgSortieStandard(message_suppl)
+      	trace_console(message_suppl)
       FIN
-      dbgSortieStandard(message_d_erreur)
+      trace_console(message_d_erreur)
       exit_code= EXIT_CODE_ERROR
      type : 458752
    -
@@ -120,15 +128,27 @@ procedure_set :
       compilateurBison.en_mode_verbose    = option_verbose
       compilateurBison.dest_en_mode_debug = mode_debug
       
-      soit (b,sErr) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
+      soit (b,message_d_erreur) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
       SI PAS b ALORS
-      	sErrU est une chaîne UNICODE = sErr
-      	dbgSortieStandard( sErrU )
+      	trace_console( message_d_erreur )
       	renvoyer EXIT_CODE_ERROR
+      	
       FIN
-      // OK
-      dbgSortieStandard(ChaîneConstruit("%1 generated.", fichier_dest))
+      
+      // Succès de la compilation
+      trace_console(ChaîneConstruit("'%1' a été généré avec succès." , fichier_dest))
       RENVOYER EXIT_CODE_OK
+     type : 458752
+   -
+     name : trace_console
+     procedure_id : 1409306579477276247
+     type_code : 15
+     code : |1+
+      // afficher un texte dans le console de sortie standard
+      procédure trace_console(  texte est chaine )
+      
+      texteU est chaine UNICODE = texte
+      dbgSortieStandard( texteU  )
      type : 458752
   procedure_templates : []
   property_templates : []
