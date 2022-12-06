@@ -220,6 +220,7 @@ class :
       
       // init de la source et de <source_découpée_en_ligne>
       set_source(source_a_compiler)
+      trace_mode_verbose(:en_mode_verbose, ChaîneConstruit("%1 ligne(s) de source" ,  source_découpée_en_ligne.Occurrence()) )
       
       // parcourt des lignes
       POUR numLigne = 1 _a_ :source_découpée_en_ligne.Occurrence()
@@ -234,9 +235,7 @@ class :
       		dernière_erreur_lex = ChaîneConstruit( <§R12ad88bb0018eb30¤fr-FR¤Erreur de syntaxe a ligne %1.\nLigne **%2** invalide.§>, numéro_ligne_en_cours, texte_ligne_en_cours ) 
       		RENVOYER (Faux, dernière_erreur_lex)
       	FIN
-      	si en_mode_verbose alors
-      		trace( dump_token( règle_a_exécuter.règle.indice_regle_lex) + ":" + :etat_courant_lexer )
-      	fin
+      	//trace_mode_verbose(en_mode_verbose, dump_token( règle_a_exécuter.règle.indice_regle_lex) + ":" + :etat_courant_lexer )
       	// exécuter l'action sur le token trouvé
       	yyline = numLigne
       	yytext = règle_a_exécuter.token

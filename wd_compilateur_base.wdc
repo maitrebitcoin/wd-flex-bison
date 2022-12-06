@@ -200,8 +200,8 @@ class :
       	indice_regle_reduce est entier // indice dans :tab_règle_grammaire
       	(action_token,indice_regle_reduce)= _calcule_action_token(pile_avec_token)
       	SI en_mode_debug ALORS
-      		// trace chaque action de la grammaire
-      		Trace( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom+ " pile="+pile_token )
+      		// trace chaque action de la grammaire zn mode debug
+      		trace_mode_verbose( vrai , m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom+ " pile="+pile_token )
       	FIN	
       	// effectuer l'action	
       	selon action_token 
@@ -271,7 +271,7 @@ class :
       				fin
       				SI en_mode_debug ALORS
       					// trace la réduction
-      					Trace( "REDUCE [%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
+      					trace_mode_verbose(en_mode_debug, "REDUCE [%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
       				FIN		
       							
       				// on regarde si on peut continuer a réduire 

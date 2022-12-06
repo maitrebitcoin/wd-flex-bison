@@ -283,6 +283,7 @@ class :
       // analyser le fichier .y
       procédure _parse_grammaire(nom_fichier_source_bison est chaine) : (booléen, chaine)
       
+      trace_mode_verbose(:en_mode_verbose,"Analyse de " +  nom_fichier_source_bison )
       // chargement du fichier .y
       source_bison est chaine UNICODE = charge_fichier_source(nom_fichier_source_bison)
       SI ErreurDétectée ALORS
@@ -463,6 +464,7 @@ class :
       procédure _genére_code_wl(nom_fichier_dest,nom_classe_lex)
       
       dbgAssertion(nom_fichier_dest<>"")
+      trace_mode_verbose(:en_mode_verbose,"Génération de " +  nom_fichier_dest )
       
       // nom de la classe a crée
       // ex: "c:\temp^mon_parseur.wdc" => "parseur.wdc"

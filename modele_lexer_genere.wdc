@@ -69,11 +69,9 @@ class :
       	:yytext		        = règle_a_exécuter.token
       	:yyline		        = règle_a_exécuter.numéro_ligne
       	
-      	SI en_mode_verbose ALORS
-      		// trace chaque token trouvé et le code source .l associé.
-      		//ex : "7 > [0-9] {valeur_courante = yytext; return T_INT;}
-      		Trace( :yytext + " > " + règle_a_exécuter.règle.source_dump )
-      	FIN		
+      	// trace chaque token trouvé et le code source .l associé.
+      	//ex : "7 > [0-9] {valeur_courante = yytext; return T_INT;}
+      	trace_mode_verbose(en_mode_verbose, :yytext + " > " + règle_a_exécuter.règle.source_dump )
       	
       	SELON règle_a_exécuter.règle.indice_regle_lex
       		CAS wd_compilateur_base::TOKEN_EOF : RENVOYER wd_compilateur_base::TOKEN_EOF

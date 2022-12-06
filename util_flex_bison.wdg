@@ -41,6 +41,25 @@ procedure_set :
       // ce n'est pas de l'utf8, on traite comme du latin 1
       RENVOYER AnsiVersUnicode(contenu_fichier_bin,alphabetAnsi)
      type : 458752
+   -
+     name : trace_mode_verbose
+     procedure_id : 1409309847952868173
+     type_code : 15
+     code : |1+
+      procédure trace_mode_verbose( en_mode_verbose est un booléen, texte est chaine)
+      
+      si pas en_mode_verbose ALORS
+      	retour
+      FIN
+      
+      si en_mode_ligne_de_commande() ALORS
+      	trace_console(texte)
+      sinon
+      	trace(texte)
+      FIN
+      
+      
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :

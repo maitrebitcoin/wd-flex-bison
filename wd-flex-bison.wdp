@@ -35,8 +35,8 @@ project :
     generation_name : wd_flex_bison.exe
     version :
      major_version : 1
-     generation_version : 20
-     internal_generation_version : 21
+     generation_version : 26
+     internal_generation_version : 27
     language : 1
     64bits : true
  elements :
@@ -122,7 +122,6 @@ project :
    -
      code : |1+
       //#TODO
-      //.trace => dbgSortieStandard
       // option pour créer un projet complet
       //.Vérifier le projet dest n'est pas ouvert
       //.supprimer le répertoire .cpl
@@ -130,7 +129,7 @@ project :
       //.générer un diagramme
       
       // Support de la ligne de commande
-      SI configuration_est_ligne_de_commande()
+      SI en_mode_ligne_de_commande()
       	genere_compilateur()
       	retour
       FIN

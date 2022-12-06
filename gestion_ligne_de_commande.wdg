@@ -36,11 +36,11 @@ procedure_set :
       renvoyer exit_code
      type : 458752
    -
-     name : configuration_est_ligne_de_commande
+     name : en_mode_ligne_de_commande
      procedure_id : 1408603364467988822
      type_code : 15
      code : |1-
-      procédure configuration_est_ligne_de_commande()
+      procédure en_mode_ligne_de_commande()
       si ProjetInfo(piConfiguration)="Ligne de commande" alors
       	renvoyer vrai
       FIN

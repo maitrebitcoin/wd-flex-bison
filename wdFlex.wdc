@@ -155,6 +155,7 @@ class :
       
       // noter le nom fichier source pour debug
       :nom_fichier_source  = nom_fichier_source_lex
+      trace_mode_verbose(:en_mode_verbose,"Analyse de " +  nom_fichier_source_lex )
       
       // chargement du fichier .l
       source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_lex)
@@ -176,12 +177,14 @@ class :
       // EX : 
       // CONSTANT T_PLUS=257
       // CONSTANT T_MINUS=258Z
+      trace_mode_verbose(:en_mode_verbose, ChaîneConstruit("%1 token(s) trouvé",  token_nom_vers_int.Occurrence() ))
       :code_wl_declaration_token=""
       POUR TOUT valeur_token,nomToken DE token_nom_vers_int
       	:code_wl_declaration_token += [RC]+"CONSTANT " + nomToken+"=" + valeur_token
       FIN
       
       // génération de la classe sur disque
+      trace_mode_verbose(:en_mode_verbose,"génération de " +  nom_fichier_dest )
       (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
       SI PAS ok ALORS
       	// erreur
