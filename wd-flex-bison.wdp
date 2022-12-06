@@ -123,6 +123,7 @@ project :
      code : |1+
       //#TODO
       // option pour créer un projet complet
+      // revoir ihm mode exe windows
       //.Vérifier le projet dest n'est pas ouvert
       //.supprimer le répertoire .cpl
       //.mode trace plus fin
