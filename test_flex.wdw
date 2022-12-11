@@ -20,7 +20,7 @@ window :
   -
     name : ONGLET_Source
     identifier : 0x2394961b1490a907
-    internal_properties : BwAAAAcAAACExjCOzPkdr2vxzzpkLjs+Pj0xAWUfXIReqdr3vg81Xs+nqqqBtf/atyNeapSP04weF+Ag6xTm/QmffMcEFptQICUHhW9k8GPGvQZbxD1XylDZyLxfqvdV0HDXCrloGBvKKxdX27I39H0YflYvB5ljnx49BFKUdHgYr0A59AzqoET3Rax9rmpgJwse8/PvDmioa5meVapSeFh2FmkuYOYZZxIxL5wDDOdA9kOp4t1STrwq+Zf+o5Z97ngn4VfXb/zAqXrtOQ40qJME1eRc15wSv18HDg4dn2rnFAMPgon4Cts84hqWUB1a+9STXkrp75QNJUDcxETbDPDHODrH/KOvntIVrvGG+MYR3SJLmBxNh2UDZpiSuE/U5nUKIY9xe1NdUpFhbG+WvQDnHwHLGvKbsmAWDH/UQlMXiYDYyA+5I1kyFGY3DO9fcPfkLSmA3C4RU7Ptj/uaMrsl6zpsNwewofOimqOIqk0ueFrG+Z96R7NsXi3Ro8wFc1C14nZr0nQvzsSI+PjvIlrsYWNIBBVESb97krAW76GWIqSVbVEAYDbpv5AhFgUwxBKTTTuLfWh/6yt+NR7KXbOhW4OKzCT7l/B004wvSEqR1VGIZ+xSFeuOizixnMisb29FKIQ3x3jqdy8Q87qcp5/hkQeQ88ROve/G46smahCU48/Uu8W1PrWU0+nqFg4r1Ua4yP5Puusc3P3XrCV+yh6JMAtWPG6wUb5DkvyuC+YLEcxibRPpS2DBgXaCNmLobgad4QOdptYUP8BKIfDAzxJStBVA/ZrKAkRdoMbTOvPUIcF6woqE4U4O9wuPFao9MUQxO0acCU+wiD3lLGwy9P4iOyOuG8DZnbtfDe5UXCmyCeP5GKkpffnBqgAW7+nFdv2RBcnUCcMVf2CcqELfxFXDvXii9XKOya1ZpwmEvvQ8ETtIqTz7ZXS9TYARTe0/JuNgiRDidlZNHOWrbBuUAEky53dfZPGENi1D20gcCXsRdwEYdMAL9OThxg6/yYb7ylKViTG4jCm1zbN6U09lFTnPeXgPo6T7e1z5Li4R+aWd3sE4/SC49rpK8Y6USde+Fq+6FwHq0xyE8Z2B1R2AGu1S/BWgB2ixVH1pZtCMMGUhfoJt0zN4bbmkrRq3Qqfsx6CwwiexaZ4OyhqDPPvIrqhsARuiCkacXJLHtPOuI1CsY0z9yvO/utw49u+Keq/3GnZtblcLxifmi4c=
+    internal_properties : BwAAAAcAAAC0lttel3kdoJspi9HtyCGmO55RrMb+8xvW3n+lBvc/7zYSAwZpFcu+RdQGqhV6hqamNcLxihTufbJp+NFM3Y9ogG3HIY8UPJ8OUVsvvpcNZqtqideLugkgD4WazpJHFJf1+uCXu7ROBNy8V82wsPGf7uSfjhOhg36TvkWamOALxMjhM3Qn686x2N0eI6c8XrlmYyMGCshsEKUJIPfERFLe1X6bfSq1xgkI/9s6Zk7ipTvIsqc/PNWiLR1JXfDtMDx97QUPKENdhxCfmUNE1m0RXjy7HIkqweFAStnaNJdGWyzhNs9TciTtBocE+PJ7QEyfY4bW+EgwRKrZqs1tUjB5K/3PD1hbzJl8FdmqYeBSlFNp9N4RxY38lSA+BzlXxhjmx2zXWz9gIEYj6pyBYFYfDtfpYgZ1SWE+tlF+UexnYRbhNjpJBGF9IOt4RJXgZneRb0jqMpvE2tH91rRTXAJIzQtwvNvUfRvXlZrHFRBzJBi3QEjHIwEq5W8ft91Gx2vVjfK8WRNEKtV0FvlUzUXTkeeo+STrlCHjj7AJXo2CAaZSxwHr86FsnqV0Gg47P8Np3Ek+zEkbocPLYPq+BLcLR/j28VoVwt4Tq0Ogt2juRUd8pTHEg7vWCtgaOHQJ2rd7gXMq9CsM1pzIiiaX8bISUDHG72ByyC2aQZ6G2E0NOknCF0qIEdtq5cwgmzFxH4rARi0YTWJ/K88cxpsg1iTg0WKZotyAWe2OwXmz5ry0FoV2dH2K+GCWvyUSNkdQQ+B9uzZ7gZO5P/mJDwJWjKNtEubCopjmXwD8vLYKf4vvIIFQVRldrdgaH2rXi1bsuX94pBaMGaXMyTvhhKTPQAwzj91Z2kHS0OVIkWAqyseT2obDqFRhtPFGMr7eYwSFftTI7s3z+khLi4iUjkG1KzBaZjZOdq1ryhixkKLljM5Iu64xakUH39qYanMEljwYQMLGl4++VWiPK+S1aVz/QvSt19XNM5BGxQV7YHmk8GDTXKQzhJ8ULu/OO34q3LLFmLM7vb+FBo/ZMU2Z2lxDILF6PBWEe3ZbAewLO5O2eqLFMyH950IYbjHH+EvhIJ9au5x9YwboJJfZ+/1tMuBf4s1b5SPUiUNjKQy7QGiD8fEqq2/af9R5s9YtBG+cdlPlvl6ODtCVHVMrxaeYYaX2EBpGraIwhn+2z96fLZZoFOLVQYPcIUaplW2+u2XkjmXXnUIWu7c=
     properties :
      x : 6
      y : 79
@@ -436,7 +436,7 @@ window :
         p_codes :
          -
            code : |1+
-            _EnregistrerSous()
+            enregistrer_sous_projet()
            type : 32
     controls : []
     code_elements :
@@ -539,6 +539,7 @@ window :
       CONSTANT
       	gsExt_lex					= ".l"
       	gsExt_bison					= ".y"
+      	gsExt_classeWD				= ".wdc"
       	gsFiltreLexBison			= "source lex (*"+gsExt_lex +")"+TAB+"*" + gsExt_lex +  RC + ...
       								  "source bison (*"+gsExt_bison +")"+TAB+"*" + gsExt_bison +  RC + ...
       								  "Tous"  + TAB + "*.*"
@@ -586,7 +587,7 @@ window :
       	repertoire_projet = ComplèteRep(fRepDonnées())+nom_projet
       	nom_complet_fichier_lex   	 = ComplèteRep(repertoire_projet) + nom_projet + gsExt_lex
       	nom_complet_fichier_bison 	 = ComplèteRep(repertoire_projet) + nom_projet + gsExt_bison
-      	nom_complet_fichier_généréré = ComplèteRep(repertoire_projet) + ComplèteRep(gsRepertoireGeneration) + nom_projet + ".wdc"
+      	nom_complet_fichier_généréré = ComplèteRep(repertoire_projet) + ComplèteRep(gsRepertoireGeneration) + nom_projet + gsExt_classeWD
       FIN
       _genere_nom_fichier()
       // si un des fichiers source existe déjà on génère un autre nom
@@ -644,19 +645,34 @@ window :
       nom_complet_fichier_lex			= ComplèteRep(repertoire_projet) + nom_projet + gsExt_lex
       nom_complet_fichier_bison		= ComplèteRep(repertoire_projet) + nom_projet + gsExt_bison
       // RAZ du nom du fichier dest
-      nom_complet_fichier_généréré	= ComplèteRep(repertoire_projet) + ComplèteRep(gsRepertoireGeneration) + nom_projet + ".wdc"
+      nom_complet_fichier_généréré	= ComplèteRep(repertoire_projet) + ComplèteRep(gsRepertoireGeneration) + nom_projet + gsExt_classeWD
       
       // init des libellé des volets avec les nom de fichier et des champs de saisie
       _GlobalesVersChamp()
      type : 458752
    -
-     name : _EnregistrerSous
+     name : enregistrer_sous_projet
      procedure_id : 1410928492285740116
      type_code : 14
-     code : |1-
-      procédure _EnregistrerSous()
+     code : |1+
+      procédure enregistrer_sous_projet()
       
+      // demander a l'utilisateur de choisir un fichier
+      sFichier est chaîne = fSélecteur(fRepDonnées(), "","",gsFiltreLexBison, gsExt_lex, fselCrée)
+      SI sFichier = "" ALORS RETOUR
       //TODO
+      
+      // MAJ globale
+      nom_projet = fExtraitChemin(sFichier,fFichier)
+      repertoire_projet est chaine = fExtraitChemin(sFichier,fDisque+fRépertoire)
+      nom_complet_fichier_lex			= ComplèteRep(repertoire_projet) + nom_projet + gsExt_lex
+      nom_complet_fichier_bison		= ComplèteRep(repertoire_projet) + nom_projet + gsExt_bison
+      nom_complet_fichier_généréré	= ComplèteRep(repertoire_projet) + ComplèteRep(gsRepertoireGeneration) + nom_projet + gsExt_classeWD 
+      //sauver
+      enregistrer_projet()
+      
+      // MAJ IHM
+      _GlobalesVersChamp()
      type : 458752
    -
      name : enregistrer_projet
