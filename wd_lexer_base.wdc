@@ -215,8 +215,9 @@ class :
      type_code : 12
      code : |1+
       // compilation d'un texte en mode ligne a ligne
-      // renvoie (vrai,"") en cas de succès. sinon renvoie (faux,"message d'erreur")
-      PROCÉDURE protégée _compile_mode_ligne(source_a_compiler est chaine UNICODE) : (booléen, chaine)
+      // renvoie (vrai,,0"") en cas de succès. sinon renvoie (faux,"message d'erreur",ligne)
+      PROCÉDURE protégée _compile_mode_ligne(source_a_compiler est chaine UNICODE) : (booléen, chaine, entier)
+      
       
       // init de la source et de <source_découpée_en_ligne>
       set_source(source_a_compiler)
@@ -224,6 +225,7 @@ class :
       
       // parcourt des lignes
       POUR numLigne = 1 _a_ :source_découpée_en_ligne.Occurrence()
+      
       	numéro_ligne_en_cours = numLigne
       	soit texte_ligne_en_cours = :source_découpée_en_ligne[numLigne]
       	
@@ -233,18 +235,24 @@ class :
       	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
       		dernière_erreur_lex = ChaîneConstruit( <§R12ad88bb0018eb30¤fr-FR¤Erreur de syntaxe a ligne %1.\nLigne **%2** invalide.§>, numéro_ligne_en_cours, texte_ligne_en_cours ) 
-      		RENVOYER (Faux, dernière_erreur_lex)
+      		RENVOYER (Faux, dernière_erreur_lex, numLigne)
       	FIN
+      
       	//trace_mode_verbose(en_mode_verbose, dump_token( règle_a_exécuter.règle.indice_regle_lex) + ":" + :etat_courant_lexer )
       	// exécuter l'action sur le token trouvé
       	yyline = numLigne
       	yytext = règle_a_exécuter.token
-      	règle_a_exécuter.règle.action(règle_a_exécuter.token)
+      	QUAND EXCEPTION dans
+      		règle_a_exécuter.règle.action(règle_a_exécuter.token)
+      	FAIRE
+      		// Erreur de compilation
+      		RENVOYER (Faux, ExceptionInfo(errMessage), numLigne )
+      	fin
       
       FIN
       
       // succès de la compilation
-      RENVOYER (Vrai,"")
+      RENVOYER (Vrai,"",0)
      type : 458752
    -
      name : donne_token_suivant
@@ -298,7 +306,7 @@ class :
       PROCÉDURE _erreur( texte_erreur est chaine) 
       
       // construit une erreur plus complètre
-      message_complet est chaine = "Erreur a la ligne " + :numéro_ligne_en_cours + rc + texte_erreur
+      message_complet est chaine = texte_erreur
       
       ExceptionDéclenche(Erreur_compilation,message_complet)
      type : 458752

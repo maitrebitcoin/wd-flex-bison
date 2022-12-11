@@ -294,11 +294,12 @@ class :
       _changeState(Declaration_SymboleEtOption)
       :indice_token_pour_déclation = 256
       // compilation avec le mode spécial ligne a ligne
-      soit (ok,message_erreur) = _compile_mode_ligne(source_bison)
+      soit (ok,message_erreur,num_ligne_erreur) = _compile_mode_ligne(source_bison)
       
       SI PAS ok ALORS
       	// erreur
-      	RENVOYER (Faux, message_erreur)
+      	// ex: "calc.l:16"
+      	RENVOYER (Faux, nom_fichier_source_bison+":"+num_ligne_erreur + rc + message_erreur)
       FIN
       // OK
       renvoyer (vrai,"")
