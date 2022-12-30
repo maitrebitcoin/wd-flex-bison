@@ -1,13 +1,21 @@
 wd-flex-bison.wdp
 modele_compilateur_genere.wdc
 wdFlex.wdc
-test_flex.wdw
+modele_lexer_genere.wdc
+util_flex_bison.wdg
+wdBison.wdc
+wd_compilateur_base.wdc
+wd_lexer_base.wdc
+wdFlexBisonBase.wdc
+gestion_ligne_de_commande.wdg
+FEN_main_wd_flex_fbison.wdw
 COMPILER.PNG
-COMPILER.SVG
+EXPLORATEUR.PNG
+GABARITS\WD\250 PHOENIX\PHOENIX_BTN_BRW.PNG
 GABARITS\WD\250 PHOENIX\PHOENIX_BTN_STD.PNG
 GABARITS\WD\250 PHOENIX\PHOENIX_CBOX_TABLE.PNG
 GABARITS\WD\250 PHOENIX\PHOENIX_EDT.PNG
-GABARITS\WD\250 PHOENIX\PHOENIX_EDT_READONLY.PNG
+GABARITS\WD\250 PHOENIX\PHOENIX_PICT_BROWSE_16_5.PNG
 GABARITS\WD\250 PHOENIX\PHOENIX_PICT_TAB_ADD_16_5.PNG
 GABARITS\WD\250 PHOENIX\PHOENIX_PICT_TAB_CLOSE_16_5.PNG
 GABARITS\WD\250 PHOENIX\PHOENIX_RIBBON_BG.PNG
@@ -26,13 +34,6 @@ GABARITS\WD\250 PHOENIX\PHOENIX_TAB_TOP_BG.PNG
 WINDEVFAA_OPTNOUVEAU.PNG
 WINDEVFAA_OPTOUVRIR.PNG
 WINDEVFAA_SAUVE.PNG
-modele_lexer_genere.wdc
-util_flex_bison.wdg
-wdBison.wdc
-wd_compilateur_base.wdc
-wd_lexer_base.wdc
-wdFlexBisonBase.wdc
-gestion_ligne_de_commande.wdg
 Exe\exemples\projet_vide.l
 Exe\exemples\projet_vide.y
 wd-flex-bison.wdy
@@ -42,7 +43,6 @@ Gabarits\WD\250 Phoenix\PHOENIX_BREAK.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BREAK_PICT.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_APP_BACK.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_APP_MAIN.PNG
-Gabarits\WD\250 Phoenix\PHOENIX_BTN_BRW.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_GALLERY_CLOSE.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_GALLERY_NEXT.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_GALLERY_PREVIOUS.PNG
@@ -55,9 +55,9 @@ Gabarits\WD\250 Phoenix\PHOENIX_BTN_SYST_CLOSE.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_SYST_INCREASE.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_BTN_SYST_MINIMIZE.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_COMBO.PNG
+Gabarits\WD\250 Phoenix\PHOENIX_EDT_READONLY.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_FRAME.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_PICT_ADD_16_5.PNG
-Gabarits\WD\250 Phoenix\PHOENIX_PICT_BROWSE_16_5.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_PICT_BRWFIRST_V_24_5.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_PICT_BRWFORWARD_V_24_5.PNG
 Gabarits\WD\250 Phoenix\PHOENIX_PICT_BRWLAST_V_24_5.PNG
