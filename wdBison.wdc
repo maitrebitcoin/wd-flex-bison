@@ -34,6 +34,9 @@ class :
       	code_wl_init				est chaîne UNICODE	
       	// options déclarées par %xxx. ex: "%start calcul". clé = nom de l'option en minuscules
       	tab_options					est un tableau associatif de chaine
+      	// option : 
+      	//générer un projet complet (plutot que juste des fichiers .wdc et dépendances )
+      	dest_projet_complet			est un booléen
       	
       fin
       // Ex:  A ->     A b
@@ -499,13 +502,21 @@ class :
       PROCÉDURE _copie_dépendance(nom_fichier_dest est chaine)
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
       
-      _wd_lexer_base_bin est un buffer = fChargeRessource("wd_lexer_base.wdc")
-      fSauveBuffer( ComplèteRep(répertoire_destination) + "wd_lexer_base.wdc", _wd_lexer_base_bin  )
-      si ErreurDétectée alors retour
+      procédure interne _copie_1_fichier(nom_court_fichier_dependance est chaine)
+      		_bin est un buffer = fChargeRessource(nom_court_fichier_dependance)
+      		dbgAssertion(_bin<>"",ErreurInfo())
+      		fSauveBuffer( ComplèteRep(répertoire_destination) +nom_court_fichier_dependance, _bin  )
+      		SI ErreurDétectée ALORS RENVOYER faux
+      		renvoyer vrai
+      		
+      fin
       
+      //
+      si pas _copie_1_fichier("wd_lexer_base.wdc") renvoyer faux
+      SI PAS  _copie_1_fichier("wd_compilateur_base.wdc") RENVOYER Faux
       
-      _wd_compilateur_base_base_bin est un buffer = fChargeRessource("wd_compilateur_base.wdc")
-      fSauveBuffer( ComplèteRep(répertoire_destination) + "wd_compilateur_base.wdc", _wd_compilateur_base_base_bin  )
+      //OK
+      renvoyer vrai
       
      type : 458752
    -
