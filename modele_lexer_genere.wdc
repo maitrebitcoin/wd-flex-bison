@@ -71,7 +71,9 @@ class :
       	
       	// trace chaque token trouvé et le code source .l associé.
       	//ex : "7 > [0-9] {valeur_courante = yytext; return T_INT;}
-      	trace_mode_verbose(en_mode_verbose, :yytext + " > " + règle_a_exécuter.règle.source_dump )
+      	si :en_mode_verbose alors
+      		trace(:yytext + " > " + règle_a_exécuter.règle.source_dump )
+      	fin
       	
       	SELON règle_a_exécuter.règle.indice_regle_lex
       		CAS wd_compilateur_base::TOKEN_EOF : RENVOYER wd_compilateur_base::TOKEN_EOF

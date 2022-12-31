@@ -5,8 +5,8 @@
 
 %}
 
-%%
 // définition des tokens
-
+%%
+.*	// tout ignorer
 
 %%

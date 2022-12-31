@@ -297,7 +297,7 @@ class :
       _changeState(Declaration_SymboleEtOption)
       :indice_token_pour_déclation = 256
       // compilation avec le mode spécial ligne a ligne
-      soit (ok,message_erreur,num_ligne_erreur) = _compile_mode_ligne(source_bison)
+      soit (ok,message_erreur,num_ligne_erreur) = compile_mode_ligne(source_bison)
       
       SI PAS ok ALORS
       	// erreur
@@ -438,7 +438,7 @@ class :
       procédure _genère_code_bison_apres_compilation(nom_classe_principale_générée est chaîne ANSI, nom_classe_lex_générée est chaine ansi) :  (booléen, chaîne ANSI, chaîne)
       
       // chargement du code  wl template
-      template_code est chaîne ANSI = fChargeRessource("modele_compilateur_genere.wdc")
+      template_code est chaîne ANSI = charge_ressource_classe("modele_compilateur_genere.wdc")
       SI ErreurDétectée ALORS
       	// erreur
       	RENVOYER (Faux, "", ErreurInfo())
@@ -501,11 +501,13 @@ class :
      code : |1+
       PROCÉDURE _copie_dépendance(nom_fichier_dest est chaine)
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
+      Nom_projet est chaine = fExtraitChemin(nom_fichier_dest, fFichier)
       
       // copie simple d'un fichier de dépendance
       procédure interne _copie_1_fichier(nom_court_fichier_dependance est chaine)
-      	_bin est un buffer = fChargeRessource(nom_court_fichier_dependance)
+      	_bin est un chaine ansi = charge_ressource_classe(nom_court_fichier_dependance)
       	dbgAssertion(_bin<>"",nom_court_fichier_dependance+rc+ErreurInfo())
+      
       	fSauveBuffer( ComplèteRep(répertoire_destination) +nom_court_fichier_dependance, _bin  )
       	SI ErreurDétectée ALORS RENVOYER faux
       	renvoyer vrai
@@ -513,11 +515,11 @@ class :
       fin
       // copie d'un fichier pour le cas de la création d'un projet complet
       PROCÉDURE INTERNE _copie_1_fichier_prj(nom_court_fichier_dependance est chaine, nom_court_fichier_dest  est chaine="", fnPatch est procédure =null)
-      	_bin est un buffer = fChargeRessource("..\projet template\"+nom_court_fichier_dependance)
+      	_bin est un chaine ansi = charge_ressource_classe("..\projet template\"+nom_court_fichier_dependance)
       	SI _bin="" ALORS
       		_bin = fChargeBuffer("..\projet template\"+nom_court_fichier_dependance)
       	FIN
-      	// partch
+      	// patch
       	SI fnPatch<>Null ALORS
       		fnPatch(_bin)
       	FIN
@@ -530,22 +532,21 @@ class :
       	RENVOYER Vrai
       		
       FIN
+      // patcher le code d'une classe ou un une fenetre pour y mettre le nom du projet destination
+      procédure interne _patch_nom_projet(code_wd_inout est chaine ansi)
+      	nom_classe est chaine = Nom_projet
+      	code_wd_inout = Remplace(code_wd_inout,"COMPILATEUR_GENERE",nom_classe)
+      fin
       
       // si on veut crée un projet complet
       si :dest_projet_complet ALORS
       	fRepCrée(répertoire_destination)
-      		
-      	Nom_projet est chaine = fExtraitChemin(nom_fichier_dest, fFichier)
-      	nom_classe est chaine = Nom_projet
-      	SI PAS _copie_1_fichier_prj("FEN_test_du_compilateur_.wdw") RENVOYER Faux
+      	// copie des élémetnb sur projet + patch
+      	SI PAS _copie_1_fichier_prj("FEN_test_du_compilateur.wdw","",_patch_nom_projet) RENVOYER Faux
       	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.sty",Nom_projet+".sty") RENVOYER Faux
-      	// projet + patch
-      	ok est un booléen = _copie_1_fichier_prj("projet-template-wd-flex-bison.wdp",Nom_projet+".wdp", (bufbin ) => {bufbin = Remplace(bufbin,"COMPILATEUR_GENERE",nom_classe)} )	
-      	si pas ok RENVOYER Faux
-      	
+      	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.wdp",Nom_projet+".wdp",_patch_nom_projet ) RENVOYER Faux
       
       FIN
-      
       
       // classes de base
       si pas _copie_1_fichier("wd_lexer_base.wdc") renvoyer faux

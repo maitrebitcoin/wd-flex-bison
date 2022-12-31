@@ -22,7 +22,7 @@ procedure_set :
      name : charge_fichier_source
      procedure_id : 1348427097368957606
      type_code : 15
-     code : |1-
+     code : |1+
       PROCÉDURE charge_fichier_source(nom_fichier_source est chaîne) : chaîne UNICODE
       
       // chargement du fichier en binaire
@@ -42,6 +42,20 @@ procedure_set :
       RENVOYER AnsiVersUnicode(contenu_fichier_bin,alphabetAnsi)
      type : 458752
    -
+     name : charge_ressource_classe
+     procedure_id : 1418592775498850021
+     type_code : 15
+     code : |1-
+      procédure charge_ressource_classe( nom_court_fichier_wdc est chaine) : chaine ansi
+      
+      _bin est un buffer = fChargeRessource(nom_court_fichier_wdc)
+      SI EnModeTest() ALORS
+      	_bin = fChargeBuffer("..\..\"+nom_court_fichier_wdc)
+      FIN	
+      dbgAssertion(Gauche(_bin,3)<>"PCS","format binaire")
+      renvoyer _bin
+     type : 458752
+   -
      name : trace_mode_verbose
      procedure_id : 1409309847952868173
      type_code : 15
@@ -52,6 +66,7 @@ procedure_set :
       	retour
       FIN
       
+      // si on est en mode ligne de comman
       si en_mode_ligne_de_commande() ALORS
       	trace_console(texte)
       sinon

@@ -85,6 +85,8 @@ class :
       
       // ignorer les lignes vides
       si ligne_source="" ALORS retour
+      // ignorer les commentaires : @Non, rendrait difficile la création d'un token \ 
+      //SI gauche(ligne_source,2)="\\") ALORS RETOUR
       
       ligne_sans_tab est chaine = remplace(ligne_source,TAB," ") // TAB ou " " sont équivalents
       
@@ -167,7 +169,7 @@ class :
       // init a l'état initial
       _changeState(Declaration_SymboleEtOption)
       // compilation avec le mode spécial ligne a ligne
-      soit (ok,message_erreur) = _compile_mode_ligne(source_lexer)
+      soit (ok,message_erreur) = compile_mode_ligne(source_lexer)
       si pas ok ALORS
       	// erreur
       	RENVOYER (Faux, message_erreur)
@@ -246,7 +248,7 @@ class :
       
       
       // chargement du code  wl template
-      template_code est chaine ansi = fChargeRessource("modele_lexer_genere.wdc")
+      template_code est chaine ansi = charge_ressource_classe("modele_lexer_genere.wdc")
       si ErreurDétectée ALORS
       	// erreur
       	renvoyer (Faux, "", erreurinfo())
