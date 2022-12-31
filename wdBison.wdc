@@ -502,18 +502,54 @@ class :
       PROCÉDURE _copie_dépendance(nom_fichier_dest est chaine)
       répertoire_destination est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
       
+      // copie simple d'un fichier de dépendance
       procédure interne _copie_1_fichier(nom_court_fichier_dependance est chaine)
-      		_bin est un buffer = fChargeRessource(nom_court_fichier_dependance)
-      		dbgAssertion(_bin<>"",ErreurInfo())
-      		fSauveBuffer( ComplèteRep(répertoire_destination) +nom_court_fichier_dependance, _bin  )
-      		SI ErreurDétectée ALORS RENVOYER faux
-      		renvoyer vrai
-      		
-      fin
+      	_bin est un buffer = fChargeRessource(nom_court_fichier_dependance)
+      	dbgAssertion(_bin<>"",nom_court_fichier_dependance+rc+ErreurInfo())
+      	fSauveBuffer( ComplèteRep(répertoire_destination) +nom_court_fichier_dependance, _bin  )
+      	SI ErreurDétectée ALORS RENVOYER faux
+      	renvoyer vrai
       
-      //
+      fin
+      // copie d'un fichier pour le cas de la création d'un projet complet
+      PROCÉDURE INTERNE _copie_1_fichier_prj(nom_court_fichier_dependance est chaine, nom_court_fichier_dest  est chaine="", fnPatch est procédure =null)
+      	_bin est un buffer = fChargeRessource("..\projet template\"+nom_court_fichier_dependance)
+      	SI _bin="" ALORS
+      		_bin = fChargeBuffer("..\projet template\"+nom_court_fichier_dependance)
+      	FIN
+      	// partch
+      	SI fnPatch<>Null ALORS
+      		fnPatch(_bin)
+      	FIN
+      	dbgAssertion(_bin<>"",nom_court_fichier_dependance+RC+ErreurInfo())
+      	si nom_court_fichier_dest =""
+      		nom_court_fichier_dest= fExtraitChemin(nom_court_fichier_dependance,fExtension+fFichier) // comme la source
+      	fin
+      	fSauveBuffer( ComplèteRep(répertoire_destination) + nom_court_fichier_dest, _bin  )
+      	SI ErreurDétectée ALORS RENVOYER Faux
+      	RENVOYER Vrai
+      		
+      FIN
+      
+      // si on veut crée un projet complet
+      si :dest_projet_complet ALORS
+      	fRepCrée(répertoire_destination)
+      		
+      	Nom_projet est chaine = fExtraitChemin(nom_fichier_dest, fFichier)
+      	nom_classe est chaine = Nom_projet
+      	SI PAS _copie_1_fichier_prj("FEN_test_du_compilateur_.wdw") RENVOYER Faux
+      	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.sty",Nom_projet+".sty") RENVOYER Faux
+      	// projet + patch
+      	ok est un booléen = _copie_1_fichier_prj("projet-template-wd-flex-bison.wdp",Nom_projet+".wdp", (bufbin ) => {bufbin = Remplace(bufbin,"COMPILATEUR_GENERE",nom_classe)} )	
+      	si pas ok RENVOYER Faux
+      	
+      
+      FIN
+      
+      
+      // classes de base
       si pas _copie_1_fichier("wd_lexer_base.wdc") renvoyer faux
-      SI PAS  _copie_1_fichier("wd_compilateur_base.wdc") RENVOYER Faux
+      SI PAS _copie_1_fichier("wd_compilateur_base.wdc") RENVOYER Faux
       
       //OK
       renvoyer vrai
