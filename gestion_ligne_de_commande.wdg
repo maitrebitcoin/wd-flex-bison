@@ -21,6 +21,11 @@ procedure_set :
       	EXIT_CODE_OK    = 0
       	EXIT_CODE_ERROR = 1
       FIN
+      STOptions_lc est une structure
+      	debug		est un booléen	
+      	verbose		est un booléen	// -verbose
+      	newprojet	est un booléen	// -newproject
+      fin
      type : 720896
    -
      code : |1-
@@ -62,16 +67,17 @@ procedure_set :
       
       
       // décodage de la ligne de commande
-      option_debug		est un booléen	
-      option_verbose		est un booléen	
+      option est STOptions_lc
       i est entier= 4
       options_lc est chaine =  LigneCommande(i++)
       tantque options_lc<>""
       	seLon options_lc 
       		CAS "-verbose"
-      			 option_verbose= vrai
+      			option.verbose= vrai
       		CAS "-debug" 
-      			option_debug= vrai
+      			option.debug= vrai
+      		cas "-newproject"
+      			option.newprojet = vrai
       		autre cas
       			// option iconnu
       			_erreur_LC("invalid oprion : " + options_lc)
@@ -85,7 +91,7 @@ procedure_set :
       fichier_source_y	est chaine		= LigneCommande(2)
       fichier_dest		est chaine		= LigneCommande(3)
       // exécution
-      exit_code = _genere_compilateur(fichier_source_l,fichier_source_y,fichier_dest,option_verbose,option_debug)
+      exit_code = _genere_compilateur(fichier_source_l,fichier_source_y,fichier_dest,option)
       
      type : 458752
    -
@@ -102,9 +108,10 @@ procedure_set :
       option 
       	-verbose : trace out a lot of info about how the compilater is generated
       	-debug : generate a compiler with debug info and source code from source.l/source.y
+      	-newproject : generate a complete projet
       	
       exemple :
-      wd_flex_bison calc.l calc.y "C:\Temp\out_flex\mon_compilateur\calc.wd" -debug
+      wd_flex_bison calc.l calc.y "C:\Temp\out_flex\mon_compilateur\calc.wd" -debug -newproject
       ]
       si message_suppl<>"" ALORS
       	trace_console(message_suppl)
@@ -117,7 +124,7 @@ procedure_set :
      procedure_id : 1408603789669981730
      type_code : 15
      code : |1+
-      procédure _genere_compilateur(fichier_source_l	est chaîne, fichier_source_y, fichier_dest est chaîne, option_verbose est un booléen , mode_debug est un booléen )
+      procédure _genere_compilateur(fichier_source_l	est chaîne, fichier_source_y, fichier_dest est chaîne, option est STOptions_lc )
       
       
       fichier_dest_lex	est chaîne	= fExtraitChemin(fichier_dest,fDisque+fRépertoire+fFichier)+"_lex" + fExtraitChemin(fichier_dest,fExtension)
@@ -125,8 +132,9 @@ procedure_set :
       // crée un compilateur de grammaires
       compilateurBison  est un wdBison
       // init options
-      compilateurBison.en_mode_verbose    = option_verbose
-      compilateurBison.dest_en_mode_debug = mode_debug
+      compilateurBison.en_mode_verbose     = option.verbose
+      compilateurBison.dest_en_mode_debug  = option.debug
+      compilateurBison.dest_projet_complet = option.newprojet
       
       soit (b,message_d_erreur) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
       SI PAS b ALORS
