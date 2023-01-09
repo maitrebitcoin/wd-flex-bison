@@ -8,6 +8,8 @@ wd_compilateur_base.wdc
 wd_lexer_base.wdc
 wdFlexBisonBase.wdc
 gestion_ligne_de_commande.wdg
+Exe\exemples\projet_vide.l
+Exe\exemples\projet_vide.y
 wd-flex-bison.wdy
 Gabarits\WD\250 Phoenix\Phoenix.wdy
 Gabarits\WD\250 Phoenix\PHOENIX_BG_SHEET.PNG

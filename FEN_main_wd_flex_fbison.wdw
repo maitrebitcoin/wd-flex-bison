@@ -20,7 +20,7 @@ window :
   -
     name : ONGLET_Source
     identifier : 0x23aee6b500e0a0bc
-    internal_properties : BwAAAAcAAACExjCOzPkdr2vxzzpkLjs+Pj0xAWUfXIReqdr3vg81Xs+nqqqBtf/atyNeapSP04weF+Ag6xTm/QmffMcEFptQICUHhW9k8GPGvQZbxD1XylDZyLxfqvdV0HDXCrloGBvKKxdX27I39H0YflYvB5ljnx49BFKUdHgYr0A59AzqoET3Rax9rmpgJwse8/PvDmioa5meVapSeFh2FmkuYOYZZxIxL5wDDOdA9kOp4t1STrwq+Zf+o5Z97ngn4VfXb/zAqXrtOQ40qJME1eRc15wSv18HDg4dn2rnFAMPgon4Cts84hqWUB1a+9STXkrp75QNJUDcxETbDPDHODrH/KOvntIVrvGG+MYR3SJLmBxNh2UDZpiSuE/U5nUKIY9xe1NdUpFhbG+WvQDnHwHLGvKbsmAWDH/UQlMXiYDYyA+5I1kyFGY3DO9fcPfkLSmA3C4RU7Ptj/uaMrsl6zpsNwewofOimqOIqk0ueFrG+Z96R7NsXi3Ro8wFc1C14nZr0nQvzsSI+PjvIlrsYWNIBBVESb97krAW76GWIqSVbVEAYDbpv5AhFgUwxBKTTTuLfWh/6yt+NR7KXbOhW4OKzCT7l/B004wvSEqR1VGIZ+xSFeuOizixnMisb29FKIQ3x3jqdy8Q87qcp5/hkQeQ88ROve/G46smahCU48/Uu8W1PrWU0+nqFg4r1Ua4yP5Puusc3P3XrCV+yh6JMAtWPG6wUb5DkvyuC+YLEcxibRPpS2DBgXaCNmLobgad4QOdptYUP8BKIfDAzxJStBVA/ZrKAkRdoMbTOvPUIcF6woqE4U4O9wuPFao9MUQxO0acCU+wiD3lLGwy9P4iOyOuG8DZnbtfDe5UXCmyCeP5GKkpffnBqgAW7+nFdv2RBcnUCcMVf2CcqELfxFXDvXii9XKOya1ZpwmEvvQ8ETtIqTz7ZXS9TYARTe0/JuNgiRDidlZNHOWrbBuUAEky53dfZPGENi1D20gcCXsRdwEYdMAL9OThxg6/yYb7ylKViTG4jCm1zbN6U09lFTnPeXgPo6T7e1z5Li4R+aWd3sE4/SC49rpK8Y6USde+Fq+6FwHq0xyE8Z2B1R2AGu1S/BWgB2ixVH1pZtCMMGUhfoJt0zN4bbmkrRq3Qqfsx6CwwiexaZ4OyhqDPPvIrqhsARuiCkacXJLHtPOuI1CsY0z9yvO/utw49u+Keq/3GnZtblcLxifmi4c=
+    internal_properties : BwAAAAcAAABpI4PfPdarJNoQsL3pS7CnudZIDpoNfYX1cNcEqwwYMa5CC53orpw3QByqfWPusjfBIW2XjoNMragWoVPmgG2+KWs9Zg3kkIkknw3jk2SrJT0qfL4UzFkbJXhjrHLewUjDQKh+aHcL9kMrSwklLQxYsD7U+QT2md5Pyd0n7QhBYZlqmnBWGQuXQfUezfcAFC1vju4LhXyrfQ+Hbh70z/K9a1MdvHvgPyb2A1YD7xhXZiQnMCKuLjnByk/9+NExZDz4Ah3l5y/IKDLXgdGwoHqnQoj7+jVxBvYlsyvbfxVD4Vz7SWHqO0R42apJTqB+j6CuJpo9WCzp3jZSxNq1RTKrF/Hrc/ZRxVJ0tnL8WYP3UijLkk7Wn8cy4z2++FXcItlKDjgJ6d3CECwdjQrLw3tvxrBgMdCML+EAcc91Qy3rKeuJhEFIbWsANeGgzCF0LhquVQ9PNMJREvNqqpgtoIUbcOzGZP4R2BhdZRBN8w+RSYSsJaB47KQETvnGaogJUmqM1zHOocq6nvpXS9ZvgKw/l0bigl+BFxwx6z/1AH13UVbiS3jzp14Q3izP9kLnLwNBGYPyE2GJcYe6pbgHKYf7UmWRJ4ESTzHTcfvG5VAQUEJFfqvCp52R5pYWP/x/D/Zd13MiJ7ap+o2T6zO6N+iQ2IMP+Elh79YryhU7J7dArHMrRpk8oWEO9RyYKu7w+B1BYtZkO9njcUMdB1+S8oBFshcr3idlsayCYps7pu6nB6wSGa2bN8E9JAFgVKgGwRHBOzuJWVXBPQXtBBLSS/dSC8emZpjvfPwOua3D3pdvFWE5uqbrygUB8SQ5d7JUQYdu+Su+z+StP7n0KYVCi3IPY0Xgn9tP+4JqymMAJ5hCdRNAHc+MAAsbK4IG8f1cgaYOmXuZa9swL3mlHzQg8KU+VytNMC9LlT3ZHrnrPSz0u/BdcP+yQPm571iRYgEzyBoMLrtuLfhipRJxQCBXu0McTzsDq4izsoaUyjZHxx9CpRxSa8iXHgZ/ihRS2FgLEyW+OA/s0v0x4dtx9kUkLiOPjVpDfInd8sqNbxrRlReltas8UVaGxuEIfNexg7T5fs8HhBhWMFHWvXX1F09xxzioYkMrwFOhp68j4yQQzw4eE0Dg9ZUDzcetwK/74KICDJm9FJAfIM1uJq2BJFSjBU2lHxGCtf5Tjn1ZWr8OW+9rYEKiQnXw6hdvjpgZ2PIO3dg5Zuo=
     properties :
      x : 6
      y : 79
@@ -32,60 +32,40 @@ window :
        controls :
         -
           name : CodeSourceLexer
-          identifier : 0x23aee6b500e2a0bc
-          internal_properties : BwAAAAcAAABjlpDOyldPcNp0xOshEbdQzvk7pB2i9+m+LZVUNEyVHKkZ246s1dL3oqVu8pUF9+etwi9AenDugFqxsnyFQdwkZJWhXNhSvOQONgIHsECfb3SbGFDbxVeD9CnEpbR3OSc1qJBLfcxpV97+Er84Y1pB4ByPkopo/j46Sr1W/+SOeQXjObhGPuoVDf1QuWwScyaWPhLGAQXYvjHY7XDZ6jDZfL9HW0DigfnMeL72Ve92RqACK1ERQeI3efwFJrjEzJY0wtbyWG0DJlyJhS3/cTJWeAhpDkRdp5c9BN1GFsam4LtnSLDa+cjImssaCzOLylcAElKn2A3kx/tYc/6yyP6Kder8mu8WoiiuH9RFKZX9IGHNzipeCNQC8B/kZ9faxNq3Pl3QT1npgaJK5Nanlre4GmLnvHLzRwHyBugQg92y79V6h534Mlj6tCQ8iC87WEGJvPMhbRz7Cy/p66rWfh6XqClhbAGKxOhPgQq4jhE0x01rTgEv4wLpvBZhv7NovDXM2dQGFgdEItAq28tKCpeCXg5uac64pGLyyPVeW4x0nf7xp7/prznYHffR/DKHnqlEmJ5sqMeS0qCtqgA9Y21XwMyu2shXLeQUqAg/355V+XqWYj5814c1i2YP29siSVzFjeuVU2AaskJYhE60BfKuejUzsh7ihBj39U9KJSbMsUFbo1B8xZ28zffdiXJ8171wh/irMQrp9aHfQQOa4xyEGh/MbO36u6WF/ybNpO35kiSqMh1bVMAQkon+ICLblXQSxqJOYf6YHa60CIaAqNyeLfeN1zfpdkaGFPsi3nBeocyNQrzP5ljGYEMAHWvYJPk8/5uaMFoLEGbwZTx4fjNxsEmeKhKWPWcvEyGC8gkxqQNNKdx6KfXRfnt5RXnLoJfx1jmgwmmAmTrg7pH7uEpgyn9Dp3TUz+6sRW8w6SGe6tlzofOSSCQsqbLv7ETjvbKQbzVHg3xn2WywTGslfN2/NYqf7SlWcyiW5shCbDsDzBMYLsiiytzQmSI0+YCFZ6PMGbmisT/h2bazEaF3+SxsQdHE7gYccb8t6E9iQdJr1PucrIis3wGlWtcT9vHhCTCAy59EWq1kIROMrDMqRWRzYDnFkgbs1dEnKilNcya7gljDqW1YZmVVqmtjP/CAHO2DJu+2BbUoCcdHAch33dQ9bgHQjCLTupeEmlTvkKVdXcsVNdoaJR7Rg1lsAaql4qVFeXlMOrpimS60LSpdBj5SbWrAmomJkCs1Oo0PU2scUXuJJqbF7oYy90mFvNUwHdXWcznEikVrCu0kDoha2pM/VBEzGFAt5BEp7rNaaiMQtG5tDTWmp8wz5HHpF+DZSYsEhOCFJBNjQicKwg==
+          identifier : 0x23bbadf10128b0a2
+          internal_properties : BwAAAAcAAACI8waBdFbNcVfX0pziVJfxxcmsfMJ1CpXK2KuHrGzii63huWyKx2sRvFj5zvSpAAeJJVCNGqCNkHrcDBFMhe1Xa4UeBe4GREfaVFNxnn5WbvGSwKdlTjJAgZMcFBxv5XR1KA50HJxqjc2RRKueODaWlXkknPB3pzvAjpSptYNWsEwbi18/13Ycz66TksNlVRIgxukL1DP4DVK0FpiUIzAaI4EOH5T5v0tZyH3Vc9bUZJgAYwRoWCo7Vlq6tzyVgMounoYOYcXaKWymLz8QXS1Prx1BaNKC03TyrDyll8IwUdB3k6Fd828C3F4IQAO7U/uczyS/PLsn3A/Xy2lF0+Amt1IwZMJJC9PxB3gj0WQgCsCP5FbU5J9JVIOSqfKo/jBX07C+rmxmSYxhHo4cvrJiDA5azumrT2+4rveBY/TeU2N3zvh/BmAfjEZmep/PyeiqJLDWM9rbF6ORC0vkIbF/xLOt8D8Janqdl+FkcWz0kGiCJWka4oeIVCZH0baAUuo+JqdjCV1epkvZZ8FrwMcWANMSDlpsRZlz3+HKiX2tAOGHk5ptdPM=
           properties :
            x : 6
            y : 6
            width : 637
            height : 286
-          type : 2
+          controls : []
+          type : 31
           code_elements :
-           type_code : 3
+           type_code : 73
            p_codes :
             -
-              code : |1+
-               s est chaine = fChargeTexte(".\exemples\calc.wd.l")
-               CodeSourceLexer = s
-              type : 14
-            -
-              type : 276
-              enabled : false
-            -
-              type : 277
-              enabled : false
-            -
-              type : 278
+              type : 33
               enabled : false
      -
        internal_properties : BwAAAAcAAADf3kmv/kI+SQ0GJj54cRvzs+3oTbWFVGH39Oysbd6bID9ORbLwgozgGqakEvz4XNtLdLP2wic0CpIJbRep+M3ahjxtHxxd8je7tugBwhD6Z0PGR0o/BmnoebLfceSQGIns67Q4x0iT+GDfSpp69AP2CTlRcc6LgXuEe3CnDBJo
        controls :
         -
           name : CodeSourceGrammaire
-          identifier : 0x23aee6b500e4a0bc
-          internal_properties : BwAAAAcAAADqKl1FG9xuSKkR3b5iEpgYz2uSXgAUwfBzR/yctPq0k3MOqwalrXmtyxHgXNNj77v7Purz1+JcHjNKbMZY62lGYgIR16/+87WI6HPbDlNCGrPRbKfqz8HX0iaKRiWvXh3VUgL9kJvnPW4Jxjd3Jvbnm3P4eIgEooY0EO170YN5284JwBJIoDKzdjZtD3cwlZVpknRqkZD0Dfr3vWqFStzfTVSY5Atq9EdylQznoqH9GU95ruRijlRfTKSer8L0OTNf43wGOIPq1/YoDOgFBszm3pw1jHuor/1Bh/vs/O1cpvMfghH1rB2xFtwXZVivU2gwH7goi7C1FKGiWxkOerMrWEA1oc2opmvTbGn/TxCLlNrxAXBUYdUV9tg060TgXisZswnpHH1KoJZveeeOQJHNaIw//hgmSELHhcDB4jcmwpZ7OUuifx0Uoow6PcH4Z/AO8T5bW6Fm26HKXHG1Lsu6KcNJ9tc7luc/JcimzyA/Wc2UNeijnz9MoPOJiJ4nZHAfWKHwKPyPsvFIgbt46ztqXkTcpIvDrkaYUJwPGZQi4PCOAZXlH8pOzp5JP2XOTj/20esZI0rfZtHwMi2BZRSOv3WGcbnLEw9lLsNoUOzFURKPQQIjG4Ml02ZwKnz6403dFfLwDVBTDyXmUsWHWbK5LMUVSFe2uy5k1QV0Q7k8p800U07oasqh6jZTJmQaHmeNIZeKTGowGliOPTIuyPr92VgGTJ4pLijTQXB+Lo6AZvQy24IErqPEdZ0vrSa0CSFQ0uWUxHkMqou2L4P4/l1Jlmi9FEPZ15LGkmEuMSqvhRbyjl9DTpReW5D0tryiUA4WffyMt+wHaotYl+fz+HC1Xh147985EUIP4ewniRtsMLMn5nKLPK2xup9rT1tAuqCShqLVDOGYyngr+pJxeCutfEbxS2SmjO5zn0vHSRWU1SzOxf/5fNEihVXFw6Ymp86ixP4Oe++MzM7VgAhJmxYGnIf79c2Ogral7Cf9TerUCkK9J1C2VJp/MjHFYXM5l+aw+riepyoRczf/D115Ha6SZCnvIBa6E1Ng8o8ZNR9XPLISTUPlcJLiIaSAX9CcEPUoEqDSPCsXWnUtoWvSQJlM/GtrkPPgeLnwnx3dU0z9VRNbRJcNLzQqcW5EMujQblbF6KuejJu8waVfqWLdf5qjQ/nZb0A6Ocf/HUWmK+6dsjC2YCBiwUU1NrJUIqw0Qzw61u/kFJvIBMz5t0u21D0P2+Qk09rimcBxKHIk4j2DqPFBk5AgQDxVyPQaOKTxu91gJsu8FI0=
+          identifier : 0x23bbae9202e5256b
+          internal_properties : BwAAAAcAAADfJownoYxTxtBo/L82PuMLv5Ri4rlbURfKperB8mmFzKfKmdRmq2VQUA9B8pOta85P+Heyccq2NQXB8XO7YYAPTnP8KsrGJtAXi5RKhCH97kGZDl3TXhZG1wE3EqoPdDPF7WSjnNiqUGfT78iGATTAG5xeRMfNWrIvIoEwAHiRQz/EhhYf96nHLX3XQdd6akMBrA4B8G6DapqNX19kuYm0ABguaO+vESxx2zylhtQOD0t+YTZxcimZzza14qiEVTMKe99DyhMdH1ubwLNv6yedPylgkC1Wb8w7H5fmDhl8vEtOqJPxyWpm8961ZpKynjfh1jrV82w8uCBwd0GLBqCN5Zvl1Ej6qjsYA+YueBR/v+QO4sB6K/DlYflW92Hj5IC34kse1GfRqULFTqYsgs8rqkqNDKyFBNOD9Ib/BrQNpJkZa5KJ5rcCMA9L2la9xY9Lu7H1TUINdRivQr/ws8FI4GPZdUpLTTfMCxy/wXYZq5msPIN4InW9JFtl9497Y2xNSIVjvb4JnOWICjgDbtQ0uTlgKvC3m3QGNYP/54bTL1cE+uEYsw==
           properties :
            x : 6
-           y : 4
+           y : 6
            width : 637
-           height : 288
-          type : 2
+           height : 286
+          controls : []
+          type : 31
           code_elements :
-           type_code : 3
+           type_code : 73
            p_codes :
             -
-              code : |1+
-               s est chaine = fChargeTexte(".\exemples\calc.wd.y")
-               CodeSourceGrammaire = s
-              type : 14
-            -
-              type : 276
-              enabled : false
-            -
-              type : 277
-              enabled : false
-            -
-              type : 278
+              type : 33
               enabled : false
      -
        internal_properties : BwAAAAcAAADQxxqcHyDhaFAw/W0tsYrlZtrQ7SExVtWfn9mHmazNScrmj3JYQD0hEdoF57fEIWcfHxXm14Hg1Tw/a4u19S7NS8AYMe9x9JQniZkyiMxkQmz0ztbaMs2dW80ckOf3U77z5e900ZGghO1F9kD1B6XB71ib722A5qc37ASP
@@ -575,6 +555,13 @@ window :
       // on ne peux iren faire tant qu'on a pas ouvert ou créé un projet
       R_Compilation..Grisé = vrai
       ONGLET_Source..Grisé = vrai
+      
+      // Init editeur de code .l et .y
+      param_edc est Champ_editeur_de_code.ParametreEditeur
+      param_edc.avec_numéro_de_ligne	= Vrai
+      param_edc.nom_langage			= "js"
+      CodeSourceLexer.init_editeur(param_edc)
+      CodeSourceGrammaire.init_editeur(param_edc)
       
      type : 34
    -
