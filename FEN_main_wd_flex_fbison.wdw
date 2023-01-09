@@ -556,12 +556,8 @@ window :
       R_Compilation..Grisé = vrai
       ONGLET_Source..Grisé = vrai
       
-      // Init editeur de code .l et .y
-      param_edc est Champ_editeur_de_code.ParametreEditeur
-      param_edc.avec_numéro_de_ligne	= Vrai
-      param_edc.nom_langage			= "js"
-      CodeSourceLexer.init_editeur(param_edc)
-      CodeSourceGrammaire.init_editeur(param_edc)
+      // Init de 2 champs éditeur du code .l et .y
+      init_editeur_de_code()
       
      type : 34
    -
@@ -740,6 +736,21 @@ window :
       	LanceAppliAssociée( fExtraitChemin(fichier_dest,fDisque+fRépertoire))
       }
       t.Affiche()
+     type : 458752
+   -
+     name : init_editeur_de_code
+     procedure_id : 1421923986494916418
+     type_code : 14
+     code : |1+
+      procédure init_editeur_de_code()
+      // Init editeur de code .l et .y
+      
+      param_edc est Champ_editeur_de_code.ParametreEditeur
+      param_edc.avec_numéro_de_ligne	= Vrai
+      param_edc.nom_langage			= "js"
+      CodeSourceLexer.init_editeur(param_edc)
+      CodeSourceGrammaire.init_editeur(param_edc)
+      
      type : 458752
   procedure_templates : []
   property_templates : []
