@@ -747,6 +747,7 @@ window :
       
       param_edc est Champ_editeur_de_code.ParametreEditeur
       param_edc.avec_numéro_de_ligne	= Vrai
+      param_edc.avec_tab				= Vrai
       param_edc.nom_langage			= "js"
       CodeSourceLexer.init_editeur(param_edc)
       CodeSourceGrammaire.init_editeur(param_edc)

@@ -137,6 +137,8 @@ project :
   p_codes :
    -
      code : |1+
+      // https://github.com/maitrebitcoin/wd-code-editor
+      
       //#TODO
       //.Vérifier que le projet dest n'est pas ouvert
       //.revoir ihm mode exe windows
@@ -144,7 +146,6 @@ project :
       //.projet vide a revoir
       //.crée un compilateur de regexp
       //.supprimer le répertoire .cpl
-      
       //.générer un diagramme
       
       // Support de la ligne de commande
