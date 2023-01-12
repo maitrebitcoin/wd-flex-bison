@@ -63,13 +63,14 @@ class :
       lexer:en_mode_verbose = :en_mode_debug
       
       // rebond sur la méthode protégée de la classe de base
-      ok est un booléen =	 _compile_chaine(source_a_compiler,lexer)
+      ok est un booléen =	 _compile_chaine_avec_lexer(source_a_compiler,lexer)
       si pas ok alors
       	// Echec
       	renvoyer (faux, :get_texte_erreur())
       FIN
       // OK
       renvoyer (vrai,"")
+      
      type : 458752
   procedure_templates : []
   property_templates : []

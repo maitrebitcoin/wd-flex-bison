@@ -21,7 +21,7 @@ class :
       	tableau_regle est un tableau dynamique de tableaux de RegleDeProductionLex
       
       	// -- Variables d'état durant la compilation
-      	
+      	nom_fichier_source		 est chaine
       	source_découpée_en_ligne est un tableau de chaînes UNICODE
       	// n° de ligne et de colonne en cours de compil
       	numéro_ligne_en_cours	est un entier

@@ -756,7 +756,7 @@ window :
      name : ouvre_projet
      procedure_id : 1418324597732319420
      type_code : 14
-     code : |1-
+     code : |1+
       // ouvre un projet existant
       procédure ouvre_projet()
       

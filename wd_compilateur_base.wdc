@@ -91,12 +91,12 @@ class :
       :tab_règle_grammaire.Ajoute(nouvelle_règle)
      type : 458752
    -
-     name : _compile_chaine
+     name : _compile_chaine_avec_lexer
      procedure_id : 1349920938546689978
      type_code : 12
      code : |1-
       // point d'entrée interne du compilateur généré
-      PROCÉDURE protégée _compile_chaine( source_a_compiler est chaîne UNICODE, lexer est un wd_lexer_base) : booléen
+      PROCÉDURE protégée _compile_chaine_avec_lexer( source_a_compiler est chaîne UNICODE, lexer est un wd_lexer_base) : booléen
       
       // pile des token en attende de pouvoir générer une règle valide (= faire un reduce)
       //représentation simplifiée au format chaine de :pile_compilation
@@ -350,7 +350,7 @@ class :
        	text_ligne_courante	 = m_lexer:source_découpée_en_ligne[m_lexer:numéro_ligne_en_cours]
        fin
       chaine_restante		est chaîne	= Milieu( text_ligne_courante, m_lexer:numéro_colonne_en_cours)		
-      :dernière_erreur = ChaîneConstruit("ligne %1: %2"+rc+ "%3" , m_lexer:numéro_ligne_en_cours, text_ligne_courante, message_erreur ) 
+      :dernière_erreur = ChaîneConstruit("%1:%2"+rc+ "%3" + rc + "%4" , m_lexer:nom_fichier_source, m_lexer:numéro_ligne_en_cours, text_ligne_courante, message_erreur ) 
      type : 458752
    -
      name : get_texte_erreur

@@ -98,7 +98,7 @@ class :
       	// si on a trouvé aucune règle de production valide
       	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
-      		dernière_erreur_lex = ChaîneConstruit( "Erreur de syntaxe a ligne %1."+rc+"Ligne **%2** invalide.", numéro_ligne_en_cours, texte_ligne_en_cours ) 
+      		dernière_erreur_lex = ChaîneConstruit( " %1:%2"+rc+"erreur de syntaxe"+rc+texte_ligne_en_cours, :nom_fichier_source, :numéro_ligne_en_cours, texte_ligne_en_cours ) 
       		RENVOYER (Faux, dernière_erreur_lex, numLigne)
       	FIN
       	

@@ -27,7 +27,7 @@ class :
       	// règles de productions pour le lexer
       	tab_règle_production_lex est un tableau de stToken2Code
       
-      	nom_fichier_source est chaine
+      	
       fin
       EEtat est un enumeration
       	Tout_Etat					= 1 
