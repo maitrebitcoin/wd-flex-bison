@@ -2,14 +2,14 @@
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
  name : gestion_ligne_de_commande
- major_version : 27
+ major_version : 28
  minor_version : 0
  type : 7
  description : ""
  subtype : 0
 procedure_set :
  identifier : 0x138c5b73007ca17f
- internal_properties : BwAAAAcAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
  code_elements :
   type_code : 31
   p_codes :
@@ -25,6 +25,13 @@ procedure_set :
       	debug		est un booléen	
       	verbose		est un booléen	// -verbose
       	newprojet	est un booléen	// -newproject
+      fin
+      
+      // options de la ligne de commande
+      constant
+      	LC_Verbose		 =	"-verbose"
+      	LC_Debug  		 =	"-debug" 
+      	LC_CreeProject  =  "-newproject"
       fin
      type : 720896
    -
@@ -72,15 +79,15 @@ procedure_set :
       options_lc est chaine =  LigneCommande(i++)
       tantque options_lc<>""
       	seLon options_lc 
-      		CAS "-verbose"
+      		CAS LC_Verbose
       			option.verbose= vrai
-      		CAS "-debug" 
+      		CAS LC_DEbug
       			option.debug= vrai
-      		cas "-newproject"
+      		cas LC_CreeProject
       			option.newprojet = vrai
       		autre cas
       			// option iconnu
-      			_erreur_LC("invalid oprion : " + options_lc)
+      			_erreur_LC("options invalides : " + options_lc)
       			retour			
       	fin	
       	// option suivante
@@ -161,11 +168,11 @@ procedure_set :
   procedure_templates : []
   property_templates : []
  code_parameters :
-  internal_properties : BwAAAAcAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
   original_name : ProcéduresGlobales1
 resources :
  string_res :
   identifier : 0x138c5b55007a2f5d
-  internal_properties : BwAAAAcAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
- internal_properties : BwAAAAcAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
