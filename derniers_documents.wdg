@@ -42,7 +42,7 @@ procedure_set :
       // suppprimee si il existe déjà
       tab_doc est un tableau de chaine
       ChaîneVersTableau(liste_doc,tab_doc,rc)
-      POUR i = 1 _À_ tab_doc..Occurrence 
+      POUR i = tab_doc..Occurrence  _À_  1 pas -1
       	si tab_doc[i]=nom_fichier ALORS
       		TableauSupprime(tab_doc,i )
       		
