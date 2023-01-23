@@ -20,7 +20,7 @@ window :
   -
     name : ONGLET_Source
     identifier : 0x23aee6b500e0a0bc
-    internal_properties : CAAAAAgAAACk4nxBv7EkAiS9w8U3BI2UEbieASQHfDYbOLre5Cfkq2nsJ/DeAJUnfPBdeJzdLgOBd5418t42V9wilWluiPfV2ENm1zGdg5XCV2tpQsJCvJ/tampaexTeMXFon/riDFlgFqLRh9OzAh1PJOyVWtYc3D1+O4Qj2e2s1cLsi6HX558RG6gm+AvNHKGUvYyiIWCnZDwpniqdNVhTKrAPsVeADfSnWenR0sgg3zXeRJ2SVakpzd1oq0GYSozi6r9mFICXuI+OmyG2EdcJsePEqpnTcgH/STtnuheMcDQxU8d+FU2s2KZJPAk4o+y3lvTqkm8yq0pM5Pd6SjAezN9KpZ2OyYlmH6Fu1h8koOYHy1YSDm3lEFrOwt2SKIfHNeeJs2qrh/AwWP/dFb4zC0bPOQ8TqKnZBg+VI6tI63j6F73ca+9v48P+LSMrB9ApxT0UXwJ83xV5EBwTMjtvVt86afViQbhW6UBrQfEtjgYqprxqKeQLI/i+ppsoq4V6Pg6PuIaJatyZKIifigHX6s9bPnItYV/gA9+p5PNQtpfG/8RLiE1x2oOxGh8r9GFjWwV80Ff41ifwpqGetTwjHWIKrhroEBxJ4n2LM7Md5kta3q/FHgqaBgntTO4IPl+25oECl9TqD3J8YfAzXoq5qg4qgDl59U3NC6tTMXMAZCyI4vLzOzh/je5xYmLRDZkR2UQJxGtNwpFXiv+obbXU0u9XwT4OQ+XJFAuBHK+oVJRv1vK1AdoksXa3QSKWgQlzCia4VBjsoSsrjD8o/TIcfzMTUkqlDbe/Fg+6mwm9b+ApANEH2ed43bTzGdnv1XzBpXXLZYw/mEMnwqMSh1Y/oXWPbn1pUaz15xnupYP9dWUZXnUx+/ui/nXaL4vKzg9haKwk9Q/bn06uahHepDV8FQavBjHbLxApxkOZOPvRdoq/I8251vv187E8uUVmS7UPKMa1KKriacb++IESzR/islBDvZ7q/ovjcMYD4fzet2qKSsLtCv7qdFjyvlkK41iCyF6/23muMZKiSpQ/MnjLYoU3rTr9S8FlyyLJV73ZlRw2Cks4Y1UTfsARINachXeaUWsaGZCln9qtzkWc5EEJjjWZrzqbd82eAEaoSPNEjga+g9i+yP1dhEKoZTnWWPTN4lDswjnilcUMICVCw0diNopBUCZ+p06Xexdg4VA+M6CvpmkVvw7sM10TB0fFPsIamxYQOZHsgPo/+w==
+    internal_properties : CAAAAAgAAADm2tlHOVWbilVlfgH0tdZymHLJ5rz3kzhlfJcY0pfd5diG/fVAdxifQKOmCViIDLWMHPmAR5m3+eHGr6szeksWq1SAZfzkpiDQpTp5X+i/rEegb6WmwY4h+Y60N4C41v3417GrFHhvSZp/wRIio/xGdYJhiP2DHigKLk1E+XgELS0ZpivsDDjdqpeCeZJLzusU0bmu/EgTakLHz3SPu2lL7Loy/9l3rdylU9m5D+XRGKRo7jozkspLZurZ0YjiSOLfrW5hU8b8CoqKm+yC8lYf8YZYbCiVl91n9Yx2HVKx4R0bt+odJHmLOCRo4ujhrh0MVI65Am0BlGenxevKcN+fJI/oNTMfBtzGOLMY1aGqiKCPJbTruLKvaNRuP2Usqo8gOhdIRvlu+bZnU+1wyfcW62beAXRaJyo0qQyVpmqKHiz/46ZaQQnRLs27RgpBuZrkFTiSmM0IRsRne+DTn+9IInDAzbE1MKBDr+8/4pAdmQmvrnhbot6oj66UVY34x9twtco+QLtRWFKcS1K1ARiaWMtaC16SzgB5O71jcEdL0thNQes2rGxJ86Hu15Gom109Fd7ot00gSPIV1CAoUkYQLXLWW+b7oqiQCVJ0GstTwtvujnM31YowpCtz4asHmxZPELYfJp3DCvo/f0ghi2w1SZQFE6Vf7ENA0U72V0+Bq3NRusZc3PMLvML1fOueLT4fPeg0VuhPqMJE88O/fsFYXgX6efSzX2A2ZZYgcwNkyED3Y4M5KtSyWV0UFJhi7qoXSbbWhhaOb9ULQ4Sa0pSVNFHSVem5MZmA/iSrv/LxXlrgOFm8yAyUHUGBQtY6ORwMink0spncEwjqNbRYTF+KZV2VjsHSj+W/TV9UmnpyoMnjlH1bW0bT1y0H3knh3OBbcaZR1diSXgjd+VDbB+rOvNZiGyWJCgveHMSuIJjxg72ksBoKsagpOd4DR2/OrFRwUYCZUqAIXZ1faiHYhmlgByxCbXrRPSLjANYIu8L/SOdGTxpTQKBXLifYnWROiN/4IrAq89jb+kOqCKCWqQjTrP86vp7m5YS7tspPI/eZQ6iC6ROBd5LUYROIBp8t5NU8xzu28jeV3k4CYgI88LocjoGoDM6xexuMOh5MMZDGNwX9lrkvlBdFKk6/pfhZXHFcPWu5+Ri9zy0Rff4lwskQw/1kFDXhcAyYIt+knNDlrsg1PLAIYwDV3Ld4X9xZ0WI=
     properties :
      x : 6
      y : 79
@@ -33,7 +33,7 @@ window :
         -
           name : CodeSourceLexer
           identifier : 0x23bbadf10128b0a2
-          internal_properties : CAAAAAgAAACJrfAj/4ja2Y2/h+c2cDoA7NdQAPeaXKRkL1KX6NjRiLEI+thReRPgQ7QAG6Vx9WqSQ1RxzasMXx1fNpkEHaFSSPeIeIbr8zc9KlH4iXYjNf5gGKkMhxs+JONcA/e0qceLBKVhDlOK6JeV9bFnEmCZzytZa8qGvv5W/053WCW0s5DFZdEU/TDXgxmBMIxgiFYiMeXZgS0XbosHmNGjWoUjQKC1UdwvAj2QbRTwADgE3r3Zsk4ZmaJFWt/vbuYda1BqFt6o9Amd0B7Dz8RDZrztnK2mmm0GWlahIc31ETNsB/VAOAJSU+7mzZtZ8oeSd90ZXIVI4UHsMmReFlXfxIwQFuuhEYwfR9BD+Guqmv0X+Q1CRjXV4d9BbrJK/i5iZxjjkgpkwJgEj6+Dnn8TtuTPMA8vEnrpo5isKU4qMt3y/3pQBzYlBEaGdmo3Vm0T+hpuseMI0ZWvCs95xxrOk497sK81QBNutmyvMYcQY76o8XIcg/uCV9cFRqVh0EfMxRyTyynM+6LaJdV//L/ssDRD/o0tAgWQ3a8wrFJNaBJj3MKsImCRpqXLoQ==
+          internal_properties : CAAAAAgAAAB5NOEUYgUQmdqOBnmqnBZVCNiNUhYV2wwzf+aiNQc3ipo11s8E4ZxSY4JDD7eAQBzqtysuiJuc/hkC/oNA8sudMWOJEEAwRVWnZw8sBHTyzF6Mc+k/dC3cpmbPFXx7cRN8WTKCOw1Ra38xlCymG1XaayEJNO5T9I17R9hJh93E0++nz4fH8Q0almGsZhZ5xj9mq+JFnAh9y1UXF11EwstYGf3lfoU+f/TQmekcU9IXFeKEpnNvF0nRXovtUQiivqs+nHb+RolMJSIgbPRX0d5qBmHB6dL02x9fGRpnIt7xtycSg5iN3XsvBy0Sfq4f5hltwvBEOhtr9TLYGRs+cX9yOLdmn+Oz4gO7zFr2RQ5eaf+e16G+hcy26la3iiednGpzeJdkBYYVQCNPoS+i82ddSm8CUAnV1kMOo22IxYYJvVbyysLeKFv7wtxist7eW+nCry9JtvadLaiK4z2KbSt1TGwmirsGwqIQsTDLFYB6IoJigG/UYrsPE9k6/kQ7b+1mEjHwgkyHVpxwFhbYVPIQ8xqQ4yjssteWJGtQk6Ir/X9pFD5i9POAtZE=
           properties :
            x : 6
            y : 6
@@ -53,7 +53,7 @@ window :
         -
           name : CodeSourceGrammaire
           identifier : 0x23bbae9202e5256b
-          internal_properties : CAAAAAgAAABotbYDZ6RQxD4IGqLSkHyO3JFS8YQq8yMyU/4nM/g5CbKcqXr+CbxvwNzRmKeH5HQXf+WhlwyMbuJvbCCfi9aQCrzNqv13cusBzhhppOQEPAbgFbSqQSx5ezM1G76XtAb8rORxwgjyNMUlbLLnEdnRAGjx8Wo/l+g0zcEC8Z3IRpYEiFs2RK4XQSO+RDESzt70RFJxM2uNRyVWTp8372YEXCLZqOM5L1bEcig2Og8YM5Pei936lBsUJUg8rJr8BNf5kz92RGaREn0zdAEIyGkStInYzP6tU+NXvz1fqmM7oX81cHHYakKTi0rXoQ9pyB47DRjVrG3GcUQY+QS0WWQ0fZ6QV/Pg4Q4HKNTDZhvRN6+aNstrBoo8JXESuNLYOwvsc6pfSRVj39AhtHXGKqUgZM8PWt5pQk75m6bt/wcCM0b5IhlTOlpy+NMNtyIkaqd/XdACCpwYPFayZNwd2xDHuj/U+1rGkbSsdB+1CZbU6u4U0wrCIgoXXb+Gq6fx/UIGfgJVBQhY/H05jpkOCTWLi5pSQOwStVdrEll/bpgnhCHn2/VN
+          internal_properties : CAAAAAgAAAB4A643COJoMqBQ0xfBe2Dw+i4TO8WGOWJLmYR6Y8ufjiIWXHeh3Uje35co3WuHKb3N6QwqioPonHOyt5SEs+8tnXwS3yjs9uOtu0DkgoF4Jegvf4JLIRJr72Xb9J2U6anS+OUDKIuaAqYEEe1sfSzw2RKNP/hIdMR+rvv8qoB2Zj759QEq5kwkCkGvVtoM2IdGDKTVD1tF2QyI8S3zW+HQ4z6pTISDhfBXcHV1VaZJx82803BKXTPRqATXE3TgPQTolheNW5k/0vjm4UXDrGbhqtwE/+b+Fd//usYxC15NZ3ELGnIG00qj/w3g3XKaUBwF0fjWrk6ydTzhjL5xPMAir9g+6jVBP6YDBeOn3ZaLcRWaaqqpC8LK2xplEjmBWc0yVRAUuTBn2XrowZU/4f3WhtGFvVLkWHoJ+J1TXGbYoegtWgwRd3oeQNxcUwrQAAex+Rq7OYf+TZZ8l8FYu32qGRb+M/oS4XqdkxXY/RBGKoomUafIKPWWtsj5l0BoXJYC3o+Jd+sKNEXxDykvCl9QEmPyIDxSEd8FL3H6xbsxTm8pydLdxEM=
           properties :
            x : 6
            y : 6
@@ -462,7 +462,7 @@ window :
   -
     name : Table_Resultat
     identifier : 0x23bd10790b2e9077
-    internal_properties : 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
+    internal_properties : CAAAAAgAAACqLmf+EN9mVsWDvsPpa2VWmNWEl8acsmJHXBVokLrEB+Lonr5UCPU1MfquW/vGBjJ+iojue2OqSc0D4RszrcfDhPGppDY0mPbFgIMq67wsb3to4lcd0Z7WVYhWJa+5IASkcbxGuVGu9lyaJZorBYHhy50V1HKNJbBYhyewYOMaYce29DQxrPrSxcNV+2voOTpIcOCNOOmvcZ5TrqZrFM6FRoMlCZ3jdJOPZ5ioUJ1FglUYZTXQ3BiNIbjFyo2DDvrzw00I+LN1ftSRdiDakOenrJfEZr+NP2fJGo0K0jxHbWHurTKoTA0rnTvgIjNBMl4gf9ILHPNyS+j0K5GDPbZptCzBwNmr1coICz5uYHkbs7KZKB2uAyYysmI5fSmhGlBnCo7DYyMYe6HDeodqF0ozeDnDqKxSyAMdHUw8UbtmoAP/5qi9aYxP3Az4byK80N6pGnjrSFLkKRai115Ce+QR8j4u79ZzzXX2VXcw+4ONZieVg+O/0ztWxrq2JSwN7CTZ/KIJ9ZwEPjQUVbcm+amQ/cL/9zn+GrI1JW9sM6htdoQUH9yGrpn2UDqUW3a7d3iiCQvlAp9QgAiiq4Q0F6x/k2UYFY69FN9CL0kcrrGW1Fo7jPL1ual5kj1wubYoFdvZGkzqWUWxIWOUQJH24ZBAOT9tHa1sgk7Kqb4YjY6TZdxJJBL51wiziWCoJunXIN0XYmmpDsdXCSozI5vPYYnJPaFRDa2OyEDR6rvS9+nZC4L4SChfKjNgCZpTMyaUMA6T5+F45V0nyUnGwo9vcxncXYp3uIscVchS/bvKR/vz9ljolm2JQ5sW7niqg/YEvgUxL+7tMg9qkQotn+LySKUNtQlUjADPQoPsyKfpN+WcUoIo3USMmfhpDBCOiuHFSvlfb+bKcncZXYq4IVSDRK93onDwwVFDIJvTsXbnB2yPV/0ttppYQhrffng1kalE3r+dpEPVQ/bu8g3JCPatNywddZ+2uJqF2NzBHJNtAydzm91k3ugC/yBKBoO/t3E9AfG2TxgKqKmHnNk0eyUR4VHWF1zV5UZ/9Af/A60quclKZ6rb5j95wflrBQBkMUDaoW2qxc443iNviOek3q8yBRg8Lw6GqhH3WnFsJ5h44mvTsABFz714b+qaTu21FLYaR2wkkZQvdu3A40XtdWfr361W4oSUQfTGysltrLYHHum1oKxVTDGEswNyN5iCTD02vDyH4ckZYK7a0RlDefAuRc/BKOu8TrUoyWgsZWl/0E2oUbt0u5rRKdMXaAnhzS9IAO4OMIS1bSxAaWQrvEwZEa10QA2RKn+Z1bvm8Z3x9LcepSseX2LBvVFQ1QHKsuHCL4MC2QeNkfTtQWpOoVkXuoXWRztquG3XBhFGKa/rZAyi4l2JVipETOjfCnYVd29Wb7y2KvF0yZl/LH8+HsDJKI+6pj4H9bGGK1prqKxiB5taDlApSv5AV1JAPHHIJ7vy/W7P4Cv/oVH/gN7REDKpd1tXiPOa/iCh4TtdaIPwcl+LDnjbOLepSqNt98pXuxnMhvwYOkWKitsDcmpnugmVMdrpd8wsWzigV/apKNrupPdwuUS7rsOFYKTEnJa3JzCouZA3bCUpuMm/ecfKxiRFEqCxjITA7L58jVF651g/dFrGED0n3fpakjupBX/zYvR7GLDkn9M8+6kyQVDK80sF3ykORE/Jv77m+FeZRHkD0LLFfEiZRVfygrwpxUr2uy4jiTKNY+VNuX4fFaJWZ0EpVA+Wke/54IS63YQUqdLkhtTChcC/keZyTDcPSsQcMom8tqJnIX8D26w/4TaReO3iUxT7mtqtcG/udcc3jDrk6cg4dheWu9ec41XAYtst9m7sKppNazjuSaaL+wOJurzCFjuv/21B9IZ8Y7ro7MB7b/DN+I8FFIqqhNMCXH7Lc1iS28lkXk90NKPVrwtWS4vQm0CpaVQdBxOGj+Nuat0Kq2I01EM1XbPv/kgucpzEzPS5E+Lk0iar4UapbE2uJrRAFmsUrGivpoZvMebxOyrFr4C7Oig43tJQipLv+4nDeHeXvS6LfJI/WW5S9H5zlmb0EzUHc4zHsN4G18FLwsA14j38FCQMq+KxVyhvzKL7uvM0mbag5T4EIyWh58+Pd5rJvyb50Ssp+pa+KdMz07YrGFBVx2d2D5KHmgCyDsLagTSrtsy5+MrgkH5BslfUo122IPG1HDXsa5/eURX/t0p/juCRkuKExpq/48V/wQ1QtzPpSBDSITk1mc4LqoR3XsBtb64DnyEJE8tKi33PuGeMC5xWdxIX8G3iBhP3C6zuN8032k0wi9tXbfCOAKmtK6K6Pr+PHPCkqiPFvyfj2XoD7DI5hoipCrHst0Ph//AQvtpDcZbnn1s44t9sSHZBvRNai3c29BCTkCc981o366hX61KW9mLOMnFrcu4NvmstdLZH5x+V/yrp+GIJe13pFH/odZ6xLOzpqNYaSDzD4zSnwevv8LOWCqP7HuUH4CEDwZIz9HOv1J2YYgGl5GgcdubdLmqzNB4nsSmWFjaUyydLiIC7ys6kmd/9WqH7pwQnmIBnvhWf11CMNZxIOF0ZlcdZ50QHJn8mPJjvCB2TMzmjop4N1CQ85WxAPpJzEV4CWahc4JzcM1IggJ8iyiPks8n7ojlv8IszMhMD+LEE2tWJE5oeXit2cHjiyhqIDjtkzBdg5nR1p374BkWKkhiBsvlOGcdvVi4rfsx8OSZuOGBidXntVVg67HZKc1QbMEGfuEgzUomZ/n7WYmQaxLKTrWfk3PWDHwzcjJU6LuR8T8kGfrp+tG6F72/y2yQq9PsRjeH8UJSNCzqA6+tLoxTpk5i+NUNfPFk9qUsoJs+rJGagHm1we53FlzQfeXbV+oBSR0kEnzrDX9u6jTgaLbVcF7YPtVpl0F1tNVjg+rNcniWp2iXhFjBlfhk52ngBOGVvixEx+pQQBsF6uGOPqbkNWowZHJWuX6BCmeWYx+8dP5UjT6fc9rF6IqbGDUu8KK6ZNGjSXp5WhIwiVRDRlNx61GfIcqrOLLZW/J3zfXgXOJDMX2LL0A1kc9JTjpHTDV/MwHaf32qI29SvrWIT5z5Rzo/9fNjx2j6VuNtyJZrHMtAA3eT6NwlF+EnVT/SUHVqM+KV0NC9OaOHt5VNoVsIQ9XGZrtSi5C7u77MPfpiUNqnBdu7aDMe75PFX2/MQj4L5XTQBpAPLTATMvEF/Ts5wDxAtilsFJJNhziVn1GCB8R/+semtYcTiSwci32q81RHSJge+Ox1mqbQanesKDXhJL9+H+LAaWiCRvZPSlgAgMOCSv2UIy2LSi95dFYBHZS+3Yc6dOKTGvutyCokBQfMQW/PRFhoiRX+PCBCojocnmnSYuNvHltBDRDGsQpWoIp7VUXBWSZO9beq52a5+sNMC0nGlfxp+n6ev1Z6LC3w2RYWItARN1tedHEoiP0mXzNaXTWjGXnGba+6rOyB5U2LtrrqgZ0HokwzmIZERCtSdSCEUaFu5ykN58q5bubdbL+UXP2ZK4tU2fX4xoBFHdO2C3e74yBky/cZmigpLtoKiXfh8WAml5dppI1qrZgPSymzZbid2fM3MPUGv7rLqgeWesdNBrxHrdcnf4OnPLsM1YDZpnuRe8obd7jYu0xurfw52Ern+Eyp0JuJdFZDRASykXvg66zhpCDPGGDum0Wt+lXiijp/ahzXzJcVYT2SAmxWxexJgy7Op87fNmBcB+mqWbsXOsddV2qIgBxeO/wDOGNGPPW/r/VdXtp20xOOes6OHXXGc48EA839Otb/0uTWaLpAJxxfo2xZJ8wUZjsdh+Pq8VMr6P3imEJhV9dqw9v8ddxRnRr/wUwg8ZyFV6u7brSnluufHAEX5rkGrLI+8NAFN0UkiNSKTtziXE6I/K72lO+yueb7HTnU0z5t2F3a2eI7mqlnlpAqncWnyLdzPCCO7CK9T70sieZpAtUztsWSsqH2bEi6t96rkLZOYMomMHiBVO8SjUhqD67Npb20gAkR//DdnBPWyWRsUQENALtax5sLSuQlpyHdCtBuirfbFA21lA1CD8bZRA7PJnYBx5Axqh9EJOWfGsj0y9J9NLlM1suXBeD1B7DzDjQFruDcVse4g0Kela57+KrVKU83ou+X9I77Q2prWyFmjl3jEfnQuAtz9yHc9lPLb6tL4Y8WZIiy4QOw7ltyVE7LfcF2j25VFAlPNrJ45H6LkApt2bk3/eVzFFqhoBwYHvke0G6cELMbl2tEBA78r/e1dglFJEO2WDFtJa1N2GUVSwC7PJt1Klq50A4t2FCG4gf1iURlKBkubQskg3wPZq+uXyVyaw1f37MczkW5fkYyvD7NyXgac5CkXI+RCmKJXmHfFcTs29DDUQS8k98ruUfmo0Ek14xSK9y0PI189vKrbirM7rWyOACobrkI/ymGoekfRVfNjTkIzQvaG3RNPESj/UP+VNBQh7LEtQLCoIQQGVXylirW1OAjTbQZeNmDsFjGj2l2V6PdQFaDHrgofEubq+msiiEorddzeUlwwdbZIZbupzgwXeoQ24HxUJS6LFi1lAktym9PlbBcDReI1aI9ENp6OvPzZWBZzxvUiMXY+6Vi2NFBa90y3qYNEY8/+5AHwllyRnwwmJ8Snh1ookVdy4M+bxHBKfwBiaJYFXtps7+ov+um7Hi+sDiMjbOxXoXDJhHF/QaoGa4MZh8qY2a0LtZKLxNN1uEdlF0KE5PnQ4uPUK1yrloGV34z/1fcGvJjVRkVfTX35eDB4ALHa/8iZSFFiksMRVkU4oNVE6nn45nhVfSWit0JJ85vZGHLUMsvrNTmkt5wi/6tl+y27BG4C5pbqgPOC5Rt3HRHfX1/9mv6tkr50W2l9/xyDqxvYC1C1zJVym5V6Z9j2uGM8ralZ8WeRQG8hs3u7QYkcf85rtOZy9ZHPtz/CqAZW5eWf3dqq39/rsIQO6JOddKw8zUGa/dYuoTRycGUyUZreaQem3yocu5MRGABLRSeqSGFL+8xzx/NsYDXrjrViowD229+05HDG2WcLHCA4FOo1uv3c2jb7cRHy1WDqYZyu9xmldvlYVZ/cl28sCXqaVCw0Rf2fCBBqgM/1YA65hSpaLYRw+g4GZkixAIVqonhgcOAcCt51tXglLRNc/XEBkzujxp5Ve1RgCJYW3rzIgHefk2YJ7RACptidFKfrz5JTsRa0KgWTBzT0UaVCV9qyJUa8cCW25w9Gt68HlQJhSpr3e/9cLFf7ST8EpaLnmbG3nYOoJvn4fKYqgOMv+dnQFL1LzqKOJfiaFIxr1fbGm1E+bhwxP+V1Bvrp8fLV1wCXfeSX1XJWwoGp9/D0Rc0uZ5khuwB8jKEDiatK7gmqM5dD1WF51azhppiC9+vZpr47ap+lZQPyHcVlOwPPkkcBtBWwnt6zzaRMZVuMjQTyyn/kzr/nLQu3MetUiszXf1Rxl2YS0Ov5G8B7OBjkFn05b85vG+jz4NqE6iQ0JFuS8xtyzBYgm5RMKov6WJAdEwoNy2iMMV7EieWwHYekWmEnp4ZfxXSARZC5OvmCQzX3NDHg391SwqM/6gtf15YDh5jHSCoErcXn+qDQXMjm+w0XpHnsDniEvA7s2Trfdi+CGj32Dy1p76sGg+1E6lv961LY3iA+1Py3A2V/50K8oa3H/2FP6m/iuigPIWxFwP4Lpq8355qLNfg6yHk7530OG/+ovZm+LvL15K2M99BO7MYzZ46pqUPCtSXsmhT5tmZcaw0KvHk4Nw3SMs4zh1BH8bpHaGyvBtX0/H6nrRnBIJZo9H7FtXvgMS5LsX6VZqYbDyRxW/OINchLep7dYrjeLhLdBQRe5r+27sMEP9j8O+rwNY1meVxRhdKWHsdeWNPCDxPjQh71EWdnzV8F0azJP+/GmeTOHVLBw6wxHpYKUlIOfmqXTs5mrRUPOu+6TjQF64RHJ8wwS+5T1gWfNcq4s4ySQteLYB6hpkFfhg88uF9m2QzjoVInXMoqkS9wLeGIilojPYI2xFzT15i4CjZ5tIW/VgddCE3pjvmzHRvCmjTKc1j3LVV+P72Wqbkax5o4hY6pgRbPckTQoNCaYJN8wFrbxfYiXdjMD8N/OcmGhBPjnCHhUTiJcjr6JZavAkLJq2bd77muJkKctCfezKRljZ4=
     properties :
      x : 15
      y : 411
@@ -698,7 +698,7 @@ window :
   type_code : 1
   p_codes :
    -
-     code : |1+
+     code : |1-
       PROCEDURE MaFenêtre()
       
       global
@@ -716,6 +716,10 @@ window :
       								  "Tous"  + TAB + "*.*"
       	gsRepertoireGeneration		= "out"
       FIN
+      OPtionOuvre est une énumération
+      	avecAjoutMRU
+      	sansAjoutMRU
+      fin
    -
      code : |1+
       // on ne peux rien faire tant qu'on a pas ouvert ou créé un projet
@@ -729,7 +733,7 @@ window :
       // ouvrir le projet ouvert si il existe encor
       dernier_projet est chaine = recup_dernier_document_charge()
       si dernier_projet<>"" et fFichierExiste(dernier_projet)
-      	ouvre_projet_par_nom(dernier_projet )	
+      	ouvre_projet_par_nom(dernier_projet, sansAjoutMRU )	
       fin
       
      type : 34
@@ -766,8 +770,9 @@ window :
       
       repertoire_projet est chaine 
       ID est un entier = DonneIdentifiant()
+      nom_projet  = "mon_compilateur" + ID
       procédure interne _genere_nom_fichier()
-      	nom_projet  = "mon_compilateur" + ID
+      
       	repertoire_projet = ComplèteRep(fRepDonnées())+nom_projet
       	nom_complet_fichier_lex   	 = ComplèteRep(repertoire_projet) + nom_projet + gsExt_lex
       	nom_complet_fichier_bison 	 = ComplèteRep(repertoire_projet) + nom_projet + gsExt_bison
@@ -777,8 +782,22 @@ window :
       // si un des fichiers source existe déjà on génère un autre nom
       tantque fFichierExiste(nom_complet_fichier_lex) _ou_ fFichierExiste(nom_complet_fichier_bison) 
       	ID++
+      	nom_projet  = "mon_compilateur" + ID
       	_genere_nom_fichier()
       fin
+      // demande a l'utilisation
+      //1 : OK
+      //2 : Annuler
+      SELON Saisie(<§?13CD739100606584§>,nom_projet) 
+      	// OK
+      	CAS 1
+      		_genere_nom_fichier()
+      	// Annuler
+      	CAS 2
+      		retour
+      FIN
+      
+      
       // crée le répertoire du projet si il n'existe pas
       fRepCrée(repertoire_projet)
       // Init du contenu des fichier
@@ -799,7 +818,7 @@ window :
      name : _GlobalesVersChamp
      procedure_id : 1418324597732253884
      type_code : 14
-     code : |1-
+     code : |1+
       procédure _GlobalesVersChamp()
       
       R_Compilation..Grisé = faux
@@ -809,9 +828,23 @@ window :
       ONGLET_Source[2]..Libellé = "Grammaire - " + fExtraitChemin(nom_complet_fichier_bison,fFichier+fExtension)
       
       // Init des champ de saisie
-      CodeSourceLexer     = fChargeTexte(nom_complet_fichier_lex)
-      CodeSourceGrammaire = fChargeTexte(nom_complet_fichier_bison)
+      CodeSourceLexer     = _charge_document(nom_complet_fichier_lex)
+      CodeSourceGrammaire = _charge_document(nom_complet_fichier_bison)
       SAI_Fichier_Dest	= nom_complet_fichier_généréré
+     type : 458752
+   -
+     name : _charge_document
+     procedure_id : 1427105082873721299
+     type_code : 14
+     code : |1+
+      // renvoie une chaine source
+      procédure _charge_document( nom_complet_fichier est chaine ) : chaine UNICODE
+      doc_source est chaine UNICODE
+      doc_source= fChargeTexte(nom_complet_fichier,foAnsi)
+      si position(doc_source,caract(0))>0 ALORS
+      	doc_source= fChargeBuffer(nom_complet_fichier)
+      FIN
+      renvoyer doc_source
      type : 458752
    -
      name : ouvre_projet_fSelectur
@@ -825,7 +858,7 @@ window :
       sFichier est chaîne = fSélecteur(fRepDonnées(), "","",gsFiltreLexBison, gsExt_lex, fselOuvre+fselExiste)
       SI sFichier = "" ALORS RETOUR
       // ouvrir le projet
-      ouvre_projet_par_nom(sFichier )
+      ouvre_projet_par_nom(sFichier, avecAjoutMRU )
       
       
      type : 458752
@@ -835,7 +868,7 @@ window :
      type_code : 14
      code : |1-
       // ouvre un projet t
-      PROCÉDURE ouvre_projet_par_nom(sFichier)
+      PROCÉDURE ouvre_projet_par_nom(sFichier, option est OPtionOuvre)
       
       // charger ce fichier
       repertoire_projet est chaine = fExtraitChemin(sFichier,fDisque+fRépertoire)
@@ -850,7 +883,9 @@ window :
       _GlobalesVersChamp()
       Table_Resultat.SupprimeTout()
       // gestion du dernier document ouvert
-      on_charge_document(sFichier)
+      si option= avecAjoutMRU alors
+      	on_charge_document(sFichier) 
+      fin
      type : 458752
    -
      name : enregistrer_sous_projet
@@ -1031,6 +1066,25 @@ resources :
       en-GB : All files (*.*)
       es-ES : Todos los archivos (*.*)
      index : 1
+ dialogs :
+  -
+    identifier : 0x13cd739100606584
+    internal_properties : CAAAAAgAAABj6OMQIfFGH26Rj6U0JuulUF59yiWCiWXuS34QFMnZ/XL5zvk=
+    label :
+     fr-FR : nom du projet ?
+    image : {}
+    cancel_button : 1
+    buttons :
+     -
+       label :
+        fr-FR : OK
+       image : {}
+       value : 1
+     -
+       label :
+        fr-FR : Annuler
+       image : {}
+       value : 2
 custom_note :
  internal_properties : CAAAAAgAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
 rad :

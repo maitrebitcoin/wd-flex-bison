@@ -1,0 +1,91 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : derniers_documents
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x13cd0e1900f909be
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  type_code : 31
+  p_codes :
+   -
+     code : |1-
+      // gestion des derniers documents ouvert
+      
+      constant
+      	DernierDoc = "DocLePlusRecent"
+      	ListeDoc   = "ListeDocCharge"
+      fin
+     type : 720896
+   -
+     code : |1-
+      
+     type : 720898
+  procedures :
+   -
+     name : on_charge_document
+     procedure_id : 1426812376543056400
+     type_code : 15
+     code : |1+
+      procédure on_charge_document( nom_fichier chaine ) 
+      dbgAssertion(nom_fichier<>"")
+      dbgAssertion(fFichierExiste(nom_fichier))
+      
+      SauveParamètre(DernierDoc,nom_fichier)
+      // ajoute a liste au debut
+      liste_doc est chaine =  ChargeParamètre(ListeDoc)
+      // suppprimee si il existe déjà
+      tab_doc est un tableau de chaine
+      ChaîneVersTableau(liste_doc,tab_doc,rc)
+      POUR i = 1 _À_ tab_doc..Occurrence 
+      	si tab_doc[i]=nom_fichier ALORS
+      		TableauSupprime(tab_doc,i )
+      		
+      	FIN
+      FIN
+      tab_doc.Insère(1,nom_fichier )
+      // sauver au format chaine
+      liste_doc = TableauVersChaîne(tab_doc,rc)
+      SauveParamètre(ListeDoc,liste_doc)
+     type : 458752
+   -
+     name : recup_dernier_document_charge
+     procedure_id : 1426812818924725383
+     type_code : 15
+     code : |1-
+      // récupa du dernier documetn chargé ou ""
+      procédure recup_dernier_document_charge() : chaîne
+      
+      renvoyer ChargeParamètre(DernierDoc)
+      
+      // récupa du dernier documetn chargé ou ""
+     type : 458752
+   -
+     name : pour_tous_document_charge
+     procedure_id : 1426813557659140989
+     type_code : 15
+     code : |1-
+      // visite de tous les doc connus
+      PROCÉDURE pour_tous_document_charge( proc_visite procédure ) 
+      liste_doc est chaine =  ChargeParamètre(ListeDoc)
+      document est chaine
+      POUR TOUTE CHAÎNE document DE liste_doc SÉPARÉE PAR RC
+      	proc_visite(document)
+      FIN
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : ProcéduresGlobales1
+resources :
+ string_res :
+  identifier : 0x13cd0e0d00f7da81
+  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
