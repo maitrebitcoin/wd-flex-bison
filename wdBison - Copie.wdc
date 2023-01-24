@@ -37,8 +37,6 @@ class :
       	// option : 
       	//générer un projet complet (plutot que juste des fichiers .wdc et dépendances )
       	dest_projet_complet			est un booléen
-      	//générer un composant interne (si il n'existe pas encore)
-      	dest_ci_siInexistant		est un booléen
       	
       fin
       // Ex:  A ->     A b
@@ -507,15 +505,10 @@ class :
       
       // copie simple d'un fichier de dépendance
       procédure interne _copie_1_fichier(nom_court_fichier_dependance est chaine)
-      	_nom_fichier_dest	est chaine			= ComplèteRep(répertoire_destination) +nom_court_fichier_dependance
-      	// si il existe déjà, on ne l'écrase pas
-      	si fFichierExiste(_nom_fichier_dest)		 ALORS
-      		renvoyer vrai
-      	FIN
-      
-      	_bin				est un chaine ansi	= charge_ressource_classe(nom_court_fichier_dependance)
+      	_bin est un chaine ansi = charge_ressource_classe(nom_court_fichier_dependance)
       	dbgAssertion(_bin<>"",nom_court_fichier_dependance+rc+ErreurInfo())
-      	fSauveBuffer( _nom_fichier_dest, _bin  )
+      
+      	fSauveBuffer( ComplèteRep(répertoire_destination) +nom_court_fichier_dependance, _bin  )
       	SI ErreurDétectée ALORS RENVOYER faux
       	renvoyer vrai
       
@@ -552,12 +545,7 @@ class :
       	SI PAS _copie_1_fichier_prj("FEN_test_du_compilateur.wdw","",_patch_nom_projet) RENVOYER Faux
       	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.sty",Nom_projet+".sty") RENVOYER Faux
       	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.wdp",Nom_projet+".wdp",_patch_nom_projet ) RENVOYER Faux
-      FIN
-      // si on veut crée un composant interne
-      si :dest_ci_siInexistant alors
-      	
-      	SI PAS _copie_1_fichier_prj("CI-template-wd-flex-bison.wci","",_patch_nom_projet) RENVOYER Faux
-      	
+      
       FIN
       
       // classes de base
@@ -580,24 +568,11 @@ class :
       	renvoyer faux
       FIN
       
-      fichier_dest est un FichierDisque 
-      fichier_dest.Ouvre(nom_fichier_dest,foLectureEcriture)
-      si ErreurDétectée
-      	// erreur : sans doute ouvert dans WD
-      	RENVOYER Vrai
-      fin
-      bOK est un booléen = fichier_dest.Bloque()
-      SI pas bOK
-      	// erreur : sans doute ouvert dans WD
-      	fichier_dest.Ferme()
-      	RENVOYER Vrai
+      si pas fBloque(nom_fichier_dest) ALORS
+      	// erreur de blocage : sans doute ouvert dans WD
+      	RENVOYER vrai
       FIN
       
-      fichier_dest.Débloque()
-      fichier_dest.Ferme()
-      	
-      // pas d'erreur : pas ouvert dans WD
-      RENVOYER faux
      type : 458752
    -
      name : _vérifeDest
@@ -615,22 +590,9 @@ class :
       
       // idem pour le projet
       nom_fichier_wdp est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire+fFichier) + ".wdp"
-      SI _bFichierOuvertDansWinDev(nom_fichier_wdp) ALORS
+      SI _bFichierOuvertDansWinDev(nom_fichier_dest) ALORS
       	RENVOYER (Faux , nom_fichier_wdp + ERR_BLOQUE_PAR_WD)
       FIN
-      
-      // + tester dans le repertoire de génération
-      rep_dest est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
-      tableau_fichier_wdp est chaine  = fListeFichier(rep_dest + "*.wdp",frNonRécursif)
-      // + le répertoire parent si CI
-      si :dest_ci_siInexistant alors
-      	tableau_fichier_wdp     += [rc] + fListeFichier(rep_dest+ "../*.wdp",frNonRécursif) 
-      fin
-      POUR TOUTE CHAÎNE nom_wdp DE tableau_fichier_wdp SÉPARÉE PAR rc
-      	SI _bFichierOuvertDansWinDev(nom_fichier_wdp) ALORS
-      		RENVOYER (Faux , nom_wdp + ERR_BLOQUE_PAR_WD)
-      	FIN
-      FIN	
       
       
       // OK

@@ -22,16 +22,18 @@ procedure_set :
       	EXIT_CODE_ERROR = 1
       FIN
       STOptions_lc est une structure
-      	debug		est un booléen	
-      	verbose		est un booléen	// -verbose
-      	newprojet	est un booléen	// -newproject
+      	debug			est un booléen	
+      	verbose			est un booléen	// -verbose
+      	newprojet		est un booléen	// -newproject
+      	ci_siInexistant	est un booléen	// -cisi
       fin
       
       // options de la ligne de commande
       constant
-      	LC_Verbose		 =	"-verbose"
-      	LC_Debug  		 =	"-debug" 
-      	LC_CreeProject  =  "-newproject"
+      	LC_Verbose			= "-verbose"
+      	LC_Debug  			= "-debug" 
+      	LC_CreeProject  	= "-newproject"
+      	LC_CI_SiInexistant  = "-cisi"
       fin
      type : 720896
    -
@@ -85,6 +87,8 @@ procedure_set :
       			option.debug= vrai
       		cas LC_CreeProject
       			option.newprojet = vrai
+      		CAS LC_CI_SiInexistant
+      			option.ci_siInexistant = Vrai			
       		autre cas
       			// option iconnu
       			_erreur_LC("options invalides : " + options_lc)
@@ -139,9 +143,10 @@ procedure_set :
       // crée un compilateur de grammaires
       compilateurBison  est un wdBison
       // init options
-      compilateurBison.en_mode_verbose     = option.verbose
-      compilateurBison.dest_en_mode_debug  = option.debug
-      compilateurBison.dest_projet_complet = option.newprojet
+      compilateurBison.en_mode_verbose      = option.verbose
+      compilateurBison.dest_en_mode_debug   = option.debug
+      compilateurBison.dest_projet_complet  = option.newprojet
+      compilateurBison.dest_ci_siInexistant = option.ci_siInexistant
       
       soit (b,message_d_erreur) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
       SI PAS b ALORS
