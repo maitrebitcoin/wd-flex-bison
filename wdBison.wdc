@@ -295,6 +295,11 @@ class :
       	// erreur
       	RENVOYER (Faux, ErreurInfo())
       FIN
+      // vérification de syntaxe basique
+      si position(source_bison,"%%")<=0 ALORS
+      	RENVOYER (Faux, ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "%%" ) )
+      FIN
+      
       // init a l'état initial
       _changeState(Declaration_SymboleEtOption)
       :indice_token_pour_déclation = 256

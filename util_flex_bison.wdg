@@ -33,6 +33,10 @@ procedure_set :
       SI contenu_fichier_bin="" ALORS
       	RENVOYER ""
       FIN
+      // si c'est de l'unicode
+      SI Position(contenu_fichier_bin,Caract(0))>0 ALORS
+      	RENVOYER contenu_fichier_bin;
+      FIN
       // est-ce de l'utf8 ?
       contenu_fichier_utf8 est chaîne ANSI = UTF8VersAnsi(contenu_fichier_bin)
       SI contenu_fichier_utf8<>"" ALORS
