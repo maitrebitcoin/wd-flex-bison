@@ -1,0 +1,60 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : COMPILATEUR_GENERE
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x13afdc3200468e45
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      // Classe vide qui sera remplacé par le .wdc génére a partir du .y
+      COMPILATEUR_GENERE est une Classe
+      	hérite de wd_compilateur_base
+      fin
+     type : 131072
+   -
+     code : |1-
+      
+     type : 131074
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1418594514956160581
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1418594514956226117
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+     type : 655360
+   -
+     name : compile
+     procedure_id : 1418594514956291653
+     type_code : 12
+     code : |1+
+      PROCÉDURE compile(local source_a_compiler est chaine UNICODE <utile>) : (booléen, chaine)
+      RENVOYER (faux,"Erreur")
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x122df03b004b4046
+  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
