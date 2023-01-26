@@ -456,6 +456,7 @@ class :
       code_de_travail = Remplace(code_de_travail, "modele_compilateur_genere", nom_classe_principale_générée)
       // Init date & n° de version
       code_de_travail = Remplace(code_de_travail, "%DATE%", DateVersChaîne(DateSys(), maskDateSystème))
+      code_de_travail = Remplace(code_de_travail, "%HEURE%", HeureVersChaîne(HeureSys(), maskHeureSystème))
       code_de_travail = Remplace(code_de_travail, "%VERSION_LEX_BISON%", ProjetInfo(piNomProjet) + " " + ExeInfo(exeVersion) )
       // Mettre le code user de déclaration de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", _to_yaml(:code_wl_declaration_membre))

@@ -21,7 +21,7 @@ class :
       //
       // ****************************************************************
       // générateur : %VERSION_LEX_BISON%
-      // date de génération : le %DATE%
+      // date de génération : le %DATE% a %HEURE%
       
       modele_compilateur_genere est une Classe
       	hérite de wd_compilateur_base

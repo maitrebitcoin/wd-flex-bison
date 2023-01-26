@@ -49,6 +49,10 @@ class :
       	numligne_source est un entier
       	code_source est chaine
       FIN
+      
+      constante
+      	 ERR_LEX_NO_RULE  = "Aucune régle trouvée pour le lexer"
+      fin
      type : 131072
   procedures :
    -
@@ -246,6 +250,12 @@ class :
       // renvoie (vrai, <code WL du lexer>, "") ou (faux, "", <message d'erreur>)
       procédure _genère_code_lexer_apres_compilation(nom_classe_générée est chaine ansi) :  (booléen, chaine ansi, chaine)
       
+      
+      // si aucune règle trouvée
+      si :tab_règle_production_lex.Occurrence()=0 ALORS
+      	// erreur
+      	RENVOYER (Faux, "", ERR_LEX_NO_RULE )
+      FIN
       
       // chargement du code  wl template
       template_code est chaine ansi = charge_ressource_classe("modele_lexer_genere.wdc")
