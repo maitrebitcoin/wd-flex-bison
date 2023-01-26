@@ -500,6 +500,7 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAOO1ENEmLs/d4AFJ3zI0Rm3HzokwOn2ykiTl2GnGZ9L32A97QV4+tVfbBdwlu8ZMwy4scTmDAHJwZBOLUavIu1JWyb/CcCLkdXBxP4+aafaaJP3qa4Vchbc1R/2usBdLx7N3yF1wFBK7qQO2/RVTjz+q5iCvvHmcGVAN9dWum+hML+9mS0DnLdgkwa3ajZXYjyRTI5fG4vWFMutFgiMEtW/CT2b4m4a2evdJEmpq2H6b6/S8GnpvDnHaSv0V9NpP6WyXoauBCMWQha4q7M1iBbpgEw+/dkLIe3NRkE4xhaHKsBQF3xBepGXDycmquu2tR8aH2V1IlKlwytsRuoLRNPuBBIK5PfpzIQC0CXEKS4VcxeKgL/FarQ1yoDPq0UNGz/ovY9SMH+cRRZE8Y9rETK+oDUf7X0WJV2FYBVWURKNTJltm2aU6ErcuH/7c2nNya9kuI6oy1pPYkykDb3R2rxAjqCMsJgYUAwGBYyrKBcRu2e5JFIcNE6iU+cZKzDmJjbFgLmeKrBj312SLRoxM1crZfbETIQdDsGPePsP0j232ysuoIdzBcKNtnYmIsnMvRks2kjN+zT5McqxELFOWstNMqAvQqOzNN8MIQ11w9K4VWcjp/EWywrJ0j/wTfILGxdNb/GlmBwunmrN/D4xd5phrggbH0GgAbeCb3aIpqAzdjDYdv8qVR/gEYaV0XhsNS/nTxaddaXV+0mil7lUcrq129p8TMnp2qZhS3hWFGbs05das0wXbgus+zB2BrPPhB3QSrbpHmSXLiyGG4nLXEPkb+bC/x91BvlyPyxLFUMd825y80BSQo4SHoEvyNk55Ul3r2PV7JV/NFXMDbLlZxqyj8ai2PBTnWWCQmcclr/AA==
+        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAABssTGe+4vof10jkgFCGUhzWsoKcJvuRNPE3LU9UrUK385arA5rqHJ2vvbhOQfMsu/hzgJyw8INdk5ECTU0dr6bgi/crosA
@@ -521,6 +522,7 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAOO1ENEmLs/d4AFJ3zI0Rm3HzokwOn2ykiTl2GnGZ9L32A97QV4+tVfbBdwlu8ZMwy4scTmDAHJwZBOLUavIu1JWyb/CcCLkdXBxP4+aafaaJP3qa4Vchbc1R/2usBdLx7N3yF1wFBK7qQO2/RVTjz+q5iCvvHmcGVAN9dWum+hML+9mS0DnLdgkwa3ajZXYjyRTI5fG4vWFMutFgiMEtW/CT2b4m4a2evdJEmpq2H6b6/S8GnpvDnHaSv0V9NpP6WyXoauBCMWQha4q7M1iBbpgEw+/dkLIe3NRkE4xhaHKsBQF3xBepGXDycmquu2tR8aH2V1IlKlwytsRuoLRNPuBBIK5PfpzIQC0CXEKS4VcxeKgL/FarQ1yoDPq0UNGz/ovY9SMH+cRRZE8Y9rETK+oDUf7X0WJV2FYBVWURKNTJltm2aU6ErcuH/7c2nNya9kuI6oy1pPYkykDb3R2rxAjqCMsJgYUAwGBYyrKBcRu2e5JFIcNE6iU+cZKzDmJjbFgLmeKrBj312SLRoxM1crZfbETIQdDsGPePsP0j232ysuoIdzBcKNtnYmIsnMvRks2kjN+zT5McqxELFOWstNMqAvQqOzNN8MIQ11w9K4VWcjp/EWywrJ0j/wTfILGxdNb/GlmBwunmrN/D4xd5phrggbH0GgAbeCb3aIpqAzdjDYdv8qVR/gEYaV0XhsNS/nTxaddaXV+0mil7lUcrq129p8TMnp2qZhS3hWFGbs05das0wXbgus+zB2BrPPhB3QSrbpHmSXLiyGG4nLXEPkb+bC/x91BvlyPyxLFUMd825y80BSQo4SHoEvyNk55Ul3r2PV7JV/NFXMDbLlZxqyj8ai2PBTnWWCQmcclr/AA==
+        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAB/tUr8YNQWTDEuzK7TmMDRqgXl1fZVUOKB5Z56sEq6gweKITMykUORVQxrI+ehMqpbUO4H6AKr15sE4KjQ1jAz
@@ -542,6 +544,7 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAOO1ENEmLs/d4AFJ3zI0Rm3HzokwOn2ykiTl2GnGZ9L32A97QV4+tVfbBdwlu8ZMwy4scTmDAHJwZBOLUavIu1JWyb/CcCLkdXBxP4+aafaaJP3qa4Vchbc1R/2usBdLx7N3yF1wFBK7qQO2/RVTjz+q5iCvvHmcGVAN9dWum+hML+9mS0DnLdgkwa3ajZXYjyRTI5fG4vWFMutFgiMEtW/CT2b4m4a2evdJEmpq2H6b6/S8GnpvDnHaSv0V9NpP6WyXoauBCMWQha4q7M1iBbpgEw+/dkLIe3NRkE4xhaHKsBQF3xBepGXDycmquu2tR8aH2V1IlKlwytsRuoLRNPuBBIK5PfpzIQC0CXEKS4VcxeKgL/FarQ1yoDPq0UNGz/ovY9SMH+cRRZE8Y9rETK+oDUf7X0WJV2FYBVWURKNTJltm2aU6ErcuH/7c2nNya9kuI6oy1pPYkykDb3R2rxAjqCMsJgYUAwGBYyrKBcRu2e5JFIcNE6iU+cZKzDmJjbFgLmeKrBj312SLRoxM1crZfbETIQdDsGPePsP0j232ysuoIdzBcKNtnYmIsnMvRks2kjN+zT5McqxELFOWstNMqAvQqOzNN8MIQ11w9K4VWcjp/EWywrJ0j/wTfILGxdNb/GlmBwunmrN/D4xd5phrggbH0GgAbeCb3aIpqAzdjDYdv8qVR/gEYaV0XhsNS/nTxaddaXV+0mil7lUcrq129p8TMnp2qZhS3hWFGbs05das0wXbgus+zB2BrPPhB3QSrbpHmSXLiyGG4nLXEPkb+bC/x91BvlyPyxLFUMd825y80BSQo4SHoEvyNk55Ul3r2PV7JV/NFXMDbLlZxqyj8ai2PBTnWWCQmcclr/AA==
+        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAA2/NAN8e0i1nx9CL+UKDdKp0Wj8Hs3F8Uq+4nJi+Vlrhs8L5hr2bVP32EnBW6z+NbZQlN5MBPGig8ViSdfVhZsQGtgEMDD1bdMu7MeAi3Mz5RU1KkMSSSTgilVTXjn74MSjTOuyMJEpPVP6Gp5Ar2OzWyav4kS
@@ -597,6 +600,19 @@ window :
       -
         type : 224
         enabled : false
+  -
+    name : icon_erreur
+    identifier : 0x23d2c093021cf18b
+    internal_properties : CAAAAAgAAAA+Z7w0+Po8dH0k62g7q7OM1Clm7Gxk+KecoxmwE0LPVL5hbFfeNd5QFQxKoYxFZSCK//2bAV604BuIsyTpD0hUbE7Jn+s3cNY2QECVJGE3JJMZ08UgHVMhn1Gb60Ruj0QGvJHVW98PXlvcRoDMb75xckxigKJ3qIxVOZvzib3LW0A5R7bT18jD0dDZi4bOhn3SgYaMhRw2ip3xJjemTC/ujbBOGKb85SHG0nS7be8drE5t0TI+NP+YNieNWJ+402sqpmt1nj5hwUaNfLQaFOewGl/VjsvVyXacKrlnaWzmA5VukAh3ICvHPAD+rodaMaOGQW5/w5NHOY5C5ZXe/rt2q2DvcyZ0NVWsacdOQZqgNzaKTlOoY716Lw3tV8YgtzXPOj/ck7YqfwsGHe+1QVl7P4h2w/lXF8ldSFLRP5SXjleyGUcopzhkr720YZeoS9QfdtHLIBtS4/00SAk7iaK0XUzjt8ZG4Lfa8J2TsxDhC7y0nHAwhLihK1naX9Hks7XKTOmMGZ938x4YZMdq7ZJq/0WP8osb0kWTi3Nwi2IBrww0RSQ4SBgt2VY5FHCXcCh8slMINq4mD0cuk7Th54CnPnaNuEXnTQLJj2rdPKDr3AeTLF9hEGJcjmU/dL2+OumEBfxisxzWpOJ+frEjWNWNfNtrFPZm8LfvcF6bCprLjM06W4Zhpxt2ORfBfkdryAZdLNIEwaWXvbUk8xEn1FXKpD6Mt/taT85EKn4htz6/7DACOcE7Zp5T8oG/Bk/+Wb5dwZW4nchcwgAiszjaf2jAznZzpsvc/M9XXsTjyGeN5H178assDM6rsvzplcB/l0OY9lAkN1GWCnL9Xb+r7RmUMCNA5lwaQ3HBEGbcIAKwvNH5YX/6nqrgZn8a6GgEScsa
+    properties :
+     x : -50
+     y : 438
+     width : 33
+     height : 28
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes : []
  menu :
   name : _Menu
   identifier : 0x292573e513b5f221
@@ -1030,11 +1046,12 @@ window :
       	 	fin
       	FIN
       	
-      sMessage	est chaine	=  gStylo(RougeFoncé) + message_dans_table
+      sMessage	est chaine	=  gImage("erreur.svg") + " " + gStylo(RougeFoncé) + message_dans_table
       Table_Resultat..Visible = Vrai	
       TableSupprimeTout(Table_Resultat)
       TableAjouteLigne(Table_Resultat, nom_projet,sMessage, sAction)
       TableAjuste(Table_Resultat)
+      beep()
       
       // découpe un emessage d'erreur en (fichier,n° de ligne,suite du message)
       procédure interne extraitFichierSourceEtLigneDeMessage(_message est chaine) :(chaine, entier,chaine)
