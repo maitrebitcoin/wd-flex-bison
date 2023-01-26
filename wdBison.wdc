@@ -458,7 +458,7 @@ class :
       code_de_travail = Remplace(code_de_travail, "%DATE%", DateVersChaîne(DateSys(), maskDateSystème))
       code_de_travail = Remplace(code_de_travail, "%VERSION_LEX_BISON%", ProjetInfo(piNomProjet) + " " + ExeInfo(exeVersion) )
       // Mettre le code user de déclaration de grammaire
-      code_de_travail = Remplace(code_de_travail, "/%CODE_DECLARATION_MEMBRE%", _to_yaml(:code_wl_declaration_membre))
+      code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", _to_yaml(:code_wl_declaration_membre))
       // Mettre le code d'init pour déclarer les règles de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init))
       // remplacement du nom de la classe lexer a utiliser
