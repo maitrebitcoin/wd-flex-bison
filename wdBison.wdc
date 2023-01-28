@@ -106,7 +106,8 @@ class :
      type_code : 12
      code : |1-
       procédure  _changeState( e EEtat )
-      	:etat_courant_lexer = e.Valeur
+      
+      :etat_courant_lexer = e.Valeur
      type : 458752
    -
      name : Destructeur
@@ -174,6 +175,8 @@ class :
       	_fin_de_regle()
       	retour
       FIN
+      // suppimer les commentaires en fin de ligne
+      ligne_règle_grammaire = _supprime_commentaire( ligne_règle_grammaire )
       
       // si c'est la 1ere ligne de déclaration
       suite_ligne est chaine

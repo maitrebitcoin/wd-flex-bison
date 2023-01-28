@@ -121,10 +121,9 @@ class :
       // récupération du code utilisateur si on trouve le token <ligne_sans_tab>
       code_wl_user est chaine =  Milieu(ligne_sans_tab,pos_debut_code)
       // si il a des commentaires de fin de ligne, on les enlève
-      position_marque_commentaire est un entier = position(code_wl_user,"//")
-      SI 	position_marque_commentaire>0 ALORS
-      	code_wl_user = gauche(code_wl_user, position_marque_commentaire-1)	
-      FIN
+      code_wl_user = _supprime_commentaire( code_wl_user )
+      
+      
       // pas d'espace
       code_wl_user = SansEspace(code_wl_user,sscExtérieur)
       // "," tout seul est invalide en WL

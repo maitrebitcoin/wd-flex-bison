@@ -77,7 +77,7 @@ class :
      name : compile_mode_ligne
      procedure_id : 1418598651018232023
      type_code : 12
-     code : |1-
+     code : |1+
       // compilation d'un texte en mode ligne a ligne
       // renvoie (vrai,,0"") en cas de succès. sinon renvoie (faux,"message d'erreur",ligne)
       PROCÉDURE PROTÉGÉE compile_mode_ligne(source_a_compiler est chaine UNICODE) : (booléen, chaine, entier)
@@ -117,6 +117,22 @@ class :
       
       // succès de la compilation
       RENVOYER (Vrai,"",0)
+     type : 458752
+   -
+     name : _supprime_commentaire
+     procedure_id : 1428978049374980359
+     type_code : 12
+     code : |1-
+      // supprimer le commentaire // a la fin d'une ligne
+      procédure _supprime_commentaire( ligne_de_source est chaine  ) : chaine 
+      
+      // si il a des commentaires de fin de ligne, on les enlève
+      position_marque_commentaire est un entier = Position(ligne_de_source,"//")
+      SI 	position_marque_commentaire>0 ALORS
+      	// supprimer le commentaire
+      	renvoyer Gauche(ligne_de_source, position_marque_commentaire-1)	
+      FIN
+      renvoyer ligne_de_source
      type : 458752
   procedure_templates : []
   property_templates : []
