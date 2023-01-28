@@ -1,0 +1,302 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : wd_lexer_base
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x12ba8ccd005f67fc
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1-
+      // classe de base pour les compilateur généré par wd-flex-bison
+      wd_lexer_base est une Classe
+      	// toutes les règles de production du lexer selon les l'état courant
+      	tableau_regle est un tableau dynamique de tableaux de RegleDeProductionLex
+      
+      	// -- Variables d'état durant la compilation
+      	nom_fichier_source		 est chaine
+      	source_découpée_en_ligne est un tableau de chaînes UNICODE
+      	// n° de ligne et de colonne en cours de compil
+      	numéro_ligne_en_cours	est un entier
+      	numéro_colonne_en_cours	est un entier
+      	// valeur texte du dernier token trouvé
+      	yytext est une chaîne
+      	yyline est un entier
+      	// règle qui a produit ce  token (pour debug)
+      	règle_lex_en_cours est RegleDeProductionLex dynamique
+      	// "" si tout est  ok ou erreur en cours
+      	dernière_erreur_lex	est chaine	
+      	
+      
+      	// valeur de l'état courant pour les lexer avec des états
+      	//#TODO : a supprimer complexifie le code et pas codé derrière
+      	etat_courant_lexer est entier 
+      	
+      	dest_en_mode_debug est un booléen 
+      	en_mode_verbose est un booléen 
+      	
+      fin
+      // définie une règle de production, c.a.d. comment passer d'une expression chaine a une action
+      RegleDeProductionLex est une structure
+       	// chaine ou regexp d'entrée. l'une des 2 est vide mais jamais les 2
+      	chaine_exacte	est chaine 
+      	regexp			est chaine
+      	regexp_debut	est chaine // version modifié pour vérifier le début d'une chaine	
+      	// action
+      	action			est une procédure
+      	// pour debug
+      	indice_regle_lex est un entier
+      	source_dump		 est chaine // ex : "calcul.l:12 \n  {return T_NEWLINE;}"
+      FIN
+      // définie la regle a exécuter sur chaque token trouvé durant la compilation
+      RegleAExécuter est une structure
+      	// token trouvé. ex: " " ou "34". correspond a yytext dans flex
+      	token			est chaine		
+      	// regle ou null si aucune n'a été trouvé 
+      	règle 		    est RegleDeProductionLex dynamique
+      	// état :
+      	est_terminé est un booléen
+      	// position dans le ficher source
+      	numéro_ligne 	est entier
+      	numéro_colonne	est entier
+      fin
+      
+      // défini une unité lexicale (token) renvoyée par le lexer
+      STToken est une Structure
+      	// n° du token.  de 32 a 127 pour les caractère ansi simple. ex " ". apres 256 pour ceux déclara avec %token. 
+      	valeur			est entier
+      	// chaine correspondante. ex: " " ou "34". 
+      	// correspond a yytext dans flex
+      	valeur_chaine	est chaîne		
+      	// regle ou null si aucune n'a été trouvé 
+      	règle			est wd_lexer_base::RegleDeProductionLex dynamique
+      FIN
+      
+      constant Etat_lexer_tous = 1
+      
+      constant Erreur_compilation= 891
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1349545850453387260
+     type_code : 27
+     code : |1-
+      procédure Constructeur()
+      
+      // init parcourt de la chaine source
+      :numéro_ligne_en_cours  = 1
+      :numéro_colonne_en_cours =1
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1349545850453452796
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : token_suivant
+     procedure_id : 1351426629513457257
+     type_code : 12
+     code : |1-
+      // méthode surchargée dans le lexer généré a partir des sources.
+      PROCÉDURE virtuelle token_suivant() : entier 
+      renvoyer wd_compilateur_base::TOKEN_AUCUN
+     type : 458752
+   -
+     name : _ajoute_règle_production_lex
+     procedure_id : 1349545850453518332
+     type_code : 12
+     code : |1+
+      // ajouter une règle de production au lexer
+      PROCÉDURE PROTÉGÉE _ajoute_règle_production_lex( local valeur_etat est un entier, LOCAL chaine_exacte chaine, LOCAL rexgExp chaine, indice est entier, source_dump est chaine )
+      dbgAssertion(indice>=1)
+      
+      regle_production est un wd_lexer_base::RegleDeProductionLex
+      regle_production.chaine_exacte	  = chaine_exacte
+      regle_production.regexp			  = rexgExp
+      regle_production.indice_regle_lex = indice
+      // code souce si mode debug
+      // ex: "calcul.l:11  [0-9]+	 {valeur_courante = yytext; return T_INT;}"
+      regle_production.source_dump = source_dump
+      
+      
+      // construit une regexp pour vérifier que le début du texte match la regexp
+      si rexgExp<>"" alors
+      	regle_production.regexp_debut	=  ChaîneConstruit("(%1).*",rexgExp) // pour vérifier qu'un début de chaine correspond
+      fin
+      
+      
+      tableau_regle[valeur_etat].Ajoute( regle_production )
+     type : 458752
+   -
+     name : _recherche_meilleure_règle
+     procedure_id : 1349545850453583868
+     type_code : 12
+     code : |1-
+      // renvoie une règle_a_exécuter qui correspond au texte <texte_source>
+      procédure protégée _recherche_meilleure_règle( valeur_etat est un entier, local texte_source chaine ) : RegleAExécuter
+      dbgAssertion(valeur_etat> 0)
+      
+      règle_résultat est un RegleAExécuter 
+      // comme flex on garde la rèle qui produit le plus long token.
+      	procédure interne _garde_meilleure_regle( regle_ok est un RegleAExécuter  )
+      		// si 1er regle trouvée
+      		SI règle_résultat.règle=null ALORS
+      			règle_résultat = regle_ok
+      			retour
+      		FIN
+      		// la nouvelle regle est meilleur
+      		SI taille(regle_ok.token) > Taille(règle_résultat.token) ALORS
+      			règle_résultat = regle_ok
+      		FIN
+      	FIN
+      
+      // parcourt linéaire de toutes les expression possibles dans l'état en cours
+      tabCourant est un  tableaux dynamique de RegleDeProductionLex   <- tableau_regle[valeur_etat]
+      POUR TOUT règle_de_production de tabCourant
+      	// si c'est un chaine fixe
+      	si règle_de_production.regExp=""  ALORS
+      		si texte_source.CommencePar( règle_de_production.chaine_exacte )  ALORS
+      			// trouvé 
+      			
+      			regle_chaine_fixe est un RegleAExécuter
+      			regle_chaine_fixe.token  = règle_de_production.chaine_exacte 
+      			regle_chaine_fixe.règle  = règle_de_production
+      			_garde_meilleure_regle( regle_chaine_fixe )
+      		FIN
+      	// si c'est une regexp 
+      	sinon
+      		chaine_qui_matche est chaine
+      		 SI texte_source.VérifieExpressionRégulière (  règle_de_production.regexp_debut, chaine_qui_matche) ALORS
+      			// trouvé 
+      			regle_regexp est un RegleAExécuter
+      			regle_regexp.token	= chaine_qui_matche 
+      			regle_regexp.règle	= règle_de_production
+      			_garde_meilleure_regle( regle_regexp )	
+      		fin
+      	FIN
+      FIN
+      // Essaie avec les expressions valides pour tous les états
+      si valeur_etat<>Etat_lexer_tous _et_ règle_résultat.règle=null ALORS
+      	// rebond version générique
+      	renvoyer _recherche_meilleure_règle(Etat_lexer_tous, texte_source)
+      FIN
+      
+      // renvoie la meilleure règle trouvée ou .règle.null => erreur 
+      RENVOYER règle_résultat
+      
+      // indiquer le fichier source à compiler
+     type : 458752
+   -
+     name : set_source
+     procedure_id : 1349545850453649404
+     type_code : 12
+     code : |1+
+      PROCÉDURE set_source( source_a_compiler est chaîne UNICODE )
+      
+      // init de source_découpée_en_ligne
+      ChaîneVersTableau(source_a_compiler,:source_découpée_en_ligne ,RC)
+      
+     type : 458752
+   -
+     name : donne_token_suivant
+     procedure_id : 1349545850453846012
+     type_code : 12
+     code : |1+
+      // appelée par le parseur pour obtenir un nouveau token
+      // renvoie l'id du token et la chaine. ex: {64,"A"} ou {256,"// commentaire"}.
+      // renvoie (-1,"") si la fin du fichier est atteinte
+      procédure donne_token_suivant() : RegleAExécuter
+      
+      // si c'est la fin du fichier
+      si :numéro_ligne_en_cours>:source_découpée_en_ligne.Occurrence() ALORS
+      	regle_fin_de_compilation est RegleAExécuter 
+      	regle_fin_de_compilation.est_terminé = vrai
+      	renvoyer regle_fin_de_compilation
+      FIN
+      
+      // chaine courante a analyser
+      text_ligne_courante est chaine = :source_découpée_en_ligne[:numéro_ligne_en_cours]
+      chaine_restante est chaine = Milieu( text_ligne_courante, :numéro_colonne_en_cours)
+      // recherche d'une règle valide sur <chaineRestante>
+      soit règle_a_exécuter <- _recherche_meilleure_règle(etat_courant_lexer , chaine_restante)
+      // si on a trouvé aucune règle de production valide
+      SI règle_a_exécuter.règle = Null ALORS
+      	// on renvoie cette règle invalide
+      	RENVOYER règle_a_exécuter
+      FIN
+      // on note la position dans la rège
+      règle_a_exécuter.numéro_ligne   = :numéro_ligne_en_cours
+      règle_a_exécuter.numéro_colonne = :numéro_colonne_en_cours
+      
+      // on avance dans le source
+      numéro_colonne_en_cours += taille(règle_a_exécuter.token)
+      si numéro_colonne_en_cours>taille(text_ligne_courante) ALORS
+      	// ligne suivante
+      	numéro_colonne_en_cours = 1;
+      	numéro_ligne_en_cours++;
+      FIN
+      
+      
+      // OK
+      renvoyer règle_a_exécuter
+     type : 458752
+   -
+     name : _erreur
+     procedure_id : 1349545850453911548
+     type_code : 12
+     code : |1+
+      // appelée en car d'erreur de syntaxe
+      PROCÉDURE _erreur( texte_erreur est chaine) 
+      
+      // construit une erreur plus complètre
+      message_complet est chaine = texte_erreur
+      
+      ExceptionDéclenche(Erreur_compilation,message_complet)
+     type : 458752
+   -
+     name : dump_token
+     procedure_id : 1400928717466872234
+     type_code : 12
+     code : |1+
+      /// renvoie un chaine de dump pour trace en mode debug pour un ° de regle donné
+      procédure dump_token( indice_regle est entier )
+      
+      dump est une chaîne
+      // recheche de la regle par indice
+      valeur_etat est entier = Etat_lexer_tous
+      //regle est un RegleDeProductionLex dynamique
+      pour tout tabI de  :tableau_regle
+      	//tabCourant est un  tableaux dynamique de RegleDeProductionLex   <- :tableau_regle[valeur_etat]
+      	pour toute regle de tabI
+      		si regle.indice_regle_lex = indice_regle ALORS
+      			dump = regle.source_dump
+      			// trouvé
+      			sortir
+      		FIN
+      	FIN
+      fin
+      
+      renvoyer dump + " ([%token%])"
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x12ad82f6000660cd
+  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
