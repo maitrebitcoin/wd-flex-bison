@@ -107,6 +107,10 @@ class :
      code : |1-
       procédure  _changeState( e EEtat )
       
+      si :etat_courant_lexer = Declaration_Règles.Valeur ALORS
+      	_fin_de_regle()
+      FIN
+      
       :etat_courant_lexer = e.Valeur
      type : 458752
    -
