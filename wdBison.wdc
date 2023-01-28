@@ -683,6 +683,7 @@ class :
       FIN
       
       // compilation du fichier .y
+      :nom_fichier_source = nom_fichier_source_bison // pour les messages d'erreur
       (ok,message_erreur) = _parse_grammaire(nom_fichier_source_bison)
       SI PAS ok ALORS
       	// erreur

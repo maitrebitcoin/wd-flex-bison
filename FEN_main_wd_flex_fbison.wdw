@@ -1031,7 +1031,7 @@ window :
       fichier_source  est chaine
       ligne est entier
       suite_message est chaine
-      (fichier_source, ligne) = extraitFichierSourceEtLigneDeMessage(message_erreur)
+      (fichier_source, ligne, suite_message) = extraitFichierSourceEtLigneDeMessage(message_erreur)
       si fichier_source<>"" alors
       	sAction	=  gLienCliquable("aller sur l'erreur", _onclicLien)
       	message_dans_table = suite_message
@@ -1043,6 +1043,8 @@ window :
       	 		ONGLET_Source = 1 // aller sur le fichier lex
       	 		CodeSourceLexer.cmd_aller_sur_une_ligne(ligne)
       	 	sinon
+      	 		ONGLET_Source = 2 // aller sur le fichier bison
+      	 		CodeSourceGrammaire.cmd_aller_sur_une_ligne(ligne)
       	 	fin
       	FIN
       	
@@ -1058,12 +1060,17 @@ window :
       	// ex :
       	// source.l:33\nsyntax error
       	debut est chaine = ExtraitChaîne(_message,1,rc)
-      	suite est chaine = milieu(_message,taille(debut)+1)
-      	fichier est chaine = ExtraitChaîne(debut,1,":")
-      	sligne est chaine  = ExtraitChaîne(debut,2,":")
+      	suite est chaine = milieu(_message,taille(debut)+taille(rc)+1)
+      	sligne est chaine  = ExtraitChaîne(debut,1,":",DepuisFin)
       	si sligne=EOT renvoyer ("",0,"") // mauvais format
+      	fichier est chaîne = gauche(_message, Taille(debut) - taille(sligne)-1)
       	si suite="" renvoyer ("",0,"") // mauvais format
       	nLigne est entier = sligne
+      	// cas ou la ligne de code est vide
+      	si ChaîneCommencePar(suite,rc) ALORS
+      		// on l'enleve
+      		suite = milieu(suite,taille(rc)+1)
+      	FIN
       	// découpage ok
       	renvoyer (fichier,sligne,suite)
       fin

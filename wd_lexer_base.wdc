@@ -257,10 +257,20 @@ class :
      type_code : 12
      code : |1+
       // appelée en car d'erreur de syntaxe
-      PROCÉDURE _erreur( texte_erreur est chaine) 
+      PROCÉDURE _erreur( message_erreur est chaine) 
+      
+      
+      
+      text_ligne_courante	est chaîne
+      SI :numéro_ligne_en_cours <= :source_découpée_en_ligne.Occurrence()
+      	text_ligne_courante	 = :source_découpée_en_ligne[:numéro_ligne_en_cours]
+      FIN
+      chaine_restante		est chaîne	= Milieu( text_ligne_courante, :numéro_colonne_en_cours)		
+      
       
       // construit une erreur plus complètre
-      message_complet est chaine = texte_erreur
+      message_complet est chaine 
+      message_complet = ChaîneConstruit("%1:%2"+RC+ "%3" + RC + "%4" , :nom_fichier_source, :numéro_ligne_en_cours, text_ligne_courante, message_erreur ) 
       
       ExceptionDéclenche(Erreur_compilation,message_complet)
      type : 458752
