@@ -22,8 +22,9 @@ procedure_set :
      name : charge_fichier_source
      procedure_id : 1348427097368957606
      type_code : 15
-     code : |1+
+     code : |1-
       PROCÉDURE charge_fichier_source(nom_fichier_source est chaîne) : chaîne UNICODE
+      
       
       // chargement du fichier en binaire
       contenu_fichier_bin est un Buffer = fChargeBuffer(nom_fichier_source)
@@ -33,17 +34,31 @@ procedure_set :
       SI contenu_fichier_bin="" ALORS
       	RENVOYER ""
       FIN
+      // résultat
+      contenu_fichier_w est chaine UNICODE
+      
       // si c'est de l'unicode
       SI Position(contenu_fichier_bin,Caract(0))>0 ALORS
-      	RENVOYER contenu_fichier_bin;
+      	contenu_fichier_w =  contenu_fichier_bin
+      sinon
+      	// est-ce de l'utf8 ?
+      	contenu_fichier_utf8 est chaîne ANSI = UTF8VersAnsi(contenu_fichier_bin)
+      	SI contenu_fichier_utf8<>"" ALORS
+      		contenu_fichier_w = UTF8VersUnicode(contenu_fichier_bin)
+      	sinon
+      		// ce n'est pas de l'utf8, on traite comme du latin 1
+      		contenu_fichier_w = AnsiVersUnicode(contenu_fichier_bin,alphabetAnsi)
+      	fin
+      fin
+      // si les fin de ligne sont des \r ou \n et pas `r\n'
+      si position(contenu_fichier_w,rc)<=0 ALORS
+      	SI Position(contenu_fichier_w,Caract(10))>0 ALORS
+      		contenu_fichier_w = remplace(contenu_fichier_w,caract(10),rc)
+      	sinon SI Position(contenu_fichier_w,Caract(13))>0 ALORS
+      		contenu_fichier_w = remplace(contenu_fichier_w,caract(13),rc)
+      	fin
       FIN
-      // est-ce de l'utf8 ?
-      contenu_fichier_utf8 est chaîne ANSI = UTF8VersAnsi(contenu_fichier_bin)
-      SI contenu_fichier_utf8<>"" ALORS
-      	RENVOYER UTF8VersUnicode(contenu_fichier_bin)
-      FIN
-      // ce n'est pas de l'utf8, on traite comme du latin 1
-      RENVOYER AnsiVersUnicode(contenu_fichier_bin,alphabetAnsi)
+      renvoyer contenu_fichier_w
      type : 458752
    -
      name : charge_ressource_classe
