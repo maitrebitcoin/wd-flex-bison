@@ -548,6 +548,10 @@ class :
       	SI _bin="" ALORS
       		_bin = fChargeBuffer("..\projet template\"+nom_court_fichier_dependance)
       	FIN
+      	// cas du ci
+      	SI _bin="" ALORS
+      		_bin = fChargeBuffer("..\ci template\CI-template-wd-flex-bison\"+nom_court_fichier_dependance)
+      	FIN	
       	// patch
       	SI fnPatch<>Null ALORS
       		fnPatch(_bin)
