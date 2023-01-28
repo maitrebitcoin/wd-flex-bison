@@ -670,6 +670,11 @@ class :
       ok est un booléen
       message_erreur est chaine
       
+      QUAND EXCEPTION
+      	// échec de la compilation.
+      	renvoyer (faux,ExceptionInfo(errMessage))
+      FIN
+      
       // on vérifie que la dest n'est pas ouverte / bloqué, que le projet hote n'est pas ouvert
       (ok,message_erreur) = _vérifeDest( nom_fichier_dest )
       SI PAS ok ALORS
