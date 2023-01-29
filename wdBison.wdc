@@ -57,6 +57,8 @@ class :
       	tableau_sous_element_regle est un tableau de SousElementRegle
       	// code WL a produire
       	code_wl			est chaine	
+      	// n° de ligne source
+      	ligne_source    est un entier
       fin
       SousElementRegle est une structure
       	// ex: "nombre" ou "+"
@@ -77,6 +79,7 @@ class :
       constant  
       	SYNTAX_ERROR_MISSING_TOKEN = "Erreur de syntaxe, il manque un '%1'."
       	ERR_BISON_NO_RULE		   = "Aucune règle de grammaire trouvé."
+      	ERR_UNKNOWN_RULE		   = "règle ou token invalide : %1"
       fin
      type : 131072
   procedures :
@@ -191,7 +194,7 @@ class :
       	// extrait le nom avant le :
       	postion_deux_point est un entier = ligne_règle_grammaire.Position(":")
       	si postion_deux_point<=0 ALORS
-      		_erreur( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, ":") )
+      		_erreur_exeception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, ":") )
       		retour
       	FIN
       	règle_en_cours.Nom = ligne_règle_grammaire.gauche(postion_deux_point-1)
@@ -200,7 +203,7 @@ class :
       	// on recherche | 
       	postion_ou est un entier = ligne_règle_grammaire.Position("|")
       	SI postion_ou<=0 ALORS
-      		_erreur( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "|" )  )
+      		_erreur_exeception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "|" )  )
       		RETOUR
       	FIN
       	suite_ligne        = ligne_règle_grammaire.Milieu(postion_ou+1)	
@@ -214,6 +217,7 @@ class :
       regles_separee_par_espace est chaine 
       (regles_separee_par_espace,code_wl_user) = _extrait_code_utilisateur(suite_ligne)
       element_règle_en_cours.code_wl = code_wl_user
+      element_règle_en_cours.ligne_source = :numéro_ligne_en_cours
       
       suite_ligne = Remplace(suite_ligne, TAB, " ")
       suite_ligne= SansEspace(suite_ligne)
@@ -268,7 +272,7 @@ class :
       	SI code_wl_user.Droite(1)="}" ALORS
       		code_wl_user = Milieu(code_wl_user,1,Taille(code_wl_user)-1)
       	sinon
-      		_erreur( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "}") )
+      		_erreur_exeception( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "}") )
       	FIN
       fin
       
@@ -355,8 +359,8 @@ class :
       	FIN
       FIN
       
-      // pas trouvé : erreur
-      _erreur("règle ou token invalide : " + nom)
+      // pas trouvé 
+      renvoyer -1
        
      type : 458752
    -
@@ -385,6 +389,13 @@ class :
       		POUR TOUT sous_element_regle DE element_regle.tableau_sous_element_regle
       			// on recherche l'indice
       			indice_regle_ou_token est entier = _recherche_indice_par_nom( sous_element_regle.Nom )
+      			
+      			si indice_regle_ou_token=-1
+      				// pas trouvé : erreur
+      				 :numéro_ligne_en_cours = element_regle.ligne_source // pour être positionné sur la bonne ligne
+      				_erreur_exeception(  ChaîneConstruit(ERR_UNKNOWN_RULE, sous_element_regle.Nom))
+      			fin
+      			
       			sous_element_regle.indice = indice_regle_ou_token
       		FIN
       	FIN

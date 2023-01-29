@@ -122,7 +122,7 @@ class :
      name : _supprime_commentaire
      procedure_id : 1428978049374980359
      type_code : 12
-     code : |1-
+     code : |1+
       // supprimer le commentaire // a la fin d'une ligne
       procédure _supprime_commentaire( ligne_de_source est chaine  ) : chaine 
       
@@ -133,6 +133,23 @@ class :
       	renvoyer Gauche(ligne_de_source, position_marque_commentaire-1)	
       FIN
       renvoyer ligne_de_source
+      
+     type : 458752
+   -
+     name : _erreur_exeception
+     procedure_id : 1429521650505468361
+     type_code : 12
+     code : |1-
+      // appelée en car d'erreur de compilation dans  un .l ou un .y. 
+      // lève un exception avec l'erreur
+      PROCÉDURE _erreur_exeception( message_erreur est chaine) 
+      
+      // construit un message d'erreur au format 
+      // fichier:ligne + RC + détail de l'erreur
+      message_complet		est chaine 
+      message_complet = ChaîneConstruit("%1:%2"+RC+ "%3" , :nom_fichier_source, :numéro_ligne_en_cours, message_erreur ) 
+      
+      ExceptionDéclenche(Erreur_compilation,message_complet)
      type : 458752
   procedure_templates : []
   property_templates : []
