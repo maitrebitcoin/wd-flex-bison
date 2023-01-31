@@ -341,9 +341,9 @@ window :
                  type : 161
                  enabled : false
            -
-             name : BTN_WDFAA_Enregister_OLD
+             name : BTN_WDFAA_Enregister_MAIN
              identifier : 0x23aee6b500eea0bc
-             internal_properties : CAAAAAgAAADSCR6CfWWgQs3lnoKPT3VUZlBbfnwPiBjou5fx2IrSHbSDpTg5JJm2uZy8k8EDMWN0CvZk7Z4nQbxiA6RnxNsdnl9pN+zvywrStRq4QadZZRfEhEM01KRyn+c0AQIIETBWMUaYzwkYpYyDBEnIjHoUkou+galsVcEdLN2jo79Loe44VEtMWu/PfYqrSb/M3JB9Wae9Y1umHq10JQ3p1S2OnG4oLFOJ5oGiTPoAs9XOa4LqJpfZ81YtjFkqGFnSJ5PJIICUyxtTW30j9ILF649X3A9xLg9NH+l9FI2JdY/nj3yRcXn4RdLcWs9FzSk3BzD4Cxo9qUuLXAL8deZ3GoVpIhWw1yV8SgigtNBwxMDage8GfcCSTlqJgg+WhIKYf1utrnkzEs+zMGoJulWsey0+5eUVA9eaFpO9iM1SFiRbL5K18PuhjzyH9r8cUWYz2Rv7lUW6qCoMMK544xL2YPunI8RiBDb2/8dQK91351eCGtWzpZB10LY36sx6xAaEV4nKkAXgI1u0/pb8GWtTfc6Z9cobl8m4HyZKElWHqulKAz3pthVCMsy0VMlOclVYBLwNcspkAFlDnb6f9Y5/d5iHr7iHp1sn9jZ/mQ0QdGBbhYRKJTy79mZA4C3b3a5x6GUQoL9nh9RQteFxyVjZG0BANlSly3jtGGrhXcF5793JUlI3NAxkfREtBTOBl9Tbv0bxe6JiQPqt4XmKXJJPwVKZdQREpk/sOnvpxFSMeI36NNWp+IETwMpjyIdRQvb78wk7DI6yolnqlgjrp48+j9faE7ovm9B3sfPJsVugPSapEA0En+lzajH9LlOUXJlLcTyNPJw0Ol0MxDqGylaQ78SLyiQoOeUme9xvZ3HJKWfBG2Gq7Ro6cp0WKPpHnc24lGk6urVzECBXkY/dQoQXzI2LmJ+agz55YtyKSCHxxmPwdESzO66lmqRxAYeHIZVCQbOmwnZWHKnjuFqvM+hQma3nsGaoQgAvvLcKFCXRcu/XeA8fj2+qd/wU8Dw8b8C1V9PwzOpx+fcE5teCYSaH3R73pY4RD4iJ3qfrTx1XfwrC9G3zBv6hGmaYu8FzCRJYoQbFNND2OcDynAEeqnjRCfaMo0GGPtXEQlp1b0W5b3LyfBvNUt+rfRYmTnT9gbqb/sTbKoP4Vodk5AqYGKCe7bxpMK6LVuIkW9v+0Z+x04KxZSMMmS8CZ+yshojSNXDNQ773e1nB78hYxaB7L8Q/ZA==
+             internal_properties : CAAAAAgAAABw4zIJRCrqQiMV9ub4/ifxoLP16kTAUbaR/gF/QhdtzF73H/D4bCkzbezYbxaznTcwLAe4LF2gYUYC1v0fnG0ioHDix/h/q3FQE/z6fypdFxjK2iamwn9bHwo26ikJIszIyVeGJnyru99vowTZLGq+2ksr83j5uUM8MLRHuSXOl8kbHoBemmKCFETrQrbtrBw1mxIf+nfBcm/S8uTRoUKhAb+wD9I7c/VUBQFO2gcOYr1+w/OEhBhZ6z/JTQG97zGsFmygQTkK4kVfExnxh/B1icacoNiupt0cVmzOkyzdet+mBel9bkif6YPlfa0u34xNGe6lFUQLmVVXUZMToD2mFSrHRV9dXs9AvXSk4UygIz/6lZwLON76pqA6JK9LtJI3iUz55WCDclt/HL3tevWSVXMqW+X3dNxR2qjtaryFbtx/x0rHCLes5WgWumJW5vxmTbTHDP/XyhrclZXlGdnvjC4vBYTrQCJMKXzc+txa8PtJZqdBsioecrGHFkLmipJV1fsD1cYE501E8VVBFHHLkzMTtF80zwjXUlVRhjJJbiaQG4QHNKEfXG96ssrAakkjVD5UEupu1Zbl2m4f2FzidA+xumrROmxTOvp36L797S+F8ewesj2wgUhvJZiJlHXItUAJuLwms/0Oewoh1QbVP0ZuSMmm2wO7EqHzCHFQrc8De/BQLT+SweHSP0wWZtauUA/CUwOVB2AKm3hnlmrKzB4bAC90zygcZNrVOVqT+kAhMuyzdCYFX62ULZcb/VzxH45+H9XUCZCRmpKTcBcB4xQhnDrbP6iJpEcOqc4U9dMv9t1UvYyn9dPpnJPhsYi8ZmpUu3hBy8IOMw6KaKFCMCQSnoW3g6XrfVStrKd5iF0RuQN8cKOgd/vpQgLTxKyMxM5aXlhMbhPEHZ5ZXW7SH4syEduqQyDyVhvAjzMJBliwPT/TAIcuV0YW6DTYeuc/l6G2NtO3MG6PEAqJYfRHLNLUoq3EKyDfv6ahvA/biVvgg+UroP/uMyznLOu7ZEWE/GVeQVSgP9V4ByBfgGs9WRI/TVIS3/ZIhI7HsgJIwDV9jGT701VboJyQ4+ptxAlVXSKBG2XAxzLf8izjMYHDaZsjj2EoG/wGwTLVhSWvnn0Ca985jUecmn+xqjTntQlHuxDZJzR/Ds2GQbYDhz+wqHWHsUjvyePn/6MxaAQkfFehG/KBwcpYAcMb1tmriRdJ5cJ1jypzA7WF0plz9X8=
              properties :
               x : 89
               y : 7
@@ -392,6 +392,9 @@ window :
                  code : |1+
                   BTN_Compile..Grisé = vrai
                   Sablier(Vrai)
+                  
+                  // sauver tout
+                  enregistrer_projet()
                   
                   // compiler le projet
                   compile_projet()
@@ -972,6 +975,9 @@ window :
      code : |1-
       procédure enregistrer_projet()
       
+      // sauver les paramètres de génération
+      Sauve_pararamètre_compilation(nom_complet_fichier_lex)
+      
       // sauver les fichier
       fSauveTexte(nom_complet_fichier_lex,CodeSourceLexer)
       si ErreurDétectée ALORS
@@ -981,6 +987,8 @@ window :
       SI ErreurDétectée ALORS
       	Erreur()
       FIN
+      
+      
       MaFenêtre..Modifié = faux
      type : 458752
    -
