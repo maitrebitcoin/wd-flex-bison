@@ -1079,11 +1079,11 @@ window :
       		bErreur_lex est un booléen = (fichier_source = nom_complet_fichier_lex)
       	 	si bErreur_lex ALORS
       	 		ONGLET_Source = 1 // aller sur le fichier lex
-      	 		CodeSourceLexer.cmd_aller_sur_une_ligne(ligne)
+      	 		CodeSourceLexer.cmd_selectionne_une_ligne(ligne)
       	 		EcranPremier(CodeSourceLexer)
       	 	sinon
       	 		ONGLET_Source = 2 // aller sur le fichier bison
-      	 		CodeSourceGrammaire.cmd_aller_sur_une_ligne(ligne)
+      	 		CodeSourceGrammaire.cmd_selectionne_une_ligne(ligne)
       	 		EcranPremier(CodeSourceGrammaire)
       	 	fin
       	 
