@@ -148,9 +148,13 @@ procedure_set :
       compilateurBison.dest_projet_complet  = option.newprojet
       compilateurBison.dest_ci_siInexistant = option.ci_siInexistant
       
-      soit (b,message_d_erreur) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
+      soit (b,erreur_compilation) = compilateurBison.génère_compilateur(fichier_source_l,fichier_source_y, fichier_dest)
       SI PAS b ALORS
-      	trace_console( message_d_erreur )
+      	si erreur_compilation.fichier_source<>"" alors
+      		trace_console( erreur_compilation.fichier_source + ":"+erreur_compilation.message_err+ " " + erreur_compilation.message_err  )
+      	sinon
+      		trace_console( erreur_compilation.message_err  )
+      	fin
       	renvoyer EXIT_CODE_ERROR
       	
       FIN

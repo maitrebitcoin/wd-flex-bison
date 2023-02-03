@@ -155,8 +155,8 @@ class :
      type_code : 12
      code : |1+
       // génération d'une classe WL lexer sur le disque
-      // renvoie (vrai,"") ou (faux,<message d'erreur>)
-      procédure génère_lexer(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine, token_nom_vers_int est un tableau associatif d'entiers) : (booléen, chaine)
+      // lèver une exception en cas d'erreur
+      procédure génère_lexer(nom_fichier_source_lex est chaine, nom_fichier_dest est chaine, token_nom_vers_int est un tableau associatif d'entiers) 
       
       // noter le nom fichier source pour debug
       :nom_fichier_source  = nom_fichier_source_lex
@@ -166,17 +166,13 @@ class :
       source_lexer est chaine UNICODE = charge_fichier_source(nom_fichier_source_lex)
       SI ErreurDétectée ALORS
       	// erreur
-      	RENVOYER (Faux, ErreurInfo())
+      	_erreur_exeception(ErreurInfo())
       FIN
       
       // init a l'état initial
       _changeState(Declaration_SymboleEtOption)
       // compilation avec le mode spécial ligne a ligne
-      soit (ok,message_erreur) = compile_mode_ligne(source_lexer)
-      si pas ok ALORS
-      	// erreur
-      	RENVOYER (Faux, message_erreur)
-      FIN
+      compile_mode_ligne(source_lexer)
       
       // code de déclaration des token
       // EX : 
@@ -190,14 +186,13 @@ class :
       
       // génération de la classe sur disque
       trace_mode_verbose(:en_mode_verbose,"génération de " +  nom_fichier_dest )
-      (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
+      soit (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest)
       SI PAS ok ALORS
       	// erreur
-      	RENVOYER (Faux, message_erreur)
+      	_erreur_exeception ( message_erreur)
       FIN	
       
-      // succès de la génération d'une classe WL pour compiler
-      renvoyer (Vrai,"")
+      // succès de la génération 
      type : 458752
    -
      name : _changeState

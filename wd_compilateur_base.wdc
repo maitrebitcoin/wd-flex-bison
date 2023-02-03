@@ -55,6 +55,13 @@ class :
       	// valeur de $$
       	valeur_user est variant
       fin
+      ErreurCompile est un structure
+      	fichier_source est chaîne
+      	num_ligne 	   est entier
+      	message_err    est chaine
+      	pile_dbg	   est chaine
+      fin
+      
       constant SYNTAX_ERROR = <§R13025f3000e43747¤fr-FR¤Erreur de syntaxe : %1§>
      type : 131072
   procedures :

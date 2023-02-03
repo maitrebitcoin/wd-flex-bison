@@ -299,40 +299,35 @@ class :
      type_code : 12
      code : |1+
       // analyser le fichier .y
-      procédure _parse_grammaire(nom_fichier_source_bison est chaine) : (booléen, chaine)
+      // lance un exception en cas d'erreur
+      procédure _parse_grammaire(nom_fichier_source_bison est chaine) 
       
+      :nom_fichier_source = nom_fichier_source_bison // pour les erreur
       trace_mode_verbose(:en_mode_verbose,"Analyse de " +  nom_fichier_source_bison )
       // chargement du fichier .y
       source_bison est chaine UNICODE = charge_fichier_source(nom_fichier_source_bison)
       SI ErreurDétectée ALORS
       	// erreur
-      	RENVOYER (Faux, ErreurInfo())
+      	_erreur_exeception ( ErreurInfo())
       FIN
       // vérification de syntaxe basique
       si position(source_bison,"%%")<=0 ALORS
-      	RENVOYER (Faux, ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "%%" ) )
+      	_erreur_exeception ( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "%%" ) )
       FIN
       
       // init a l'état initial
       _changeState(Declaration_SymboleEtOption)
       :indice_token_pour_déclation = 256
       // compilation avec le mode spécial ligne a ligne
-      soit (ok,message_erreur,num_ligne_erreur) = compile_mode_ligne(source_bison)
-      
-      SI PAS ok ALORS
-      	// erreur
-      	// ex: "calc.l:16"
-      	RENVOYER (Faux, nom_fichier_source_bison+":"+num_ligne_erreur + rc + message_erreur)
-      FIN
+      compile_mode_ligne(source_bison)
       
       // si aucune règle trouvée
       si tab_règle_grammaire_source.Occurrence()=0 ALORS
-      	renvoyer (faux, ERR_BISON_NO_RULE)
+      	_erreur_exeception (ERR_BISON_NO_RULE)
       FIN
       
-      
       // OK
-      renvoyer (vrai,"")
+      
      type : 458752
    -
      name : _recherche_indice_par_nom
@@ -680,30 +675,32 @@ class :
      code : |1+
       // génération d'une classe WL sur le disque
       // renvoie (vrai,"") ou (faux,<message d'erreur>)
-      PROCÉDURE génère_compilateur(nom_fichier_source_lex est chaîne, nom_fichier_source_bison est chaine, nom_fichier_dest est chaine) : (booléen, chaine)
+      PROCÉDURE génère_compilateur(nom_fichier_source_lex est chaîne, nom_fichier_source_bison est chaine, nom_fichier_dest est chaine) : (booléen, wd_compilateur_base::ErreurCompile )
       
       ok est un booléen
-      message_erreur est chaine
+      erreur_compile est wd_compilateur_base::ErreurCompile 
       
       QUAND EXCEPTION
       	// échec de la compilation.
-      	renvoyer (faux,ExceptionInfo(errMessage))
+      	
+      	erreur_compile = ChaîneVersJSON(ExceptionInfo(errMessage))
+      	
+      	renvoyer (faux,erreur_compile) //ExceptionInfo(errMessage))
       FIN
       
-      // on vérifie que la dest n'est pas ouverte / bloqué, que le projet hote n'est pas ouvert
+      // on vérifie que la destination n'est pas ouverte / bloqué, que le projet destination n'est pas ouvert
+      message_erreur est chaine
       (ok,message_erreur) = _vérifeDest( nom_fichier_dest )
       SI PAS ok ALORS
       	// erreur
-      	RENVOYER (Faux, message_erreur)
+      	erreur_compile.message_err = message_erreur
+      	RENVOYER (Faux, erreur_compile)
       FIN
       
       // compilation du fichier .y
       :nom_fichier_source = nom_fichier_source_bison // pour les messages d'erreur
-      (ok,message_erreur) = _parse_grammaire(nom_fichier_source_bison)
-      SI PAS ok ALORS
-      	// erreur
-      	RENVOYER (Faux, message_erreur)
-      FIN
+      _parse_grammaire(nom_fichier_source_bison)
+      
       // génération des structure internes
       _génere_structure_grammaire()
       
@@ -713,17 +710,14 @@ class :
       flex est un wdFlex
       flex:dest_en_mode_debug = :dest_en_mode_debug
       flex:en_mode_verbose    = :en_mode_verbose
-      (ok,message_erreur) = flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_nom_vers_int)
-      SI PAS ok ALORS
-      	// erreur
-      	RENVOYER (Faux, message_erreur)
-      FIN	
+      flex.génère_lexer( nom_fichier_source_lex,nom_fichier_dest_lex,:token_nom_vers_int)
       
       // génération de la classe "compilateur" sur disque
       (ok,message_erreur)  = _genére_code_wl(nom_fichier_dest,nom_classe_lex)
       SI PAS ok ALORS
       	// erreur
-      	RENVOYER (Faux, message_erreur)
+      	erreur_compile.message_err = message_erreur
+      	RENVOYER (Faux, erreur_compile)
       FIN	
       
       
@@ -731,11 +725,12 @@ class :
       _copie_dépendance(nom_fichier_dest)
       SI ErreurDétectée ALORS
       	// erreur
-      	RENVOYER (Faux, ErreurInfo())
+      	erreur_compile.message_err =  ErreurInfo()
+      	RENVOYER (Faux, erreur_compile)
       FIN
       
       //OK
-      renvoyer (vrai,"")
+      renvoyer (vrai,erreur_compile)
      type : 458752
   procedure_templates : []
   property_templates : []
