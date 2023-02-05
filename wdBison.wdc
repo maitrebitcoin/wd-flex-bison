@@ -167,7 +167,7 @@ class :
      name : _parse_ligne_regle_bison
      procedure_id : 1348056261301673528
      type_code : 12
-     code : |1+
+     code : |1-
       // Analyser une règle de grammaire
       // Ex
       // expression: T_INT				{ $$ = $1; }
@@ -175,15 +175,26 @@ class :
       //;
       procédure _parse_ligne_regle_bison( ligne_règle_grammaire est chaine)
       
-      si ligne_règle_grammaire="" retour
       
       // ";" marque une fin de regle
       si SansEspace(ligne_règle_grammaire)=";" alors
       	_fin_de_regle()
       	retour
       FIN
+      // on accepte une ligne vide aussi
+      SI SansEspace(ligne_règle_grammaire)="" ALORS
+      	_fin_de_regle()
+      	RETOUR
+      FIN
+      
       // suppimer les commentaires en fin de ligne
       ligne_règle_grammaire = _supprime_commentaire( ligne_règle_grammaire )
+      // si ca fini par ";"
+      bFiniParPoitnVirgule est un booléen = Droite(ligne_règle_grammaire,1)=";"
+      SI  bFiniParPoitnVirgule ALORS
+      	// enlever le ";"
+      	ligne_règle_grammaire	= Milieu(ligne_règle_grammaire,1,Taille(ligne_règle_grammaire)-1)
+      FIN
       
       // si c'est la 1ere ligne de déclaration
       suite_ligne est chaine
@@ -203,7 +214,7 @@ class :
       	// on recherche | 
       	postion_ou est un entier = ligne_règle_grammaire.Position("|")
       	SI postion_ou<=0 ALORS
-      		_erreur_exeception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "|" )  )
+      		_erreur_exeception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "| ou ;" )  )
       		RETOUR
       	FIN
       	suite_ligne        = ligne_règle_grammaire.Milieu(postion_ou+1)	
@@ -226,12 +237,17 @@ class :
       	retour
       FIN
       
+      
       POUR TOUTE CHAÎNE token_ou_regle DE regles_separee_par_espace separée par " "
       	sous_elemeent est  SousElementRegle 
       	sous_elemeent.Nom = token_ou_regle
       	element_règle_en_cours.tableau_sous_element_regle.Ajoute(sous_elemeent)
       FIN
       règle_en_cours.tableau_element_regle.Ajoute(element_règle_en_cours)
+      
+      SI bFiniParPoitnVirgule ALORS
+      	_fin_de_regle()
+      FIN
      type : 458752
    -
      name : _extrait_code_utilisateur

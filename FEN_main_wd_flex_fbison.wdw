@@ -1072,7 +1072,6 @@ window :
       // essie d'extraire le fichier source et le n° de ligne du message d'erreur
       info_source  est chaine
       
-      suite_message est chaine
       si fichier_source<>"" alors
       	info_source = fExtraitChemin(fichier_source,fFichier+fExtension)+":"+ligne
       	sAction	=  gLienCliquable("aller sur l'erreur", _onclicLien)
