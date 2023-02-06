@@ -205,7 +205,7 @@ class :
       	// extrait le nom avant le :
       	postion_deux_point est un entier = ligne_règle_grammaire.Position(":")
       	si postion_deux_point<=0 ALORS
-      		_erreur_exeception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, ":") )
+      		_erreur_exception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, ":") )
       		retour
       	FIN
       	règle_en_cours.Nom = ligne_règle_grammaire.gauche(postion_deux_point-1)
@@ -214,7 +214,7 @@ class :
       	// on recherche | 
       	postion_ou est un entier = ligne_règle_grammaire.Position("|")
       	SI postion_ou<=0 ALORS
-      		_erreur_exeception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "| ou ;" )  )
+      		_erreur_exception( ChaîneConstruit( SYNTAX_ERROR_MISSING_TOKEN, "| ou ;" )  )
       		RETOUR
       	FIN
       	suite_ligne        = ligne_règle_grammaire.Milieu(postion_ou+1)	
@@ -288,7 +288,7 @@ class :
       	SI code_wl_user.Droite(1)="}" ALORS
       		code_wl_user = Milieu(code_wl_user,1,Taille(code_wl_user)-1)
       	sinon
-      		_erreur_exeception( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "}") )
+      		_erreur_exception( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "}") )
       	FIN
       fin
       
@@ -324,11 +324,11 @@ class :
       source_bison est chaine UNICODE = charge_fichier_source(nom_fichier_source_bison)
       SI ErreurDétectée ALORS
       	// erreur
-      	_erreur_exeception ( ErreurInfo())
+      	_erreur_exception ( ErreurInfo())
       FIN
       // vérification de syntaxe basique
       si position(source_bison,"%%")<=0 ALORS
-      	_erreur_exeception ( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "%%" ) )
+      	_erreur_exception ( ChaîneConstruit(SYNTAX_ERROR_MISSING_TOKEN, "%%" ) )
       FIN
       
       // init a l'état initial
@@ -339,7 +339,7 @@ class :
       
       // si aucune règle trouvée
       si tab_règle_grammaire_source.Occurrence()=0 ALORS
-      	_erreur_exeception (ERR_BISON_NO_RULE)
+      	_erreur_exception (ERR_BISON_NO_RULE)
       FIN
       
       // OK
@@ -404,7 +404,7 @@ class :
       			si indice_regle_ou_token=-1
       				// pas trouvé : erreur
       				 :numéro_ligne_en_cours = element_regle.ligne_source // pour être positionné sur la bonne ligne
-      				_erreur_exeception(  ChaîneConstruit(ERR_UNKNOWN_RULE, sous_element_regle.Nom))
+      				_erreur_exception(  ChaîneConstruit(ERR_UNKNOWN_RULE, sous_element_regle.Nom))
       			fin
       			
       			sous_element_regle.indice = indice_regle_ou_token
@@ -704,7 +704,7 @@ class :
       	renvoyer (faux,erreur_compile) //ExceptionInfo(errMessage))
       FIN
       si nom_fichier_dest="" ALORS
-      	_erreur_exeception("Fichier destination vide")
+      	_erreur_exception("Fichier destination vide")
       FIN
       
       // on vérifie que la destination n'est pas ouverte / bloqué, que le projet destination n'est pas ouvert

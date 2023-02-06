@@ -130,13 +130,13 @@ class :
       
      type : 458752
    -
-     name : _erreur_exeception
+     name : _erreur_exception
      procedure_id : 1429521650505468361
      type_code : 12
      code : |1-
       // appelée en car d'erreur de compilation dans  un .l ou un .y. 
       // lève un exception avec l'erreur
-      PROCÉDURE _erreur_exeception( message_erreur est chaine) 
+      PROCÉDURE _erreur_exception( message_erreur est chaine) 
       
       erreur_compile est wd_compilateur_base::ErreurCompile 
       erreur_compile.fichier_source = :nom_fichier_source
