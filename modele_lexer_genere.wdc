@@ -72,7 +72,11 @@ class :
       	// trace chaque token trouvé et le code source .l associé.
       	//ex : "7 > [0-9] {valeur_courante = yytext; return T_INT;}
       	si :en_mode_verbose alors
-      		trace(:yytext + " > " + règle_a_exécuter.règle.source_dump )
+      		si règle_a_exécuter.règle =null _ou_ règle_a_exécuter.règle.source_dump = null
+      			trace(:yytext + " > " + "null" )
+      		sinon
+      			trace(:yytext + " > " + règle_a_exécuter.règle.source_dump )
+      		fin
       	fin
       	
       	SELON règle_a_exécuter.règle.indice_regle_lex

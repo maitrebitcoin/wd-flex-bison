@@ -133,54 +133,23 @@ class :
       		niveau_courant.numero_règle = regle_reduce.numero_règle
       		SELON nbParamètre
       			CAS 1
-      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1] )			
+      				regle_reduce.code_a_executer( niveau_courant.valeur_user, TableauDesParametres[1] )			
       			CAS 2
-      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
+      				regle_reduce.code_a_executer( niveau_courant.valeur_user, TableauDesParametres[1], TableauDesParametres[2] )
       			CAS 3
-      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
+      				regle_reduce.code_a_executer( niveau_courant.valeur_user, TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
       			CAS 4
-      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
+      				regle_reduce.code_a_executer( niveau_courant.valeur_user, TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
       			CAS 5
-      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
+      				regle_reduce.code_a_executer( niveau_courant.valeur_user, TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
       			CAS 6
-      				niveau_courant.valeur_user  = regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
+      				regle_reduce.code_a_executer( niveau_courant.valeur_user, TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
       			AUTRE CAS
       				dbgAssertion(Faux,"A coder")	
       		FIN		
       		renvoyer niveau_courant 
       	fin
-      //  execution du code utilisateur pour un règle de grammaire si la procédure ne renvoie pas de valeur
-      	PROCÉDURE INTERNE _executeCodeUserRegle_SansValRetour(regle_reduce est RegleDeGrammaire dynamique)
-      		// nombre de paramètre
-      		nbParamètre				est entier						= regle_reduce.nombre_de_paramètre
-      		// récupération des paramètres dans la pile
-      		TableauDesParametres	est un tableau de variant 
-      		POUR i = 1 _a_ nbParamètre
-      			niveau_pile_i est NiveauPile
-      			Dépile(  :pile_compilation, niveau_pile_i )
-      			TableauDesParametres.Insère(1,niveau_pile_i.valeur_user)
-      		FIN//I
-      		// exécution du code
-      		niveau_courant est NiveauPile
-      		niveau_courant.numero_règle = regle_reduce.numero_règle
-      		SELON nbParamètre
-      			CAS 1
-      				regle_reduce.code_a_executer( TableauDesParametres[1] )			
-      			CAS 2
-      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2] )
-      			CAS 3
-      				 regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3] )
-      			CAS 4
-      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4] )
-      			CAS 5
-      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5] )
-      			CAS 6
-      				regle_reduce.code_a_executer( TableauDesParametres[1], TableauDesParametres[2], TableauDesParametres[3], TableauDesParametres[4], TableauDesParametres[5], TableauDesParametres[6] )
-      			AUTRE CAS
-      				dbgAssertion(Faux,"A coder")			
-      		fin
-      	fin
-      	
+      
       
       // Init lexer
       m_lexer <- lexer 
@@ -248,11 +217,11 @@ class :
       				// si c'est la fin du fichier
       				SI valeur_token_courant = TOKEN_EOF  ALORS		
       					//-------------------------------------------------------	
-      					// exécuter  du code user de  regle_reduce sans valeur de retour : 
+      					// exécuter  du code user de  regle_reduce  -
       					// 
       					// 
       					// racine
-      					_executeCodeUserRegle_SansValRetour(regle_reduce);
+      					_executeCodeUserRegle(regle_reduce);
       					// si on est pas a la racine
       					SI :pile_compilation.Occurrence<>0  ALORS			
       						// erreur de la compilation

@@ -53,6 +53,8 @@ class :
       constante
       	 ERR_LEX_NO_RULE  = "Aucune régle trouvée pour le lexer"
       fin
+      constante DOUBLE_QUOTE    =  """"   // ""
+      constante _2_DOUBLE_QUOTE =  """""" // ""
      type : 131072
   procedures :
    -
@@ -283,8 +285,11 @@ class :
       	// si c'est au format "A" => on prend la chaine exacte
       	si token_vers_code_wl.token[1] = """" alors
       		chaine_exacte = token_vers_code_wl.token
+      		chaine_exacte = Remplace(chaine_exacte, DOUBLE_QUOTE, _2_DOUBLE_QUOTE)
       	sinon
-      		rexgExp       = token_vers_code_wl.token
+      		rexgExp = token_vers_code_wl.token
+      		// pour compilation OK en WL
+      		rexgExp = remplace(rexgExp, DOUBLE_QUOTE, _2_DOUBLE_QUOTE)
       	fin
       	dbgAssertion(token_vers_code_wl.numligne_source>0)
       	source_dump est chaine =  :nom_fichier_source + ":" + token_vers_code_wl.numligne_source

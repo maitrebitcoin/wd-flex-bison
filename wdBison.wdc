@@ -456,7 +456,7 @@ class :
       		
       		// code exécuté a chaque réduction
       		// remplacer $$ et $1, $2, etc
-      		code_wl_source = Remplace(code_wl_source,"$$","RETOUR")
+      		code_wl_source = Remplace(code_wl_source,"$$","_RETOUR")
       		numero_parametre est entier =1
       		code_pararmètre est chaine
       		POUR TOUT sous_element_regle DE element_regle.tableau_sous_element_regle
@@ -465,8 +465,15 @@ class :
       			code_wl_source = Remplace(code_wl_source,"$"+numero_parametre,nom_paramètre)
       			numero_parametre++
       		FIN
+      		// on vérifie si il n'y en a pas en trop
+      		pour i = element_regle.tableau_sous_element_regle.Occurrence()+1 a 9 
+      			si position( code_wl_source, "$"+ i) > 0 ALORS
+      				:numéro_ligne_en_cours = element_regle.ligne_source
+      				_erreur_exception("paramètres invalide :" + "$" + i)
+      			FIN
+      		FIN
       	 
-      		code_wl_gestion_regle est chaine =  ChaîneConstruit( "(%1)=>{%2}" , code_pararmètre, code_wl_source )
+      		code_wl_gestion_regle est chaine =  ChaîneConstruit( "(_RETOUR,%1)=>{%2}" , code_pararmètre, code_wl_source )
       		
       		// ex : _ajoute_regle_grammaire(1,"addition","+", ""  )
       		code_init_une_règle est chaine

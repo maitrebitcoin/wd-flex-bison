@@ -154,7 +154,7 @@ project :
       // https://github.com/maitrebitcoin/wd-code-editor
       
       //#TODO
-      //.gestion fichier source unicode
+      
       //.Géréner un composant interne si inexistant- a tester
       //.revoir ihm mode exe windows
       //.option pour générér un composant interne
@@ -162,6 +162,7 @@ project :
       //.crée un compilateur de regexp
       //.supprimer le répertoire .cpl
       //.générer un diagramme
+      //.founir .css en sample
       
       // Support de la ligne de commande
       SI en_mode_ligne_de_commande()
