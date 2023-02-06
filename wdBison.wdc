@@ -189,6 +189,10 @@ class :
       
       // suppimer les commentaires en fin de ligne
       ligne_règle_grammaire = _supprime_commentaire( ligne_règle_grammaire )
+      si SansEspace(ligne_règle_grammaire)="" ALORS
+      	retour // commentaire uniquement sur la ligne on ignore
+      FIN
+      
       // si ca fini par ";"
       bFiniParPoitnVirgule est un booléen = Droite(ligne_règle_grammaire,1)=";"
       SI  bFiniParPoitnVirgule ALORS
