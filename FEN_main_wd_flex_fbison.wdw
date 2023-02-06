@@ -530,6 +530,7 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAOO1ENEmLs/d4AFJ3zI0Rm3HzokwOn2ykiTl2GnGZ9L32A97QV4+tVfbBdwlu8ZMwy4scTmDAHJwZBOLUavIu1JWyb/CcCLkdXBxP4+aafaaJP3qa4Vchbc1R/2usBdLx7N3yF1wFBK7qQO2/RVTjz+q5iCvvHmcGVAN9dWum+hML+9mS0DnLdgkwa3ajZXYjyRTI5fG4vWFMutFgiMEtW/CT2b4m4a2evdJEmpq2H6b6/S8GnpvDnHaSv0V9NpP6WyXoauBCMWQha4q7M1iBbpgEw+/dkLIe3NRkE4xhaHKsBQF3xBepGXDycmquu2tR8aH2V1IlKlwytsRuoLRNPuBBIK5PfpzIQC0CXEKS4VcxeKgL/FarQ1yoDPq0UNGz/ovY9SMH+cRRZE8Y9rETK+oDUf7X0WJV2FYBVWURKNTJltm2aU6ErcuH/7c2nNya9kuI6oy1pPYkykDb3R2rxAjqCMsJgYUAwGBYyrKBcRu2e5JFIcNE6iU+cZKzDmJjbFgLmeKrBj312SLRoxM1crZfbETIQdDsGPePsP0j232ysuoIdzBcKNtnYmIsnMvRks2kjN+zT5McqxELFOWstNMqAvQqOzNN8MIQ11w9K4VWcjp/EWywrJ0j/wTfILGxdNb/GlmBwunmrN/D4xd5phrggbH0GgAbeCb3aIpqAzdjDYdv8qVR/gEYaV0XhsNS/nTxaddaXV+0mil7lUcrq129p8TMnp2qZhS3hWFGbs05das0wXbgus+zB2BrPPhB3QSrbpHmSXLiyGG4nLXEPkb+bC/x91BvlyPyxLFUMd825y80BSQo4SHoEvyNk55Ul3r2PV7JV/NFXMDbLlZxqyj8ai2PBTnWWCQmcclr/AA==
+        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAABssTGe+4vof10jkgFCGUhzWsoKcJvuRNPE3LU9UrUK385arA5rqHJ2vvbhOQfMsu/hzgJyw8INdk5ECTU0dr6bgi/crosA
@@ -551,6 +552,7 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAOO1ENEmLs/d4AFJ3zI0Rm3HzokwOn2ykiTl2GnGZ9L32A97QV4+tVfbBdwlu8ZMwy4scTmDAHJwZBOLUavIu1JWyb/CcCLkdXBxP4+aafaaJP3qa4Vchbc1R/2usBdLx7N3yF1wFBK7qQO2/RVTjz+q5iCvvHmcGVAN9dWum+hML+9mS0DnLdgkwa3ajZXYjyRTI5fG4vWFMutFgiMEtW/CT2b4m4a2evdJEmpq2H6b6/S8GnpvDnHaSv0V9NpP6WyXoauBCMWQha4q7M1iBbpgEw+/dkLIe3NRkE4xhaHKsBQF3xBepGXDycmquu2tR8aH2V1IlKlwytsRuoLRNPuBBIK5PfpzIQC0CXEKS4VcxeKgL/FarQ1yoDPq0UNGz/ovY9SMH+cRRZE8Y9rETK+oDUf7X0WJV2FYBVWURKNTJltm2aU6ErcuH/7c2nNya9kuI6oy1pPYkykDb3R2rxAjqCMsJgYUAwGBYyrKBcRu2e5JFIcNE6iU+cZKzDmJjbFgLmeKrBj312SLRoxM1crZfbETIQdDsGPePsP0j232ysuoIdzBcKNtnYmIsnMvRks2kjN+zT5McqxELFOWstNMqAvQqOzNN8MIQ11w9K4VWcjp/EWywrJ0j/wTfILGxdNb/GlmBwunmrN/D4xd5phrggbH0GgAbeCb3aIpqAzdjDYdv8qVR/gEYaV0XhsNS/nTxaddaXV+0mil7lUcrq129p8TMnp2qZhS3hWFGbs05das0wXbgus+zB2BrPPhB3QSrbpHmSXLiyGG4nLXEPkb+bC/x91BvlyPyxLFUMd825y80BSQo4SHoEvyNk55Ul3r2PV7JV/NFXMDbLlZxqyj8ai2PBTnWWCQmcclr/AA==
+        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAB/tUr8YNQWTDEuzK7TmMDRqgXl1fZVUOKB5Z56sEq6gweKITMykUORVQxrI+ehMqpbUO4H6AKr15sE4KjQ1jAz
@@ -572,6 +574,7 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAOO1ENEmLs/d4AFJ3zI0Rm3HzokwOn2ykiTl2GnGZ9L32A97QV4+tVfbBdwlu8ZMwy4scTmDAHJwZBOLUavIu1JWyb/CcCLkdXBxP4+aafaaJP3qa4Vchbc1R/2usBdLx7N3yF1wFBK7qQO2/RVTjz+q5iCvvHmcGVAN9dWum+hML+9mS0DnLdgkwa3ajZXYjyRTI5fG4vWFMutFgiMEtW/CT2b4m4a2evdJEmpq2H6b6/S8GnpvDnHaSv0V9NpP6WyXoauBCMWQha4q7M1iBbpgEw+/dkLIe3NRkE4xhaHKsBQF3xBepGXDycmquu2tR8aH2V1IlKlwytsRuoLRNPuBBIK5PfpzIQC0CXEKS4VcxeKgL/FarQ1yoDPq0UNGz/ovY9SMH+cRRZE8Y9rETK+oDUf7X0WJV2FYBVWURKNTJltm2aU6ErcuH/7c2nNya9kuI6oy1pPYkykDb3R2rxAjqCMsJgYUAwGBYyrKBcRu2e5JFIcNE6iU+cZKzDmJjbFgLmeKrBj312SLRoxM1crZfbETIQdDsGPePsP0j232ysuoIdzBcKNtnYmIsnMvRks2kjN+zT5McqxELFOWstNMqAvQqOzNN8MIQ11w9K4VWcjp/EWywrJ0j/wTfILGxdNb/GlmBwunmrN/D4xd5phrggbH0GgAbeCb3aIpqAzdjDYdv8qVR/gEYaV0XhsNS/nTxaddaXV+0mil7lUcrq129p8TMnp2qZhS3hWFGbs05das0wXbgus+zB2BrPPhB3QSrbpHmSXLiyGG4nLXEPkb+bC/x91BvlyPyxLFUMd825y80BSQo4SHoEvyNk55Ul3r2PV7JV/NFXMDbLlZxqyj8ai2PBTnWWCQmcclr/AA==
+        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAA2/NAN8e0i1nx9CL+UKDdKp0Wj8Hs3F8Uq+4nJi+Vlrhs8L5hr2bVP32EnBW6z+NbZQlN5MBPGig8ViSdfVhZsQGtgEMDD1bdMu7MeAi3Mz5RU1KkMSSSTgilVTXjn74MSjTOuyMJEpPVP6Gp5Ar2OzWyav4kS
@@ -775,10 +778,12 @@ window :
       	gsExt_lex					= ".l"
       	gsExt_bison					= ".y"
       	gsExt_classeWD				= ".wdc"
+      	gsExt_param					= ".prj_ly"
       	gsFiltreLexBison			= "source lex (*"+gsExt_lex +")"+TAB+"*" + gsExt_lex +  RC + ...
       								  "source bison (*"+gsExt_bison +")"+TAB+"*" + gsExt_bison +  RC + ...
       								  "Tous"  + TAB + "*.*"
       	gsRepertoireGeneration		= "out"
+      	
       FIN
       OPtionOuvre est une énumération
       	avecAjoutMRU
@@ -807,6 +812,13 @@ window :
    -
      type : 230
      enabled : false
+   -
+     code : |1-
+      
+      
+      // sauver les paramètres de génération
+      Sauve_pararamètre_compilation(nom_complet_fichier_lex)
+     type : 2
   procedures :
    -
      name : _bExécuteFermeture
@@ -1129,8 +1141,10 @@ window :
      code : |1+
       // sauver tous les paramètres utilisé pour la compilation
       procédure Sauve_pararamètre_compilation(fichier_lex_ou_bison)
-      
-      nom_fichier_projet est chaine = fExtraitChemin(fichier_lex_ou_bison,fDisque+fRépertoire+fFichier)+".prj_ly"
+      si fichier_lex_ou_bison="" ALORS
+      	retour
+      FIN
+      nom_fichier_projet est chaine = fExtraitChemin(fichier_lex_ou_bison,fDisque+fRépertoire+fFichier)+gsExt_param
       si pas fFichierExiste(nom_fichier_projet) ALORS
       	fSauveTexte(nom_fichier_projet,"#28 fichier de paramètres pour wd-flex-bison"+rc)
       FIN
@@ -1140,7 +1154,7 @@ window :
       INIEcrit("PARAM", "Debug",       InterrupteurModeDebug,        nom_fichier_projet)
       INIEcrit("PARAM", "Projet",      InterrupteurProjeComplet,     nom_fichier_projet)
       INIEcrit("PARAM", "CI",      	 InterrupteurComposantInterne, nom_fichier_projet)
-      
+      INIEcrit("PARAM", "Onglet",      ONGLET_Source, 			   nom_fichier_projet)
      type : 458752
    -
      name : Charge_paramètres_compilation
@@ -1150,17 +1164,23 @@ window :
       // recharge les parmaètres sauvés par Sauve_pararamètre_compilation(=)
       procédure Charge_paramètres_compilation( fichier_lex_ou_bison )
       
-      nom_fichier_projet est chaine = fExtraitChemin(fichier_lex_ou_bison,fDisque+fRépertoire+fFichier)+".prj_ly"
+      nom_fichier_projet est chaine = fExtraitChemin(fichier_lex_ou_bison,fDisque+fRépertoire+fFichier)+gsExt_param
       SI PAS fFichierExiste(nom_fichier_projet) ALORS
       	retour // pas de fichier de paramètres
       FIN
+      fichier_Destination est chaine = INILit("PARAM", "Destination", "",   nom_fichier_projet)
+      si fichier_Destination="" alors
+      	RETOUR //  fichier de paramètres invalide
+      FIN
       
       nom_complet_fichier_généréré = INILit("PARAM", "Destination", "",   nom_fichier_projet)
+      dbgAssertion(fExtraitChemin(nom_complet_fichier_généréré,fExtension)<>gsExt_param)
       InterrupteurModeVerbose      = INILit("PARAM", "Verbose",     "0",  nom_fichier_projet)
       InterrupteurModeDebug		 = INILit("PARAM", "Debug",       "0",  nom_fichier_projet)
-      InterrupteurProjeComplet     = INILit("PARAM", "Projet",      "0n", nom_fichier_projet)
-      InterrupteurComposantInterne = INILit("PARAM", "CI",      	  "0,", nom_fichier_projet)
+      InterrupteurProjeComplet     = INILit("PARAM", "Projet",      "0",  nom_fichier_projet)
+      InterrupteurComposantInterne = INILit("PARAM", "CI",      	  "0",  nom_fichier_projet)
       SAI_Fichier_Dest = nom_complet_fichier_généréré
+      ONGLET_Source				 = INILit("PARAM", "Onglet",  	  "1",  nom_fichier_projet)	
      type : 458752
   procedure_templates : []
   property_templates : []

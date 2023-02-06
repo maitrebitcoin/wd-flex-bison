@@ -703,6 +703,9 @@ class :
       	
       	renvoyer (faux,erreur_compile) //ExceptionInfo(errMessage))
       FIN
+      si nom_fichier_dest="" ALORS
+      	_erreur_exeception("Fichier destination vide")
+      FIN
       
       // on vérifie que la destination n'est pas ouverte / bloqué, que le projet destination n'est pas ouvert
       message_erreur est chaine
