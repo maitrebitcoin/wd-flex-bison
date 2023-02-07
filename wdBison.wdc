@@ -39,6 +39,8 @@ class :
       	dest_projet_complet			est un booléen
       	//générer un composant interne (si il n'existe pas encore)
       	dest_ci_siInexistant		est un booléen
+      	// fichier de test a utiliser pour le cas d'un projet complet
+      	fichier_de_test				est chaine
       	
       fin
       // Ex:  A ->     A b
@@ -603,12 +605,15 @@ class :
       	nom_classe est chaine = Nom_projet
       	code_wd_inout = Remplace(code_wd_inout,"COMPILATEUR_GENERE",nom_classe)
       fin
-      
+      PROCÉDURE INTERNE _patch_fenetre_test(code_wd_inout est chaîne ANSI)
+      	_patch_nom_projet(code_wd_inout)
+      	code_wd_inout = Remplace(code_wd_inout,"FICHIER_DE_TEST", :fichier_de_test)
+      FIN
       // si on veut crée un projet complet
       si :dest_projet_complet ALORS
       	fRepCrée(répertoire_destination)
       	// copie des élémetnb sur projet + patch
-      	SI PAS _copie_1_fichier_prj("FEN_test_du_compilateur.wdw","",_patch_nom_projet) RENVOYER Faux
+      	SI PAS _copie_1_fichier_prj("FEN_test_du_compilateur.wdw","",_patch_fenetre_test) RENVOYER Faux
       	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.sty",Nom_projet+".sty") RENVOYER Faux
       	SI PAS _copie_1_fichier_prj("projet-template-wd-flex-bison.wdp",Nom_projet+".wdp",_patch_nom_projet ) RENVOYER Faux
       FIN

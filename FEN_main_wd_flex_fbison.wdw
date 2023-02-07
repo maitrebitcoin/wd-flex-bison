@@ -159,10 +159,10 @@ window :
         -
           name : InterrupteurComposantInterne
           identifier : 0x23cf86241160ead3
-          internal_properties : CAAAAAgAAADQdzO+mgODiC72WQ+PpZ8eSIXnEdHS+QEStyoe8bP5CmsQfjM+6urFIdwnquPuu4fbr+1/LMgpih77VZIgDmWBRCwASrKZLIGMqHNva8BN2f53HvPjdKVYS2xAC+4tCW5j+3XNMUzNwjxyZ3/1ki6yvIR89ohXONjzPTsXiuHYaJoTABSf1piaofIdozU2J2jjlwNUUSbxb1uyH1hRtGP2f1KtgIhCGex5liwqdV/saGw5K5O48LAN+itOnnYv4K1ySnMw7BnbWTcHPfQ0XmGsjkodfyyZiLJ5Gbt8L6mNPSq7qYDvTqURz+JJojIyF8eSKzs5aw76FOxgFHl9VP7+/ZlVpO3GoD6/0pPQjwY+2QHZkWmbPwokvlYxSQHgFUWveKlPxUFDode9rYY+nrpLOP/9y5cC50qKRJi2jw+iGR8WcF9UX/jvBA3B9BRZCqh+t5Z/57PQdfYe8MNGk8e55YW3JcXLP5Iin26HDR2d/u4mQ5FmOcNraDlC0A0W+lscDFKVlxfDn3g5ELwBtNzqhX99Ao0qX18c04p2u8aCPkH51x8Exmys4lO3qoyzpXbfbvzD0TZtlzNbPWmRKxedyfhL45l8ZYi+ItHidSmbsOkRaIO4Msa8UQ3tjAgE3+8YdjFzHtyY2C7796+sX7HCm5T5MFXTWcdlXDc0nXZIWrKHyIcwO92dY/rHM3i9SshGSeW76znjMWolwkJMBZ/VCXAOcdIeC0aJR4VRNp/HGeSdH/m+V8SuraTABc3jHpXSV/4+cHjaDXU3Pg0doqMEva2rxDRO1ui5nOvKShgg0c0Th13PAkrEYJccyUW4X+wdHAjwTkq9WSMIgWqFqYzsE4bYenfWXVL/UU1r2OatVEvm3NpGouNh2oMab8xvkhe5Crq4OXen9i2wWWf0x9213QMPiq32sGIimkvkKKbcQQKQO/dUJCjYUqud4vJK+2hHJsGTLWa+ZHRnABIZhw9k7TeeyCes
+          internal_properties : CAAAAAgAAAD80D97G0OffXq11tOgleSxMF22vZcSEzwxUAuJOGewFmS4NMNWVQuOgES/IrkeWzmWZH8IqEKY2RjaxQTkKbGh1taCCRgQ+k1cIlpG0d6LFqmH3Ih8RAUIL3QH0V//Daah91/TDRjuosDJs441cmy5YFyyzz2zor7wKn9js0nW2Bnx92pZx9LoUplavM6B1XaU72OL7yeNHnjv+a5XIMRF/ZWG6ksiDAAr83rIYrCtEQYa9fuQLFeCFaRc54ffsA1jNGTFFpeMgFuNY6g7pFsaK2wgghfSycbfzi4gUcRJlTUKN3OBIqE0La2kMsaQ6flc4h1VcQXtcbUWQkzbX51yawSKoGhoJBuP1EO24VXHIHCEYy+w4DVkyALAUHxgbmXUoysAGIa19loxJ/zQR5f1Ibls//5dw+XnnaN9qg/jaTHXM6RFe20xK5B57iAbuj1OYosFFraj5Xn7lCd2Ne0PGMUBSNdUG+KjUcYzneXpsj7ftaGAfwiMWd0WY9HbRoh9DnUhddHONudFHFsPvyivfumOds+Qvo6L+9LdS6/QX4IbWEF0FhuLqwVZiRrwlzvyhi2Tc3CepDivkQ7NJg3+YJK2RalkOCt/yDd3SbZ5a24lE5sCZtEj/lcHr7rblXrRctT14qD5nY8Dv5QC8NetHI7ctHNdIHrm5K+7Cxc6uTutB59muYzoeJpnRhJojluVhYB52580MhtdWvcCwK2WFjhld1oWEu1C85EeatLVXOUrzOFspanD4hiErl/8pMijXR36AtZxAFTFPDQ9Oac/QEfWSP7WWwW0KIcTuik4ev6bOC+X0DnDLRPY1N9VJ43MBhlcUHwkmHCw+SFD0OCxoJ6BgAMUoIUsm+daIM+ZiUIIX+qYjua0raEML+HuD/mXQYIhFDIQXT97x+u7i2pzLfFw4nSKP7n3kdRMbwNjPlb8IKz0ktSTDp6Itp/bPhZcd8Bv3kAFY8phk1cyoor5cCxL6i0cGr5U
           properties :
-           x : 9
-           y : 116
+           x : 10
+           y : 165
            width : 182
            height : 26
           options :
@@ -182,10 +182,10 @@ window :
         -
           name : InterrupteurModeVerbose
           identifier : 0x23aee6b500f3a0bc
-          internal_properties : CAAAAAgAAABYzfKpyBiJjGMt6p3ukBOxXDJI1dZoq39/N08qLcr1MrTOrmQfr3gUG2OkMjG2WUs0YXosS9msBWsw4DzGFFMZY9ko68EYpzh2M/c5Yxy4vmNsDhPtxATC9DJGtXzyB6VrqCDUrD7NJAXvsl8JSHdB6Z6LRcuv2R008t37x/DaRV+9N1xol9ZUuQT/HJ0jo0kX6rqqk6Q4/MXhhI3ZkVxpH4eCcbnlg6s3NPA1GiX1j9rOhP9TWU3nVebXx3LRaVGfKQOHVtguIAdxcX7xV2pwkk6gT5NWbXFKsjWoEYKQfCLq/KtYcxUthUIDyU+SUPnEbFzbpYLxrLgPvxTQgknER5MyEfN8HTzPIOLd4w5zAyIzNJ+0PLkpu96/dUgda3htg5u9CtwUdDfu5GkKjw4s7v14xVKjRTl/QnKzYV4T19Mi4vDMw9CpIvyPsnz7Ml7eWNsXGvjoRTsn0zmCWpr2Cm5Rpy7zXcUcEzgW8INkx8IbnD5NqT2I41QXhKn/NbRGFq2P6lcYGfVgfF4jv4OlCIu8jyxEnkQKf5DTVRTZhXjFGkjwrL9nuq183QuLsdHS3TX75rUH5HyQ6WWJ5lxq2doP8xYPZnOVbk4WvFgIFqmcWMUfOfRHL43vJeQjPItmpKgGhTzGgBZnHN3GhpGr6+JSeDMePD21rXA7BXXxw5p6SQ37CXkBaf8545yayESJYkaNbzjNXUOLC/UySZxNli71jc/C40Od9cysWNgs8mOz52xoBdJGa783K7Xx3Uk47JuVG48ARNJ1TdBwbBoLYdgGcGd3YKBD4q+Vamr9zt6PdjJClZdhgrV0QJ45eEG+GaDi7Dcpa04XL4pznzJxTVriUc3VrfxGtw12U9nnySpRm9+wOkDiQ3OoQqKaLlKJtd5SB6YJ/8ec0u01fFiQ29OERmZKaa7f9BMriaMr0qPpMyrvTY19SoMhw54a9zLxCbPmxFE+CmW2HHJ62K0YM9VPMLgpvwZaP4dJdx7zAzm2DGHJhnelDbi1FLwLA6SMcOXj3T/N81sMAGFqJ1dtUcermSqxEktpWuvrOOcI2QRO1vzw76RniMH9f67MTdI=
+          internal_properties : CAAAAAgAAADjtwoUjurbzjPPYwo0R868fi634OxQrsF1hBOSsPO8HlaiTAgodt8XO8wa/a5ENERWsDO4YJ9snF7i3FGJQ3FYM0s9iyca7NvzLwzlH0nwWoezUCjaZPZcQyK8PPBYPTR5s/Ay+orBXJSKvA44Vq9gBZyGKuBw1PmUGUSTmAbt/BbKMXpuuDht8+ZZnvNjLFQq/bEjNAO8nbYczt6P/nlTLszBPQws63BwMLYroDk+nhMLTCUgBCPp7Bu4AOOB9bftqgQtgwkNurTQkj1mY/73tcuGb3mXGBMDqiIDEUO9hdcCyYSG1j00kfQcd4CEa3ivA330ROICb5ONV3lqGnujcrxjPHpd5/QVUlRkYIjcCmb2FyRees5/S/ypehzx3J6ILrjZXh79xl07Pu0zL++rDSh5qpKZneXsth0jCY0iptdW8HRxhU2oFCuG8lzUsjVE1Sq2koifMz6oWlHOWhVuWb/knOttwXxzrnwEBF3CNZvoUvTQavOC+rgOSLH+XpwJ+6q4pOfNh3xQQ2ZOL5WJu7UDX2LkI6Gn6Ym/NJ5dWFPDzfIebDSkm39jcVrzdy5dfZanVhugNe+SPosMcs4lTDKS24rFRbSUHh0yxTBeybbENRO5UY2csL1mfef53DzjAE+yNUKhH9E1U4VDKivWpojJUtmmKWb2HWX5JiMZIkP2iCmDqwbMCPcclwOqlrEadj1vffzyqv4RtHNzAQIojzjMy+E+DAgWFznqyyZwRdpTNso6HR/T+Juyc4B1L26BvjajbTfL048ZGu5j4kIoJPDTjKclNROUfgApkVrz4znF/egEZaAOXTdxboktHuLXacGqSL3SRinjLDD2bY6CAiqNX5ehPGexFbzSlLlJWLMBeEPYEJFXlo2ZEKPQSkVSwYdac9TUBv72twFWmmCTlKOb7hr4LL3Ofty9pkVHn5ThapihqcbyleHmQdmAQ4uewSacpqE1pyYcB4gNdlW1MtbXRA7cz1YU4iL9ZTP6h3tjIxzHytS8ib9oXgSCuzTvJVMgRiOqGNDk/hRijblF+TQo9+U4aOUmD5dTK1G8iQi/Y1QD9pUx9t6/IpwUp75f
           properties :
-           x : 9
-           y : 143
+           x : 10
+           y : 192
            width : 235
            height : 26
           options :
@@ -205,10 +205,10 @@ window :
         -
           name : InterrupteurModeDebug
           identifier : 0x23aee6b500f1a0bc
-          internal_properties : CAAAAAgAAAAD2mNLnwk1QJtjjgbsJn50vFLoDGgOssZwgSHQIXzuKmUO9+USDuAoVwbz3MyJ7s0q3ge9dKeblnxZPBOjK9TF80m11BBiUSLP8SdUe+Algu7qJgs+E7x2tMwvAlerk95e5tOXESv26cGEXDUzlOf9nSWPX6DynRzvUf0LjcNp+bElUH43zdI7gx2NMcL3J7c66Kie5fq9yGPN/zIkuRpUySEDkcfLg8VRJ/HlCxCCYNZz5ffevJC5l8XVIEq81wEYBhhZ8xdGJlV36rJt5Y7yHUo+cECh6G4IIBtwzhxgC5Sxw03iKDo7ymIJuherfAJvqg94/KryhtitDov8UWdMNHZDdQ/Ia78rmsb6l3kaveSqF1Vv96ZQNNcxatKIpSVq73Hbeflc/00Dm+R96ljc3+fgW+0GgAEGgYaGSL4jAQc+aywVv/8WeqsNmvfqzv0mvRngof83DbnJ7UeEnqJlIo1h0VPU6VXI+ML9h7A+FrAZJcuCRQLNZjrXYLFT/TucuCOaK6Fh2WZrJ7Pd4Eow7SskwYVq2TXAK4c7dyLObqN38GA26ILu7AHQN0rd/SrTfqlUj0yhJ03pVn43faWT+UQUgHfsqWDiEgx1zf+lKqFlDwrEavaIM3OokyzqW0cEdhR6MsouEvb/SHysIy8gl/wWxU/rlW/5nFID3RR04sztKx4oI8/7cx5weN4LXDLwlw54D4lxI0ifqXUOdSdxf+rT2qqO3XQrZR7+QKvd3xy5fmQiOWb8O3ZtnpHpVumi60fHfGCg/0d98VibCn1+F0POByq8RuxvziBPACIaY90PaGIdvsqY5sH5hn9EEY77fm0penj1Ze2WRNnVTwC0vcSTKbmEyyRzqfLQJvz9iCQjyzORu/7ng4rJXfa/T2AbjIINHz3P5bWTumDodyRIHcDBskvqXyPKedxhIGxBubXxont3A8jiH2dkoZhT7LE2g5NOtfROPai6KJuXbEe6/4x047YRyirZheGrBgNPEZtgashc6bGTfdy9E441
+          internal_properties : CAAAAAgAAADTatPb71nFcOuT/nb8Fg5kzGLYXLhewnbA8VGAcay+WjUe5/ViXjAYZzbjzNx5fj06LveNhPcrBszJrAOzG+S1g5mlJKDy4VJfYZdEy9iCTvrGSifYA+jGCEj1AAF/u86y2lvfI9uqSYG8Bl+5FP/98Rlf9z5W9fwjDV9Zf5cZQcVpfFrhrfYngx27G/hXc1NuvExaa35hWK/pRYCWnaLc0ZkDwXlzR3khFz+zfRzmBEqnBQfc0Lgdz1XTovDE0/U8ujTtgds+spGzwBTDvf76PRoWMDr5rBrE9G3WSFDok3j190n8eHL7doZrJHUT2L7XWvc4Wl4yMpBl+FUySe9EqCpTVakgR0N/3oT0lUmKNeg2o+F5Bz7coONfmERsDW3SF+nj3630DwEfaf5j6ujM3/fomz92mA0ClWQALq4TATfeK2zfB+MegvvPAEEuEqF+zQlwW+/XZT2VS83eSu6pEuWhccFYJXlc9Gin1VC+vnTNGXecnUJFiqbhHnvPJY57p8IjuvjYBqEGWBoMb6ejENZPDuyZoLLjLpgK9sGLmV6qM0lZg03zxzwd6j1QAr1WMSQ5FvtQVCxYT3X+9C4KYCMLqfpnLO0d3UEIUJJq7eQo2sfzAW15rs7xSou5TEY3IR87feVhzwHKCWuLiqCHbsPd/gIewFCc/z8GLMOhDYvsChvPSg7wEk0l+xE2tZlbcnGZ7vC48BOqqoyt9IDYxvnCwyk1HG2uGEPha47q2msI3ZXdZGn5CnXWbViAG6zpsg6AS1e/VG5Evqsayf59buLdfCWn6dGG1TFeVxmP5lC608M4qRWlQZze6erHTjkGCQBOxQOI/ngRRejcFgU/KPeO3vS3HoGSuPczdSuuv+9uLkRUxmkY9g3OOI0u0OeCq2HyTjTmusxK7/NL4l1gDTCxQrt677NayaxR0NzRyaXhkgvnk1hy77c0kYhD/EGmc4NepcQeDXjKOIuHnJcKrzykM2ahWrqp1bGbNvNfIYtQWthM+cGjTexNgz5l
           properties :
-           x : 9
-           y : 170
+           x : 10
+           y : 219
            width : 236
            height : 26
           options :
@@ -251,6 +251,68 @@ window :
           code_elements :
            type_code : 2
            p_codes : []
+        -
+          name : SAI_Fichier_de_test
+          identifier : 0x23e1e5bc0102c593
+          internal_properties : CAAAAAgAAABBig1YGCcQoxsN45mRL947xl1uiQn3luj7FrxHEIMR70NTk15r07zR3RZEBoqFt/sr6Ka0pfsSQ6ELMWlqjYlFBJEG8PxHTOR3iqQS93crYK2IoSA2yxnQKeRuYzvYMihHMAXzQFqWDW68mvMbqGM2Py4ljlok1f6K0cggOmivSuKI8atRSGnExRtuik9n6np3Milb1Soha+HhMi8Vdl/v7Va71McM+naCxBk7Rvt4me0mdCr9eXrB9ZY2unhCpAt4EJrAhxLRZWjfJi3fNRqFOZXwGapJ++5MjbquuHMml9SwhAAxIDzfT1Lh+syFYWb3i83MSJ8m0Sk4B0HMRnO0p4WASVzyL+oMEV+gX2EIPdOD8gZvaq/dpojJkeJpKajA1VtRwH3JWjcdqa1bp8gzyx/ffKZVkUy7alIH3S2ZIAsfxnjsiDsG6CfZOiLQoSuiNNKnizH46pxWth4G0JPiG6UeNX+C3uObfZdY0hh+r11Oo0DPbVZi+nmmFsShNlY7WLRHCAfL6+i3cuCNsg9iBWKU1TGQTx+s5aSL0ZX3FNX0xp0wijy9wrJH0eZ1G5haiNdfYrXgKRbn77afZ2iO+pY/lOLu9/bEW4Ol50JojVx3wwexmn+leW0KauNurIEiv4F6WiBIY2eNf52W6WhtAF9S4DH91hsZHS+L29NQ1XzyOIVbMIjyY56azTJ1IDfFj0kFGd0ZXRA/OJHitY6No0VqvODHiHnll6AioHJtKhzuaKirlZ8G7ZGU+qzkR8HuDCjiFyX/gPybi7jltj4Ud8Qdd5wxF9RwvrVbw7vYfeKTdW6RF9UyGXGCheUkQBYAq61GhGurY6eie+qkpOPRm9v80e7HgYlSbp/tVSm3EGs4wzQ/0S8GCv112xbdLpHsOwAzbSUKI8XLdZb3bNKb4zGHbnTfh5S+7dnNpdx1lWGcXp9R9M6CrI9p+3R8qIAEKP6DHykWQDjt5k+SEO8zrLC0+K94td6J7kgjeCjAGr8HSK7rWBSrT0PFQD02MsFV4l2sduqhNVJVZeb2kQrei3dOOE1OB+9bSml9rLhPen8ECFppdcQdeQcmiPZz37iVQMt1TTSTJXaKDu0uaeEo9+F9liP8SkkhXSuSZYV2/3fJ5kLYxSBNeuGdZ/DvHOZXT/1LcV9eN6Aw/KVKlnGoZoHoH6sYMGUwAFZKDG8wTb6alWqEKsluTB4vAc3r/HqbNGqBFW5IyQ==
+          properties :
+           x : 31
+           y : 116
+           width : 589
+           height : 41
+          type : 2
+          code_elements :
+           type_code : 3
+           p_codes :
+            -
+              code : |1-
+               
+              type : 14
+            -
+              type : 276
+              enabled : false
+            -
+              type : 277
+              enabled : false
+            -
+              type : 278
+              enabled : false
+            -
+              code : |1-
+               
+              type : 17
+        -
+          name : BTN_Parcourir1
+          identifier : 0x23e1e61501ea1f27
+          internal_properties : CAAAAAgAAADDIzisSLGgPkpWzGlrkOLk0d/lyKheDzM+o3ku0p++m2uJtaXv4ftW+FeKau3dvZussWHw+Kyopo9RqYoVLIwzVp8patG9zhLwAdB4CEK60dy0/pccJiPE4xQrfyUMqdKpHIfzYgp0P8o8hnlOvb0YftaAi5MiZoOqZ8KFkbkLi+HShfqWI91QF1UxDH2HxG+xIG47/DstVT5ELl6KzF0HEt3x4KB9CetsP74xZDnAQluFOwzgE/iRmp69+iI2DToARayLJjvdNQ4V9k+sKa5g6X420pCxaOnlyQAM1iz7hIsmyadWnpW+0vOt0pnEcXM0F2AQNvlBBrtRM7wRDd1VII5jD1e07Mhh+q+Awd67cC1KnUqAC8FlpIlCF0OvPh/nl6mCwH/ZFws7v+htBzFvZtrA+oYT8+XAcx/TSBKqwNyhfpO/3Dyy7tN/2d8N8hNb0RuZgBlgsWkqT95K7MstlZvebIcUIMsfCw55DB/9yc36PGxzJ9cz/eB/MfxnZ/EXDGZl9cyYj/QE0uPHd3P4ouLsxRp5doJYdq7m1yUcy7KVRwwmrLM4xSWN/U6TQvWi+89KWu7VIUVuCEbfaG3Z02aSqMiLI9vNl7ilUoHf1VWC6BHLvGpXHoBKdg1LJY3SCm4DZ0zGm71risuLvj3WcyNjpVy43GNpB5cTFngO4+04/wgaub2tmGeO0uLSPAfduLYzs+Jcn+sb7Uaj7Xbrd7MzTlXKprZttFdAwX7ovSy7SXbrBGBv8vuBmW1ZCGlsF9FRYrVPDGMScyDpVfYWFcoBzurJxSCfq/imEVplY7TLPdxtG1NThS7af1bpnfewyQMwT8Z+XKo+WwpnxJ6F2wWSUEGafUazfJQvweBw3/qBxui2WFOa7uxi+tR2M3yPGyypei4QLFNliwQTXEpBOj3Lz3SvXOSP9zqvHgr9xAkkOA==
+          properties :
+           x : 622
+           y : 136
+           width : 21
+           height : 21
+          type : 4
+          code_elements :
+           type_code : 4
+           p_codes :
+            -
+              code : |1+
+               sFichier est une chaîne
+               
+               // Ouvre le sélecteur de fichiers
+               soit sCheminOuverture = fExtraitChemin(SAI_Fichier_de_test,fDisque+fRépertoire)
+               soit sFichierInitial = fExtraitChemin(SAI_Fichier_de_test,fFichier+fExtension)
+               soit sTitre=<§$0002§>
+               soit sFiltre=<§$0003§>+TAB+"*.*"
+               // ouvre le sélecteur
+               sFichier = fSélecteur(sCheminOuverture, sFichierInitial, sTitre, sFiltre, "", fselOuvre + fselExiste)
+               
+               si sFichier<>"" alors 
+               	SAI_Fichier_de_test =  sFichier
+               FIN
+              type : 18
+            -
+              type : 161
+              enabled : false
     type : 16
     controls : []
     code_elements :
@@ -1023,6 +1085,7 @@ window :
       compilateurBison.en_mode_verbose	= InterrupteurModeVerbose
       compilateurBison.dest_en_mode_debug	= InterrupteurModeDebug
       compilateurBison.dest_projet_complet= InterrupteurProjeComplet
+      compilateurBison.fichier_de_test    = SAI_Fichier_de_test
       ///b est un booléen
       //stErreur est wd_compilateur_base::ErreurCompile 
       soit (b,stErreur) = compilateurBison.génère_compilateur(nom_complet_fichier_lex,nom_complet_fichier_bison, fichier_dest)
@@ -1153,6 +1216,7 @@ window :
       INIEcrit("PARAM", "Verbose",     InterrupteurModeVerbose,      nom_fichier_projet)
       INIEcrit("PARAM", "Debug",       InterrupteurModeDebug,        nom_fichier_projet)
       INIEcrit("PARAM", "Projet",      InterrupteurProjeComplet,     nom_fichier_projet)
+      INIEcrit("PARAM", "FicTest",     SAI_Fichier_de_test,    	   nom_fichier_projet)
       INIEcrit("PARAM", "CI",      	 InterrupteurComposantInterne, nom_fichier_projet)
       INIEcrit("PARAM", "Onglet",      ONGLET_Source, 			   nom_fichier_projet)
      type : 458752
@@ -1178,6 +1242,7 @@ window :
       InterrupteurModeVerbose      = INILit("PARAM", "Verbose",     "0",  nom_fichier_projet)
       InterrupteurModeDebug		 = INILit("PARAM", "Debug",       "0",  nom_fichier_projet)
       InterrupteurProjeComplet     = INILit("PARAM", "Projet",      "0",  nom_fichier_projet)
+      SAI_Fichier_de_test			 = INILit("PARAM", "FicTest",     "",   nom_fichier_projet)
       InterrupteurComposantInterne = INILit("PARAM", "CI",      	  "0",  nom_fichier_projet)
       SAI_Fichier_Dest = nom_complet_fichier_généréré
       ONGLET_Source				 = INILit("PARAM", "Onglet",  	  "1",  nom_fichier_projet)	
@@ -1204,6 +1269,18 @@ resources :
       en-GB : All files (*.*)
       es-ES : Todos los archivos (*.*)
      index : 1
+   -
+     text :
+      fr-FR : Sélectionner un fichier...
+      en-GB : Select a file...
+      es-ES : Seleccione un archivo...
+     index : 2
+   -
+     text :
+      fr-FR : Tous fichiers (*.*)
+      en-GB : All files (*.*)
+      es-ES : Todos los archivos (*.*)
+     index : 3
  dialogs :
   -
     identifier : 0x13cd739100606584

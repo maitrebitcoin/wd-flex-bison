@@ -32,6 +32,8 @@ window :
      p_codes :
       -
         code : |1+
+         fSauveTexte(nom_fichier_de_test, SAI_Texte1)
+         
          mon_compilateur est COMPILATEUR_GENERE
          mon_compilateur.en_mode_debug = Vrai
          soit (OK,texte_erreur) = mon_compilateur.compile(SAI_Texte1)
@@ -67,7 +69,7 @@ window :
   -
     name : SAI_Texte1
     identifier : 0x23d2226c032057ee
-    internal_properties : CAAAAAgAAABQIGskGk8dB5p+KcswsGu6SnFMuGuUjjWx63s77Fer4V78IKZj12FTyvKJwGSnfTw9+/QjGdrNkxdVyRB8EZpVoGjK7Emr4gdoekveKYUYr7g/TmwuGoBqVEv8Trx5glzAo2HKTDUrwyKZJn5z58ilSRcH//+FCgs6b716XR9NBrFPzWNQ7y9Nx9czJE7QVTTw1YD0nUIJ2TGfGbWuvEdBVYf48aVazdZl7ziI7htz0HaBVbrfkOyxLD4iM0tuOUo/b2lJD498AMaNla/wpjKvSqWOsBr3oBUcimOZUfUe6npxE5M/JJaaDwB6uTi4ppj9oWZ0jgKCMrHAxrwCUSiOZMCHcTtb0s6IPkKQa0GXUFs1WxFYIcXEFpi91eLuqgXbk9CFBgG5j/ceY0tXB7lrhiyVWtR3egjNvcd0ppDUpAVDeWc1NMIUR/kZquSgkAR5zMNB3ON+EjtUlebKnjZkMq48UYuTpDYlv8z9ieOjtnKBcGCHJFVrf6JRa26EfpNn6uGpCQPLVOkWiUXCqI8mdwP8eBcKZzk5nQWo+tN5jmlFBN558Oxb9Ez2lC/SrMa2LfTzCY+Ku+M+an/Sz47/a5EgbR7ZvI9P2JCDHH6lUGe9r/5d0BKK1tHydqvoDzNVA9SWGwfGLfEx2kutPzFmjx+9CvlDk0+c8qIuijvN2TkXhIkNzekYDe92+XzPZKKGPD1DwAoY4Hn01HDkhIuGRRySyFFGIs+ar78dR+/GplUaT0i2Hex1Lebvb9MYPA1Pk9a3Xhi1RdKx2ecOGFXcZmtIv6Bq1KfnPFCLvKxUnLEXNrKBm4DJOFi4QofrcKldBCabu+idwIKhqe8RXRLbH7HE0bRJkIASlwbkJddOhXGsJBDj8T/w4oyYo5CCrjBFDc9xgd6UKSFpuUtmhD1a+7yK8QfBHAVJ6ws5s3d3W98KeiY03zOSG5jNUevytxQ/XUbJ4OBh4lwfDKienXChJY6VOXzdIVVJ7GgzvaAxQ2JRMJgUFuI2RUTT2hXT2c0bkz63tgxL
+    internal_properties : CAAAAAgAAABOuYx828SCmzcmCjMTXKwsPPofFGdZx4+VguWD9Yg1D00lI5qGjgdCDS5nfgF8DPQc9/dPLoBNkk3EH+EWaPV6d/NN2ge9k2Do6aTGG5FfrR0kJjjQapge9a+GICgFcgTTQPFUn2xG9VTbRn2O/VGzlOYfiss+C7JQCKh+2aSQbt1mop9LwhqDy1FxAeK4QGq03QT5cjljQy3ATGHAvWNVg/7Z4E6WVQ/q7f3544mdJi2S0IQ1Ox4nwrjVbPtNu9kwcwtj9069j+seAeFQNRyYU/ej4hyZajz2L1A67i5sFPSsmPhhUSnZC5RZmVe80g3IsWuInn9HdPxIHgmUztf3O5wqMsHXng1r+U7pzoLluWFXKXbaMLrr9Slof3BEYua8t8C0LaLhlBN4no/d/1yPb/R9z1qzSYsqplViCobYLr5HJizj+MFO+oGX32yeYa1PpIy/sZsCLy6n8s4+Vn9zK1ovpOTmMDXTBSxGWHcB4Dwo77nRRNV6xoRkRtJzG5QOWehbVZL6rswfIx7i2KaO4shNdA5SDAgmSY+R5Zu1fhVWi62I62GVIycx9P+oycDHsJePzFeU301vzrD6212Nze3rUJDsYgXdQDlTKau8JF0xqJ0kK1BVZIKcApO82YCPSidlwyD4uAe6Bw32ro8QFcFyiKTqI8bxWGb3aj+4mNIgyR2ASVdsvZv6VjCkxhNhvRfLxPxhrHlFTu16yuMZ7Bdxj8khfLLjruUxtMvJ9Ob/dJnJThqa0Y2DqM8dy3IW0XgmDBzRC91wen8ijwh4lu/R/C+5mxwpuavYgIoVUmjiRWm5XAoIaTjvqlaSYE34IY6chgMvhYg2b3+7bX44VsxlpvpMfIupgOWQBlP0bdUZ5y/TSjBzy5aKWsmGNlhTamXGHpVk65qtscPkTMulLdukctNabuWqVYvy7Q961rzRzYbSZF2YuGp9Nadw7dRsyJ/sJ9DqWf7FyoG0f2mYGjPY/ZsJ4uuBPfhIUA8vvKu8FEw5GxqC2w1kBE69IvywtIW9SQ==
     properties :
      x : 6
      y : 6
@@ -106,8 +108,19 @@ window :
   type_code : 1
   p_codes :
    -
-     code : |1+
+     code : |1-
       PROCEDURE MaFenêtre()
+      
+      
+      nom_fichier_de_test est chaine = "FICHIER_DE_TEST"
+   -
+     code : |1+
+      SAI_Texte1 = fChargeTexte(nom_fichier_de_test)
+     type : 34
+   -
+     code : |1+
+      fSauveTexte(nom_fichier_de_test, SAI_Texte1)
+     type : 177
    -
      type : 180
      enabled : false
