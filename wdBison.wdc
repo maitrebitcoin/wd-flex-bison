@@ -701,6 +701,38 @@ class :
       RENVOYER (vrai,"")
      type : 458752
    -
+     name : _supprime_répertoire_cpl
+     procedure_id : 1432684339858087335
+     type_code : 12
+     code : |1+
+      // supprime le répertoire .cpl du répertoire dest pour forcer une recompilation 
+      procédure _supprime_répertoire_cpl(nom_fichier_dest est chaine)
+      
+      rep_dest est chaine = fExtraitChemin(nom_fichier_dest,fDisque+fRépertoire)
+      procédure interne _trouve_rep_cpl()
+      	tableau_rep est chaine  = fListeRépertoire (rep_dest ,frNonRécursif)
+      	POUR TOUTE CHAÎNE nom_rep DE tableau_rep SÉPARÉE PAR rc
+      		SI fExtraitChemin(nom_rep,fExtension)=".cpl"
+      			RENVOYER nom_rep // trouvé
+      		FIN
+      	FIN	
+      	RENVOYER "" // pas de .cpl
+      fin
+      
+      
+      répertoire_cpl est chaine = _trouve_rep_cpl()
+      si répertoire_cpl="" ALORS
+      	retour
+      FIN
+      // blindage
+      si fExtraitChemin(répertoire_cpl,fExtension)<>".cpl" ALORS
+      	retour
+      FIN
+      
+      fRepSupprime(répertoire_cpl,frRécursif+frVersCorbeille)
+      
+     type : 458752
+   -
      name : génère_compilateur
      procedure_id : 1348426779541106813
      type_code : 12
@@ -731,6 +763,8 @@ class :
       	erreur_compile.message_err = message_erreur
       	RENVOYER (Faux, erreur_compile)
       FIN
+      // on supprime le répertoire .cpl pour forcer une recompilation
+      _supprime_répertoire_cpl(nom_fichier_dest)
       
       // compilation du fichier .y
       :nom_fichier_source = nom_fichier_source_bison // pour les messages d'erreur

@@ -160,7 +160,6 @@ project :
       //.option pour générér un composant interne
       //.projet vide a revoir
       //.crée un compilateur de regexp
-      //.supprimer le répertoire .cpl
       //.générer un diagramme
       //.founir .css en sample
       
