@@ -56,7 +56,7 @@ class :
       	// appel de la classe de base pour avoir la regle lexicale 
       	règle_a_exécuter est wd_lexer_base::RegleAExécuter  = donne_token_suivant()
       	// si aucune règle de correspond au texte en cours
-      	si règle_a_exécuter = null alors 
+      	si règle_a_exécuter.règle = null alors 
       		// erreur de syntaxe
       		RENVOYER wd_compilateur_base::TOKEN_AUCUN
       	FIN
