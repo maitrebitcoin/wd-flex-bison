@@ -292,7 +292,7 @@ class :
       		rexgExp = remplace(rexgExp, DOUBLE_QUOTE, _2_DOUBLE_QUOTE)
       	fin
       	dbgAssertion(token_vers_code_wl.numligne_source>0)
-      	source_dump est chaine =  :nom_fichier_source + ":" + token_vers_code_wl.numligne_source
+      	source_dump est chaine = fExtraitChemin(  :nom_fichier_source,fFichier+fExtension) + ":" + token_vers_code_wl.numligne_source
       	SI :dest_en_mode_debug ALORS
       		source_dump += " "  + remplace(:source_découpée_en_ligne[token_vers_code_wl.numligne_source] ,"""","") // pas de " dans le dump
       	FIN

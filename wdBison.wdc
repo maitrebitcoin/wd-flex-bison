@@ -563,10 +563,10 @@ class :
       Nom_projet est chaine = fExtraitChemin(nom_fichier_dest, fFichier)
       
       // copie simple d'un fichier de dépendance
-      procédure interne _copie_1_fichier(nom_court_fichier_dependance est chaine)
+      procédure interne _copie_1_fichier(nom_court_fichier_dependance est chaine, bEcraseSiExiste est un booléen = faux)
       	_nom_fichier_dest	est chaine			= ComplèteRep(répertoire_destination) +nom_court_fichier_dependance
       	// si il existe déjà, on ne l'écrase pas
-      	si fFichierExiste(_nom_fichier_dest)		 ALORS
+      	si fFichierExiste(_nom_fichier_dest) et pas bEcraseSiExiste ALORS
       		renvoyer vrai
       	FIN
       
@@ -625,8 +625,9 @@ class :
       FIN
       
       // classes de base
-      si pas _copie_1_fichier("wd_lexer_base.wdc") renvoyer faux
-      SI PAS _copie_1_fichier("wd_compilateur_base.wdc") RENVOYER Faux
+      // vrai : on ecrase toujours avec la dernière version 
+      si pas _copie_1_fichier("wd_lexer_base.wdc", vrai) renvoyer faux
+      SI PAS _copie_1_fichier("wd_compilateur_base.wdc",vrai) RENVOYER Faux
       
       //OK
       renvoyer vrai

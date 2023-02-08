@@ -177,7 +177,7 @@ class :
       	// si c'est une regexp 
       	sinon
       		chaine_qui_matche est chaine
-      		 SI texte_source.VérifieExpressionRégulière (  règle_de_production.regexp_debut, chaine_qui_matche) ALORS
+      		 SI texte_source.VérifieExpressionRégulière(  règle_de_production.regexp_debut, chaine_qui_matche) ALORS
       			// trouvé 
       			regle_regexp est un RegleAExécuter
       			regle_regexp.token	= chaine_qui_matche 
@@ -274,6 +274,18 @@ class :
       fin
       
       renvoyer dump + " ([%token%])"
+      
+     type : 458752
+   -
+     name : trace_compile_lex
+     procedure_id : 1433061330607534857
+     type_code : 12
+     code : |1-
+      PROCÉDURE trace_compile_lex( texte est chaîne)
+      
+      SI :en_mode_verbose ALORS
+      	Trace("[lex] " + texte)
+      FIN
      type : 458752
   procedure_templates : []
   property_templates : []

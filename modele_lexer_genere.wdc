@@ -73,9 +73,9 @@ class :
       	//ex : "7 > [0-9] {valeur_courante = yytext; return T_INT;}
       	si :en_mode_verbose alors
       		si règle_a_exécuter.règle =null _ou_ règle_a_exécuter.règle.source_dump = null
-      			trace(:yytext + " > " + "null" )
+      			trace_compile_lex(:yytext + " > " + "null" )
       		sinon
-      			trace(:yytext + " > " + règle_a_exécuter.règle.source_dump )
+      			trace_compile_lex(:yytext + " > " + règle_a_exécuter.règle.source_dump )
       		fin
       	fin
       	
