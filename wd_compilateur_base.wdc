@@ -177,7 +177,7 @@ class :
       	(action_token,indice_regle_reduce)= _calcule_action_token(pile_avec_token)
       	SI en_mode_debug ALORS
       		// trace chaque action de la grammaire zn mode debug
-      		trace_compile( vrai , m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom+ " pile="+pile_token )
+      		trace_compile_bison( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom+ " pile="+pile_token )
       	FIN	
       	// effectuer l'action	
       	selon action_token 
@@ -247,7 +247,7 @@ class :
       				fin
       				SI en_mode_debug ALORS
       					// trace la réduction
-      					trace_compile(vrai, "REDUCE [%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
+      					trace_compile_bison( "REDUCE [%niveau_courant.numero_règle%]  pile=[%pile_token%]" )
       				FIN		
       							
       				// on regarde si on peut continuer a réduire 
@@ -345,13 +345,13 @@ class :
       renvoyer m_lexer:dernière_erreur_lex
      type : 458752
    -
-     name : trace_compile
+     name : trace_compile_bison
      procedure_id : 1418600386185816433
      type_code : 12
      code : |1+
-      PROCÉDURE trace_compile( en_mode_verbose est un booléen, texte est chaine)
+      PROCÉDURE trace_compile_bison( texte est chaine)
       
-      SI  en_mode_verbose ALORS
+      SI  :en_mode_debug ALORS
       	Trace("[bison] " + texte)
       FIN
       
