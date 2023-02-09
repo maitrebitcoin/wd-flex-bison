@@ -352,7 +352,7 @@ class :
       PROCÉDURE trace_compile( en_mode_verbose est un booléen, texte est chaine)
       
       SI  en_mode_verbose ALORS
-      	Trace(texte)
+      	Trace("[bison] " + texte)
       FIN
       
       
