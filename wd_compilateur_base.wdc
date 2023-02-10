@@ -27,6 +27,10 @@ class :
       	pile_compilation est une pile de NiveauPile
       	// "" si tout est ok ou erreur en cours
       	dernière_erreur	est chaine		
+      
+      	// pour Debug, token => nom. replis uniquement si compilateur avec option Debug
+      	// valeurs associées pour chaque  %token
+      	debug_token_int_vers_nom est un tableau associatif de chaîne
       fin
       
       CONSTANT TOKEN_EOF   = 0 // fin de fichier
@@ -177,7 +181,8 @@ class :
       	(action_token,indice_regle_reduce)= _calcule_action_token(pile_avec_token)
       	SI en_mode_debug ALORS
       		// trace chaque action de la grammaire zn mode debug
-      		trace_compile_bison( m_lexer:yytext + ": token=" + valeur_token_courant + " action="+action_token.Nom+ " pile="+pile_token )
+      		dump_token est chaine = :debug_token_int_vers_nom[valeur_token_courant] + " (" + valeur_token_courant+  ")"
+      		trace_compile_bison( m_lexer:yytext + ": token=" + dump_token + " action="+action_token.Nom+ " pile="+pile_token )
       	FIN	
       	// effectuer l'action	
       	selon action_token 

@@ -501,6 +501,14 @@ class :
       	// erreur
       	RENVOYER (Faux, "", ErreurInfo())
       FIN
+      code_dbg_decl_token est chaine
+      si :dest_en_mode_debug ALORS
+      	// Init tableau de token
+      	POUR TOUT nom_tok,val_tok DE :token_int_vers_nom
+      		code_dbg_decl_token += RC+ ":debug_token_int_vers_nom[" + val_tok + "] = """ + nom_tok +"""" 
+      	FIN	
+      	
+      FIN
       
       // Modifier le nom de la classe
       code_de_travail est une chaîne ANSI = template_code
@@ -512,7 +520,7 @@ class :
       // Mettre le code user de déclaration de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", _to_yaml(:code_wl_declaration_membre))
       // Mettre le code d'init pour déclarer les règles de grammaire
-      code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init))
+      code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init + code_dbg_decl_token))
       // remplacement du nom de la classe lexer a utiliser
       code_de_travail = Remplace(code_de_travail, "modele_lexer_genere", nom_classe_lex_générée)
       
