@@ -182,7 +182,11 @@ class :
       	SI en_mode_debug ALORS
       		// trace chaque action de la grammaire zn mode debug
       		dump_token est chaine = :debug_token_int_vers_nom[valeur_token_courant] + " (" + valeur_token_courant+  ")"
-      		trace_compile_bison( m_lexer:yytext + ": token=" + dump_token + " action="+action_token.Nom+ " pile="+pile_token )
+      		dump_pile est chaine 
+      		pour tout CHAÎNE sTok de pile_token séparée par ","
+      			dump_pile += [","] + :debug_token_int_vers_nom[sTok] + " (" + sTok+  ")"
+      		FIN
+      		trace_compile_bison( m_lexer:yytext + ": token=" + dump_token + " action="+action_token.Nom+ " pile="+dump_pile )
       	FIN	
       	// effectuer l'action	
       	selon action_token 
