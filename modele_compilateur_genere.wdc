@@ -33,10 +33,12 @@ class :
      name : Constructeur
      procedure_id : 1349919869098994997
      type_code : 27
-     code : |1-
+     code : |1+
       procédure Constructeur()
       
       //%CODE_INIT_GRAMMAIRE%
+      
+      //%CODE_CONSTRUCTEUR%
      type : 589824
    -
      name : Destructeur
@@ -75,11 +77,11 @@ class :
   procedure_templates : []
   property_templates : []
  code_parameters :
-  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
   original_name : Classe1
 resources :
  string_res :
   identifier : 0x122df03b004b4046
-  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

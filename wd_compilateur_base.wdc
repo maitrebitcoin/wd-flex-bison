@@ -24,7 +24,7 @@ class :
       	//  #TODO token racine tel que défini par %start
       	token_start est un entier
       	// pile de compilation
-      	pile_compilation est une pile de NiveauPile
+      	pile_compilation est un tableau de NiveauPile
       	// "" si tout est ok ou erreur en cours
       	dernière_erreur	est chaine		
       
@@ -40,19 +40,16 @@ class :
       // TOKEN est un type
       CONSTANT TOKEN_EOF   = 0 // fin de fichier
       CONSTANT TOKEN_AUCUN = -1  // aucun token valide
-      EActionSurToken est une Enumération
-      	Shift			= 1 // lire le token suivant
-      	Reduce			= 2 // regroupe les token
-      	EndCompile		= 3 // fin de la compilation
-      	ErrorCompile	= 4 // lever un erreur de grammamire
-      FIN
+      
       RegleDeGrammaire est une structure
       	// n° de la règle
       	TOKEN_numero_règle	est entier
       	// nom pour debug
       	Nom				est chaine
-      	// liste des indice de token pour valider la règla séparé par ","
-      	liste_indices_token est chaine
+      	// liste des indice de token pour valider la règle séparé par "," (pour debug)
+      	debug_liste_indices_token est chaine
+      	// version en tableau
+      	tab_indices_token est tableau d'entier
       	// code a exécuter lors de la réduction
       	code_a_executer est une procédure
       	// nombre de paramètres
@@ -70,18 +67,10 @@ class :
       	message_err    est chaine
       	pile_dbg	   est chaine
       fin
-      ShiftPossible est un structure
-      	indice_regle est entier // indice dans :tab_règle_grammaire
-      	// liste des indice de token restant pour valider la règla séparé par ","
-      	liste_indices_token_restant est chaine
-      fin
-      
-      ActionShitReduce est une structure
-      	action_token est EActionSurToken
-      	// si action_token = Shift, règles encore possibles 
-      	tab_shift_possible est un tableau de ShiftPossible // indice dans :tab_règle_grammaire
-      	// si action_token = reduce, 
-      	indice_regle_reduce est entier // indice dans :tab_règle_grammaire
+      EActionReduce est une énumération
+      	ErreurDeGrammaire // erreur : aucune règle possible
+      	RegroupeRegle // on on regroupé de règles
+      	PlusDeToken   // il faut plus de token
       fin
       
       constant SYNTAX_ERROR = <§R13025f3000e43747¤fr-FR¤Erreur de syntaxe : %1§>
@@ -114,10 +103,69 @@ class :
       nouvelle_règle est RegleDeGrammaire 
       nouvelle_règle.TOKEN_numero_règle  = TOKEN_numero_règle
       nouvelle_règle.nom 				   = nom
-      nouvelle_règle.liste_indices_token = liste_indices_token
+      nouvelle_règle.debug_liste_indices_token = liste_indices_token
+      pour TOUTE CHAÎNE sTok DE liste_indices_token SÉPARÉE PAR ","
+      	TOKEN_sous_regle est entier = sTok
+      	nouvelle_règle.tab_indices_token.Ajoute( TOKEN_sous_regle)
+      FIN
+      
       nouvelle_règle.nombre_de_paramètre = ChaîneOccurrence(liste_indices_token,",") + 1
       nouvelle_règle.code_a_executer	   = code_a_executer
       :tab_règle_grammaire.Ajoute(nouvelle_règle)
+     type : 458752
+   -
+     name : _ajoute_regle_token
+     procedure_id : 1439903986609918398
+     type_code : 12
+     code : |1+
+      // appelé par la classe générée pour déclarer un token 
+      procédure Protégée _ajoute_regle_token(TOKEN_numero_règle est un entier, nom chaine)
+      
+      :debug_token_int_vers_nom[TOKEN_numero_règle] = nom
+      
+     type : 458752
+   -
+     name : _empile
+     procedure_id : 1440488574609680267
+     type_code : 12
+     code : |1+
+      procédure protégé _empile( niveau est NiveauPile)
+      
+      :pile_compilation.insère(1, niveau)
+     type : 458752
+   -
+     name : _dépile
+     procedure_id : 1440488737818541129
+     type_code : 12
+     code : |1-
+      procédure protégée _dépile() : NiveauPile
+      
+      niveau est NiveauPile <- pile_compilation[1]
+      :pile_compilation.supprime(1)
+      renvoyer niveau 
+     type : 458752
+   -
+     name : _bPileValideALaFinDuFichier
+     procedure_id : 1440483936044968882
+     type_code : 12
+     code : |1+
+      // indique si la pile est valide a la fin de la compilation
+      procédure protégée _bPileValideALaFinDuFichier()
+      
+      si :pile_compilation..Occurrence<>1 ALORS
+      	renvoyer faux
+      FIN
+      TOKEN_fin est entier = :pile_compilation[1].TOKEN_numero_règle
+      regle_fin est RegleDeGrammaire <- :tab_règle_grammaire[TOKEN_fin]
+      // ma règle terminale a 0 = EOF comme dernier token
+      si regle_fin=Null ALORS
+      	renvoyer  faux
+      FIN
+      si regle_fin.tab_indices_token[ regle_fin.nombre_de_paramètre ] <>0 ALORS
+      	renvoyer faux
+      FIN
+      // OK , regle racine
+      renvoyer vrai
      type : 458752
    -
      name : _compile_chaine_avec_lexer
@@ -127,9 +175,6 @@ class :
       // point d'entrée interne du compilateur généré
       PROCÉDURE protégée _compile_chaine_avec_lexer( source_a_compiler est chaîne UNICODE, lexer est un wd_lexer_base) : booléen
       
-      // pile des token en attende de pouvoir générer une règle valide (= faire un reduce)
-      //représentation simplifiée au format chaine de :pile_compilation
-      pile_token est chaine
       	
       ligne_encours est entier // yylineno dans flex
       colonne_encours est entier
@@ -162,99 +207,105 @@ class :
       		_erreur_de_syntaxe()
       		RENVOYER Faux		
       	FIN
-      
-      	// calcul nouvel état avec ce nouveau token
-      	pile_avec_token	est chaine =  pile_token + [","] + TOKEN_valeur_token_courant
-      	// on calcule ce qu'on doit faire avec ce token
-      	action est ActionShitReduce  = _calcule_action_token(TOKEN_valeur_token_courant,pile_avec_token,tabActionPossible)
-      	SI en_mode_debug ALORS
-      		// trace chaque action de la grammaire zn mode debug
-      		dump_token est chaine = :debug_token_int_vers_nom[TOKEN_valeur_token_courant] + " (" + TOKEN_valeur_token_courant+  ")"
-      		dump_pile est chaine 
-      		pour tout CHAÎNE sTok de pile_token séparée par ","
-      			dump_pile += [","] + :debug_token_int_vers_nom[sTok] + " (" + sTok+  ")"
-      		FIN
-      		trace_compile_bison( m_lexer:yytext + ": token=" + dump_token + " action="+action.action_token.Nom+ " pile="+dump_pile )
-      	FIN	
-      	// effectuer l'action	
-      	selon action.action_token 
-      		cas ErrorCompile 
-      			// compilation terminée en erreur
+      	// si c'est la fin du fichier
+      	SI TOKEN_valeur_token_courant = ::TOKEN_EOF ALORS
+      		// on vérifie que la pile correspond a la racine sinon il manque des tokens 		
+      		si pas _bPileValideALaFinDuFichier() ALORS
+      			// erreur de compilation
       			_erreur_de_syntaxe()
-      			RENVOYER Faux		
-      		cas Shift	
-      			// si c'est la fin du fichier
-      			SI TOKEN_valeur_token_courant = TOKEN_EOF  ALORS			
-      				// erreur de la compilation
-      				_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, "Il manque la fin"))
-      				RENVOYER Faux
-      			FIN
-      			niveau_shift est NiveauPile
-      			niveau_shift.TOKEN_numero_règle	= TOKEN_valeur_token_courant
-      			niveau_shift.valeur_user	= m_lexer:yytext
-      			Empile(  :pile_compilation, niveau_shift)
-      			pile_token += [","] + TOKEN_valeur_token_courant	
-      			// nouveau tableau des action possibles a partir de ce token
-      			tabActionPossible = action.tab_shift_possible
-      			// lire le token suivant		
-      			CONTINUE 
-      		cas EndCompile
-      			// compilation terminée OK
-      			renvoyer vrai
-      		cas Reduce	
-      			// push du paramètre en cours
-      			niveau_local est NiveauPile
-      			niveau_local.TOKEN_numero_règle	= TOKEN_valeur_token_courant
-      			niveau_local.valeur_user	    = m_lexer:yytext
-      			Empile(  :pile_compilation, niveau_local)
-      			// réduction tant que c'est possible			
-      			bReduce est un booléen = vrai
-      			tantque  bReduce 
-      				bSortir est un booléen = faux
-      				bReduce =  :_bReduce(TOKEN_valeur_token_courant, action.indice_regle_reduce, pile_token,  bSortir  )
-      				// si c'est la fin du fichier
-      				si bSortir ALORS
-      					renvoyer bReduce 
-      				FIN	
-      			fin	//		TANTQUE  bReduce 
+      			renvoyer faux
+      		FIN
+      		// compilation terminée OK
+      		RENVOYER Vrai
+      	FIN
+      	
+      	// Opération de SHIFT : 
+      	// Ajoute le token a la pile de compilation
+      	niveau_shift est NiveauPile
+      	niveau_shift.TOKEN_numero_règle	= TOKEN_valeur_token_courant
+      	niveau_shift.valeur_user		= m_lexer:yytext
+      	_Empile( niveau_shift)
+      	
+      	// Opération de REDUCE :
+      	// on regroupe les règles dans :pile_compilation
+      	bReduce est un booléen = vrai
+      	TANTQUE  bReduce 
+      		// réduction tant que c'est possible	
+      		action_reduce est EActionReduce  =  :_Reduce( )
+      		SI en_mode_debug ALORS
+      			// trace chaque réduction de la grammaire 
+      			dump_pile	est chaine  = :dumpPile()
+      			trace_compile_bison( "action="+action_reduce.Nom+ " pile="+dump_pile )
+      		FIN			
       
-      	FIN //	SELON action_token 
+      		selon action_reduce
+      			cas EActionReduce.ErreurDeGrammaire
+      				// erreur de compilation
+      				_erreur_de_syntaxe()
+      				renvoyer faux
+      			cas EActionReduce.RegroupeRegle 
+      				bReduce = vrai // continuer a réduire
+      			CAS EActionReduce.PlusDeToken 
+      				bReduce = faux // token suivant
+      		FIN
+      	FIN	//TANTQUE  bReduce 
+      	
       
-      FIN //BOUCLE
+      FIN //BOUCLE infinie
      type : 458752
    -
-     name : _bReduce
+     name : _Reduce
      procedure_id : 1437297139023367934
      type_code : 12
      code : |1+
       // faire un reduce durant la compilation 
-      // cas regrouper de token/règle car ils correspondent a une règle parent
-      procédure _bReduce( valeur_token_courant est entier ,indice_regle_reduce est un entier, pile_token_out est chaine, bSortir est un booléen  ) : booléen
+      // cad regrouper de token/règle car ils correspondent a une règle parent
+      procédure _Reduce( ) : EActionReduce
       
-      // récup de la règle de réduction 
-      regle_reduce est RegleDeGrammaire dynamique = tab_règle_grammaire[indice_regle_reduce]
+      taille_pile est un entier = :pile_compilation..Occurrence 
       
-      // si c'est la fin du fichier
-      SI valeur_token_courant = TOKEN_EOF  ALORS		
-      	//-------------------------------------------------------	
-      	// exécuter  du code user de  regle_reduce  -
-      	// 
-      	// 
-      	// racine
-      	_executeCodeUserRegle(regle_reduce);
-      	// si on est pas a la racine
-      	SI :pile_compilation.Occurrence<>0  ALORS			
-      		// erreur de la compilation
-      		_erreur_de_compilation( ChaîneConstruit(::SYNTAX_ERROR, ""))
-      		bSortir = Vrai
-      		RENVOYER Faux
-      	FIN	
-      	// c'est une la règle finale, elle termine par TOKEN_EOF
-      	// compilation OK
-      	bSortir = Vrai
-      	RENVOYER Vrai	
+      	// indique si on peut réduire la pile pour produire <regle>
+      	procédure interne _bRegleReduceOk(regle est RegleDeGrammaire ) : booléen
+      		dbgAssertion(regle.nombre_de_paramètre>0)
+      		si taille_pile<regle.nombre_de_paramètre ALORS
+      			renvoyer faux
+      		FIN
+      		pour i = 1 a regle.nombre_de_paramètre
+      			// si le bas de la pile de correspond pas
+      			bas_pile est NiveauPile = pile_compilation[ taille_pile+1-i ]
+      			si bas_pile.TOKEN_numero_règle <> regle.tab_indices_token[i] ALORS
+      				renvoyer faux				
+      			FIN
+      		FIN
+      		// OK
+      		renvoyer vrai		
+      	FIN
       
-      FIN		
+      nombre_de_paramètre_max est entier
+      
+      // recherche d'une règle reduce
+      regle_reduce est RegleDeGrammaire dynamique
+      POUR TOUT regle_de_grammaire DE :tab_règle_grammaire
+      	// Calcul du max du nb de paramètres possible
+      	nombre_de_paramètre_max = max(nombre_de_paramètre_max,regle_de_grammaire.nombre_de_paramètre)
+      	
+      	// si la règle correpond au bas de la pile
+      	si _bRegleReduceOk( regle_de_grammaire ) ALORS
+      		regle_reduce = regle_de_grammaire
+      		// on stoppe a la 1ere ok
+      		sortir
+      	FIN
+      
+      FIN
+      
+      // si aucun regroupement trouvé
+      si regle_reduce=null
+      	si :pile_compilation..Occurrence>=nombre_de_paramètre_max ALORS
+      		renvoyer EActionReduce.ErreurDeGrammaire // erreur : aucune règle possible
+      	FIN
+      	RENVOYER EActionReduce.PlusDeToken  // il faut plus de token
+      fin
+      
       
       ///-------------------------------------------------------			
       /// exécuter  du code user de  regle_reduce
@@ -263,25 +314,17 @@ class :
       niveau_courant = _executeCodeUserRegle(regle_reduce)
       
       // maj pile de compilation
-      Empile(  :pile_compilation, niveau_courant)
-      pile_token_out = ""
-      POUR TOUT niveau_pile de :pile_compilation
-      	pile_token_out += [","] + niveau_pile.TOKEN_numero_règle
-      FIN
+      _Empile( niveau_courant)
       SI en_mode_debug ALORS
       	// trace la réduction
-      	trace_compile_bison( "REDUCE [%niveau_courant.TOKEN_numero_règle%]  pile=[%pile_token_out%]" )
+      	trace_compile_bison( "REDUCE [%niveau_courant.TOKEN_numero_règle%] pile: " + dumpPile() )
       FIN		
-      tabActionPossible est un tableau d'entier
-      //TODO
       
-      // on regarde si on peut continuer a réduire 
-      valeur_token_reduce est entier = regle_reduce.TOKEN_numero_règle
-      action est ActionShitReduce	= _calcule_action_token( valeur_token_reduce, pile_token_out, tabActionPossible)
-      renvoyer (action.action_token = Reduce)
+       // on a regroupé des règles
+      renvoyer EActionReduce.RegroupeRegle
      type : 458752
    -
-     name : _calcule_action_token
+     name : _calcule_action_token_OBSOLETE
      procedure_id : 1349920938546755514
      type_code : 12
      code : |1+
@@ -289,65 +332,65 @@ class :
       // renvoie
       // .L'action a effectuer
       // .l'indice de regle Reduce si l'action est un Reduce dans :tab_règle_grammaire
-      PROCÉDURE _calcule_action_token( valeur_token est entier, pile_avec_token est chaine, tabActionPossible ) : ActionShitReduce
+      PROCÉDURE _calcule_action_token_OBSOLETE( valeur_token est entier <utile>, pile_avec_token est chaine <utile>, tabActionPossible <utile>) 
       
       // calcul nouvel état avec ce nouveau token
-      taille_pile est entier = ChaîneOccurrence(pile_avec_token,",")-1
-      
-      // résultat
-      résultat est ActionShitReduce 
-      
-      // recherche les règles qui peuvent correspondre
-      nb_reduce_possible	est entier		= 0
-      nb_shift_possible	est entier		= 0
-      i_regle est entier=1 // encours
-      i_dernière_regle_valide est entier=0 // dernière trouve ok
-      POUR TOUT i_regle DE tabActionPossible
-      	soit regle_de_grammaire <- :tab_règle_grammaire[i_regle]
-      	// si c'est exactement cette règle
-      	si regle_de_grammaire.liste_indices_token = pile_avec_token ALORS
-      		// trouvé
-      		résultat.action_token 		 = Reduce
-      		résultat.indice_regle_reduce = i_regle
-      		renvoyer résultat
-      	FIN
-      	// si cette règle est la fin de la pile
-      	si pile_avec_token.finitpar(regle_de_grammaire.liste_indices_token ) ALORS
-      		i_dernière_regle_valide= i_regle
-      		nb_reduce_possible++
-      	FIN
-      	// si cette règle peut être produite avec plus de token
-      	SI regle_de_grammaire.liste_indices_token.CommencePar( pile_avec_token ) ALORS
-      		nb_shift_possible++
-      		info_shift est ShiftPossible
-      		info_shift.indice_regle = i_regle
-      		info_shift.liste_indices_token_restant = milieu( regle_de_grammaire.liste_indices_token, taille(pile_avec_token) )
-      		résultat.tab_shift_possible.Ajoute(info_shift)
-      	FIN	
-      	i_regle++
-      FIN
-      
-      // si 1 seule regle possible
-      si nb_reduce_possible=1 ALORS
-      	résultat.action_token		= Reduce
-      	résultat.indice_regle_reduce = i_regle
-      	RENVOYER  résultat
-      FIN
-      // si plusieurs regles encore possible
-      //SI nb_reduce_possible>1 ALORS
-      //	résultat.action_token		=Shift
-      //	RENVOYER  (Shift,0 )
+      //taille_pile est entier = ChaîneOccurrence(pile_avec_token,",")-1
+      //
+      //// résultat
+      //résultat est ActionShitReduce 
+      //
+      //// recherche les règles qui peuvent correspondre
+      //nb_reduce_possible	est entier		= 0
+      //nb_shift_possible	est entier		= 0
+      //i_regle est entier=1 // encours
+      //i_dernière_regle_valide est entier=0 // dernière trouve ok
+      //POUR TOUT i_regle DE tabActionPossible
+      //	soit regle_de_grammaire <- :tab_règle_grammaire[i_regle]
+      //	// si c'est exactement cette règle
+      //	si regle_de_grammaire.liste_indices_token = pile_avec_token ALORS
+      //		// trouvé
+      //		résultat.action_token 		 = Reduce
+      //		résultat.indice_regle_reduce = i_regle
+      //		renvoyer résultat
+      //	FIN
+      //	// si cette règle est la fin de la pile
+      //	si pile_avec_token.finitpar(regle_de_grammaire.liste_indices_token ) ALORS
+      //		i_dernière_regle_valide= i_regle
+      //		nb_reduce_possible++
+      //	FIN
+      //	// si cette règle peut être produite avec plus de token
+      //	SI regle_de_grammaire.liste_indices_token.CommencePar( pile_avec_token ) ALORS
+      //		nb_shift_possible++
+      //		info_shift est ShiftPossible
+      //		info_shift.indice_regle = i_regle
+      //		info_shift.liste_indices_token_restant = milieu( regle_de_grammaire.liste_indices_token, taille(pile_avec_token) )
+      //		résultat.tab_shift_possible.Ajoute(info_shift)
+      //	FIN	
+      //	i_regle++
       //FIN
-      SI nb_shift_possible>0 ALORS
-      	dbgAssertion(résultat.tab_shift_possible.Occurrence()=nb_shift_possible)
-      	résultat.action_token		=Shift
-      	RENVOYER  résultat
-      FIN
-      
-      //  aucune règle ne peut correspondre
-      // => erreur de grammaire
-      résultat.action_token			= ErrorCompile
-      renvoyer résultat
+      //
+      //// si 1 seule regle possible
+      //si nb_reduce_possible=1 ALORS
+      //	résultat.action_token		= Reduce
+      //	résultat.indice_regle_reduce = i_regle
+      //	RENVOYER  résultat
+      //FIN
+      //// si plusieurs regles encore possible
+      ////SI nb_reduce_possible>1 ALORS
+      ////	résultat.action_token		=Shift
+      ////	RENVOYER  (Shift,0 )
+      ////FIN
+      //SI nb_shift_possible>0 ALORS
+      //	dbgAssertion(résultat.tab_shift_possible.Occurrence()=nb_shift_possible)
+      //	résultat.action_token		=Shift
+      //	RENVOYER  résultat
+      //FIN
+      //
+      ////  aucune règle ne peut correspondre
+      //// => erreur de grammaire
+      //résultat.action_token			= ErrorCompile
+      //renvoyer résultat
       
      type : 458752
    -
@@ -362,8 +405,8 @@ class :
       // récupération des paramètres dans la pile
       TableauDesParametres	est un tableau de Variant 
       POUR i = 1 _À_ nbParamètre
-      	niveau_pile_i est NiveauPile
-      	Dépile(  :pile_compilation, niveau_pile_i )
+      	niveau_pile_i est NiveauPile 
+      	niveau_pile_i = _Dépile( )
       	TableauDesParametres.Insère(1,niveau_pile_i.valeur_user)
       FIN//I
       // exécution du code
@@ -418,6 +461,23 @@ class :
       
       // erreur du lexer
       renvoyer m_lexer:dernière_erreur_lex
+     type : 458752
+   -
+     name : dumpPile
+     procedure_id : 1440115814397451486
+     type_code : 12
+     code : |1-
+      // renvoie un dump de la pile pour debug
+      procédure dumpPile() : chaine
+      
+      dump_pile est chaine 
+      
+      niveau_pile est NiveauPile
+      POUR TOUT niveau_pile  de :pile_compilation
+      	nom_regle est chaine =  :debug_token_int_vers_nom[niveau_pile.TOKEN_numero_règle] 
+      	dump_pile += [","] + nom_regle + "(" +  niveau_pile.TOKEN_numero_règle + ")"
+      FIN
+      renvoyer dump_pile
      type : 458752
    -
      name : trace_compile_bison

@@ -23,6 +23,8 @@ class :
       	
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
       	code_wl_declaration_membre	est chaine unicode
+      	// code utilisateur a mettre dans le code du constructeur de la classe 
+      	code_wl_constructeur est chaine unicode	
       	// règles de productions trouvée dans le .y
       	tab_règle_grammaire_source	est un tableau de RegleDeGrammaireSource	
       	// token => valeur a déclarer au lexer
@@ -104,6 +106,7 @@ class :
       _ajoute_règle_BisonnFlex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_bison(yyText)  } )
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
+      _ajoute_règle_BisonnFlex(Apres_Règles, 				   "",".*",     (yyText)=>{ :code_wl_constructeur += [RC] + yyText } )
      type : 589824
    -
      name : _changeState
@@ -421,9 +424,9 @@ class :
       // si %start est précise on l'utilise, sinon on prend la 1er règle rencontrée
       //inspiré de https://www.gnu.org/software/bison/manual/html_node/Start-Decl.html
       si :tab_options["start"].existe ALORS
-      	nom_règlè_start est chaine = :tab_options["start"]
+      	nom_règle_start est chaine = :tab_options["start"]
       	POUR TOUT regle_source de tab_règle_grammaire_source
-      		regle_source.bRacine =  (regle_source.nom = nom_règlè_start )
+      		regle_source.bRacine =  (regle_source.nom = nom_règle_start )
       	fin
       sinon
       	// la 1ere regle
@@ -432,9 +435,15 @@ class :
       	FIN
       fin
       
-      
       //3- calculer le code WL a mettre dans la classe destination
       pour tout regle_source de tab_règle_grammaire_source
+      
+      
+      	// déclaration des token
+      	POUR TOUT valeur_token,nomToken de :token_nom_vers_int
+      		code_init_declare_token est chaine = ChaîneConstruit("_ajoute_regle_token(%1,""%2"")", valeur_token, nomToken  )
+      	 	:code_wl_init += [RC] + code_init_declare_token
+      	FIN
       		
       	// pour tous les cas qui valident cette règle
       	// ex "nombre '+' nombre"
@@ -519,6 +528,7 @@ class :
       code_de_travail = Remplace(code_de_travail, "%VERSION_LEX_BISON%", ProjetInfo(piNomProjet) + " " + ExeInfo(exeVersion) )
       // Mettre le code user de déclaration de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", _to_yaml(:code_wl_declaration_membre))
+      code_de_travail = Remplace(code_de_travail, "//%CODE_CONSTRUCTEUR%", _to_yaml(:code_wl_constructeur))
       // Mettre le code d'init pour déclarer les règles de grammaire
       code_de_travail = Remplace(code_de_travail, "//%CODE_INIT_GRAMMAIRE%", _to_yaml(:code_wl_init + code_dbg_decl_token))
       // remplacement du nom de la classe lexer a utiliser
@@ -813,11 +823,11 @@ class :
   procedure_templates : []
   property_templates : []
  code_parameters :
-  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
   original_name : Classe1
 resources :
  string_res :
   identifier : 0x12b2a779001aef01
-  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

@@ -177,7 +177,11 @@ class :
       	// si c'est une regexp 
       	sinon
       		chaine_qui_matche est chaine
-      		 SI texte_source.VérifieExpressionRégulière(  règle_de_production.regexp_debut, chaine_qui_matche) ALORS
+      		 SI texte_source.VérifieExpressionRégulière(  règle_de_production.regexp_debut, chaine_qui_matche)   ALORS
+      		 	// chaine_qui_matche<>"" pour ce cas de regexp comme [a-z]* , qui renvoie vrai pour "-"
+      			si chaine_qui_matche="" _et_ texte_source<>"" ALORS
+      				continuer
+      			FIN 	
       			// trouvé 
       			regle_regexp est un RegleAExécuter
       			regle_regexp.token	= chaine_qui_matche 
@@ -235,12 +239,14 @@ class :
       	// on renvoie cette règle invalide
       	RENVOYER règle_a_exécuter
       FIN
-      // on note la position dans la rège
+      // on note la position dans la règle
       règle_a_exécuter.numéro_ligne   = :numéro_ligne_en_cours
       règle_a_exécuter.numéro_colonne = :numéro_colonne_en_cours
       
       // on avance dans le source
-      numéro_colonne_en_cours += taille(règle_a_exécuter.token)
+      taille_token est entier = Taille(règle_a_exécuter.token)
+      dbgAssertion(taille_token>0)
+      numéro_colonne_en_cours += taille_token
       si numéro_colonne_en_cours>taille(text_ligne_courante) ALORS
       	// ligne suivante
       	numéro_colonne_en_cours = 1;
@@ -290,11 +296,11 @@ class :
   procedure_templates : []
   property_templates : []
  code_parameters :
-  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
   original_name : Classe1
 resources :
  string_res :
   identifier : 0x12ad82f6000660cd
-  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

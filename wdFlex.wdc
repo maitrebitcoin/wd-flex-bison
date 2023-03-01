@@ -22,6 +22,8 @@ class :
       
       	// code utilisateur a mettre dans la déclaration de la classe pour ajouter des membre
       	code_wl_declaration est chaine unicode
+      	// code utilisateur a mettre dans le code du constructeur de la classe 
+      	code_wl_constructeur est chaine unicode
       	// code de déclaration des valeurs des tokens. selon le tableau fourni par la grammaire
       	code_wl_declaration_token est une chaîne 
       	// règles de productions pour le lexer
@@ -72,11 +74,13 @@ class :
       _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "%}","",     (yyText)=>{ _changeState(Avant_Règles) } )
       _ajoute_règle_BisonnFlex(Declaration_CodeUser, 		   "",".*",     (yyText)=>{ :code_wl_declaration += [RC] + yyText } )
       _ajoute_règle_BisonnFlex(Declaration_SymboleEtOption,  "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
+      _ajoute_règle_BisonnFlex(Avant_Règles, 	 	  		   "","\/\/.*",  (yyText)=>{} ) // commentaires ignorés
       _ajoute_règle_BisonnFlex(Avant_Règles, 	 	  		   "%%","",     (yyText)=>{ _changeState(Declaration_Règles) } )
       _ajoute_règle_BisonnFlex(Declaration_Règles, 		   "%%","",     (yyText)=>{ _changeState(Apres_Règles) }  )
       _ajoute_règle_BisonnFlex(Declaration_Règles,  		   "",".*",     (yyText)=>{ _parse_ligne_regle_flex(yyText, yyline)  } )
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","",       (yyText)=>{ } ) // ignorer les lignes vides
       _ajoute_règle_BisonnFlex(Tout_Etat, 		  		   "","[ \t]*", (yyText)=>{ } ) // ignorer les lignes avec que des espaces ou tab
+      _ajoute_règle_BisonnFlex(Apres_Règles, 				   "",".*",     (yyText)=>{ :code_wl_constructeur += [RC] + yyText } )
      type : 589824
    -
      name : _parse_ligne_regle_flex
@@ -266,6 +270,8 @@ class :
       
       // Insérer le code user de déclaration
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_MEMBRE%", _to_yaml( :code_wl_declaration ))
+      // Insérer le  code user pour le constructeur 
+      code_de_travail = Remplace(code_de_travail, "//%CODE_CONSTRUCTEUR%", _to_yaml(:code_wl_constructeur))
       // Insérer le  code de déclaration des tokens
       code_de_travail = Remplace(code_de_travail, "//%CODE_DECLARATION_TOKEN%", _to_yaml(:code_wl_declaration_token))
       
@@ -314,11 +320,11 @@ class :
   procedure_templates : []
   property_templates : []
  code_parameters :
-  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
   original_name : Classe1
 resources :
  string_res :
   identifier : 0x122df0200041d538
-  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

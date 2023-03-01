@@ -97,8 +97,8 @@ class :
       	// si on a trouvé aucune règle de production valide
       	SI règle_a_exécuter.règle = Null ALORS
       		// erreur de compilation
-      		dernière_erreur_lex = ChaîneConstruit( " %1:%2"+rc+"erreur de syntaxe"+rc+texte_ligne_en_cours, :nom_fichier_source, :numéro_ligne_en_cours, texte_ligne_en_cours ) 
-      		RENVOYER (Faux, dernière_erreur_lex, numLigne)
+      		:dernière_erreur_lex = "erreur de syntaxe : " + texte_ligne_en_cours 
+      		_erreur_exception ( :dernière_erreur_lex )
       	FIN
       	
       	// exécuter l'action sur le token trouvé
@@ -152,11 +152,11 @@ class :
   procedure_templates : []
   property_templates : []
  code_parameters :
-  internal_properties : CAAAAAgAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
   original_name : Classe1
 resources :
  string_res :
   identifier : 0x12c3c69a003a0f23
-  internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
