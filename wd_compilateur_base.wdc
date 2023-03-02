@@ -131,7 +131,7 @@ class :
      code : |1+
       procédure protégé _empile( niveau est NiveauPile)
       
-      :pile_compilation.insère(1, niveau)
+      :pile_compilation.Ajoute(niveau)
      type : 458752
    -
      name : _dépile
@@ -140,9 +140,9 @@ class :
      code : |1-
       procédure protégée _dépile() : NiveauPile
       
-      niveau est NiveauPile <- pile_compilation[1]
-      :pile_compilation.supprime(1)
-      renvoyer niveau 
+      haut_de_la_pile est NiveauPile <- pile_compilation[pile_compilation..Occurrence]
+      :pile_compilation.supprime(pile_compilation..Occurrence)
+      renvoyer haut_de_la_pile 
      type : 458752
    -
      name : _bPileValideALaFinDuFichier
