@@ -54,10 +54,6 @@ class :
       regle_production.action			  = action
       regle_production.indice_regle_lex = :numero_regle_en_déclation++
       
-      // contruit une regexp pour vérifier que le début du texte match la regexp
-      si rexgExp<>"" alors
-      	regle_production.regexp_debut	=  ChaîneConstruit("(%1).*",rexgExp) // pour vérifier qu'un début de chaine correspond
-      fin
       
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752

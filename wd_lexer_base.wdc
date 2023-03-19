@@ -48,7 +48,6 @@ class :
        	// chaine ou regexp d'entrée. l'une des 2 est vide mais jamais les 2
       	chaine_exacte	est chaine 
       	regexp			est chaine
-      	regexp_debut	est chaine // version modifié pour vérifier le début d'une chaine	
       	// action
       	action			est une procédure
       	// pour debug
@@ -130,13 +129,40 @@ class :
       regle_production.source_dump = source_dump
       
       
-      // construit une regexp pour vérifier que le début du texte match la regexp
-      si rexgExp<>"" alors
-      	regle_production.regexp_debut	=  ChaîneConstruit("(%1).*",rexgExp) // pour vérifier qu'un début de chaine correspond
-      fin
-      
       
       tableau_regle[valeur_etat].Ajoute( regle_production )
+     type : 458752
+   -
+     name : debut_chainz_vérifie_regexp
+     procedure_id : 1447684414360962888
+     type_code : 12
+     code : |1+
+      // indique si le début de la chaine <texte_source> vérifie l'expression régulière <regexp>
+      // renvoie (mathn chaine_qui_matche )
+      procédure debut_chainz_vérifie_regexp(texte_source chaine,regexp est chaine ) : (booléen, chaine)
+      
+      // cas particulier de la ligne vide
+      si texte_source="" alors
+      	// VérifieExpressionRégulière renvoie vrai sur '' pour (.*).*, a la différence de RegexVérifie 
+      	si regexp = ".*" alors
+      		renvoyer (vrai,"")
+      	FIN
+      FIN
+      SI regexp = "" ALORS
+      	RENVOYER (texte_source="","")
+      FIN	
+      
+      regexp_debut est chaine	=  ChaîneConstruit("(%1).*",regexp)
+      chaine_qui_matche_out est chaine
+      bVerifie est un booléen = texte_source.RegexVérifie( regexp_debut, chaine_qui_matche_out) 
+      // VérifieExpressionRégulière renvoie vrai sur '' pour (.*).*, a la différence de RegexVérifie 
+      SI bVerifie  ALORS		 
+      	// chaine_qui_matche<>"" pour ce cas de regexp comme [a-z]* , qui renvoie vrai pour "-"
+      	SI chaine_qui_matche_out="" _ET_ texte_source<>"" ALORS
+      		bVerifie = False
+      	FIN 	
+      FIN
+      renvoyer (bVerifie,chaine_qui_matche_out)
      type : 458752
    -
      name : _recherche_meilleure_règle
@@ -148,7 +174,7 @@ class :
       dbgAssertion(valeur_etat> 0)
       
       règle_résultat est un RegleAExécuter 
-      // comme flex on garde la rèle qui produit le plus long token.
+      // comme flex on garde la règle qui produit le plus long token.
       	procédure interne _garde_meilleure_regle( regle_ok est un RegleAExécuter  )
       		// si 1er regle trouvée
       		SI règle_résultat.règle=null ALORS
@@ -161,11 +187,12 @@ class :
       		FIN
       	FIN
       
+      
       // parcourt linéaire de toutes les expression possibles dans l'état en cours
       tabCourant est un  tableaux dynamique de RegleDeProductionLex   <- tableau_regle[valeur_etat]
       POUR TOUT règle_de_production de tabCourant
       	// si c'est un chaine fixe
-      	si règle_de_production.regExp=""  ALORS
+      	si règle_de_production.chaine_exacte<>""  ALORS
       		si texte_source.CommencePar( règle_de_production.chaine_exacte )  ALORS
       			// trouvé 
       			
@@ -177,11 +204,10 @@ class :
       	// si c'est une regexp 
       	sinon
       		chaine_qui_matche est chaine
-      		 SI texte_source.VérifieExpressionRégulière(  règle_de_production.regexp_debut, chaine_qui_matche)   ALORS
-      		 	// chaine_qui_matche<>"" pour ce cas de regexp comme [a-z]* , qui renvoie vrai pour "-"
-      			si chaine_qui_matche="" _et_ texte_source<>"" ALORS
-      				continuer
-      			FIN 	
+      		// NB : VérifieExpressionRégulière renvoie vrai sur '' pour .*, a la différence de RegexVérifie 
+      		bVerifie est un booléen //= texte_source.RegexVérifie(  règle_de_production.regexp_debut, chaine_qui_matche) 
+      		(bVerifie,chaine_qui_matche) =  debut_chainz_vérifie_regexp(texte_source, règle_de_production.regexp )
+      		si bVerifie
       			// trouvé 
       			regle_regexp est un RegleAExécuter
       			regle_regexp.token	= chaine_qui_matche 

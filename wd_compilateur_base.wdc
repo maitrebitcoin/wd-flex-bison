@@ -140,7 +140,7 @@ class :
      code : |1-
       procédure protégée _dépile() : NiveauPile
       
-      haut_de_la_pile est NiveauPile <- pile_compilation[pile_compilation..Occurrence]
+      haut_de_la_pile est NiveauPile = pile_compilation[pile_compilation..Occurrence]
       :pile_compilation.supprime(pile_compilation..Occurrence)
       renvoyer haut_de_la_pile 
      type : 458752
@@ -273,7 +273,7 @@ class :
       		pour i = 1 a regle.nombre_de_paramètre
       			// si le bas de la pile de correspond pas
       			bas_pile est NiveauPile = pile_compilation[ taille_pile+1-i ]
-      			si bas_pile.TOKEN_numero_règle <> regle.tab_indices_token[i] ALORS
+      			si bas_pile.TOKEN_numero_règle <> regle.tab_indices_token[regle.nombre_de_paramètre+1-i] ALORS
       				renvoyer faux				
       			FIN
       		FIN
@@ -297,6 +297,8 @@ class :
       	FIN
       
       FIN
+      //@TEST
+      nombre_de_paramètre_max += :tab_règle_grammaire.Occurrence()
       
       // si aucun regroupement trouvé
       si regle_reduce=null
