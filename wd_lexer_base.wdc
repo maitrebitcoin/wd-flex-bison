@@ -133,18 +133,18 @@ class :
       tableau_regle[valeur_etat].Ajoute( regle_production )
      type : 458752
    -
-     name : debut_chainz_vérifie_regexp
+     name : debut_chaine_vérifie_regexp
      procedure_id : 1447684414360962888
      type_code : 12
      code : |1+
       // indique si le début de la chaine <texte_source> vérifie l'expression régulière <regexp>
       // renvoie (mathn chaine_qui_matche )
-      procédure debut_chainz_vérifie_regexp(texte_source chaine,regexp est chaine ) : (booléen, chaine)
+      procédure debut_chaine_vérifie_regexp(texte_source chaine,regexp est chaine ) : (booléen, chaine)
       
       // cas particulier de la ligne vide
       si texte_source="" alors
       	// VérifieExpressionRégulière renvoie vrai sur '' pour (.*).*, a la différence de RegexVérifie 
-      	si regexp = ".*" alors
+      	SI  texte_source.VérifieExpressionRégulière( regexp )
       		renvoyer (vrai,"")
       	FIN
       FIN
@@ -206,7 +206,7 @@ class :
       		chaine_qui_matche est chaine
       		// NB : VérifieExpressionRégulière renvoie vrai sur '' pour .*, a la différence de RegexVérifie 
       		bVerifie est un booléen //= texte_source.RegexVérifie(  règle_de_production.regexp_debut, chaine_qui_matche) 
-      		(bVerifie,chaine_qui_matche) =  debut_chainz_vérifie_regexp(texte_source, règle_de_production.regexp )
+      		(bVerifie,chaine_qui_matche) =  debut_chaine_vérifie_regexp(texte_source, règle_de_production.regexp )
       		si bVerifie
       			// trouvé 
       			regle_regexp est un RegleAExécuter
@@ -271,7 +271,6 @@ class :
       
       // on avance dans le source
       taille_token est entier = Taille(règle_a_exécuter.token)
-      dbgAssertion(taille_token>0)
       numéro_colonne_en_cours += taille_token
       si numéro_colonne_en_cours>taille(text_ligne_courante) ALORS
       	// ligne suivante
