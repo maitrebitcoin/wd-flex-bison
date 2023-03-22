@@ -112,6 +112,9 @@ class :
       nouvelle_règle.nombre_de_paramètre = ChaîneOccurrence(liste_indices_token,",") + 1
       nouvelle_règle.code_a_executer	   = code_a_executer
       :tab_règle_grammaire.Ajoute(nouvelle_règle)
+      
+      //pour trace/debug
+      :debug_token_int_vers_nom[TOKEN_numero_règle] = nom
      type : 458752
    -
      name : _ajoute_regle_token
@@ -121,6 +124,7 @@ class :
       // appelé par la classe générée pour déclarer un token 
       procédure Protégée _ajoute_regle_token(TOKEN_numero_règle est un entier, nom chaine)
       
+      //pour trace/debug
       :debug_token_int_vers_nom[TOKEN_numero_règle] = nom
       
      type : 458752
