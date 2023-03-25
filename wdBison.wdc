@@ -435,16 +435,17 @@ class :
       	FIN
       fin
       
+      
+      // déclaration des token
+      POUR TOUT valeur_token,nomToken de :token_nom_vers_int
+      	code_init_declare_token est chaine = ChaîneConstruit("_ajoute_regle_token(%1,""%2"")", valeur_token, nomToken  )
+      	:code_wl_init += [RC] + code_init_declare_token
+      FIN
+      
       //3- calculer le code WL a mettre dans la classe destination
       pour tout regle_source de tab_règle_grammaire_source
       
       
-      	// déclaration des token
-      	POUR TOUT valeur_token,nomToken de :token_nom_vers_int
-      		code_init_declare_token est chaine = ChaîneConstruit("_ajoute_regle_token(%1,""%2"")", valeur_token, nomToken  )
-      	 	:code_wl_init += [RC] + code_init_declare_token
-      	FIN
-      		
       	// pour tous les cas qui valident cette règle
       	// ex "nombre '+' nombre"
       	POUR tout element_regle de regle_source.tableau_element_regle	

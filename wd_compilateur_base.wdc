@@ -21,6 +21,7 @@ class :
       	
       	// règles de productions générée par wdBidon en fonction du .y
       	tab_règle_grammaire	est un tableau de RegleDeGrammaire		
+      	nombre_de_paramètre_max est entier // plus grande règle
       	//  #TODO token racine tel que défini par %start
       	token_start est un entier
       	// pile de compilation
@@ -156,20 +157,33 @@ class :
       // indique si la pile est valide a la fin de la compilation
       procédure protégée _bPileValideALaFinDuFichier()
       
-      si :pile_compilation..Occurrence<>1 ALORS
-      	renvoyer faux
+      SI :pile_compilation..Occurrence<>1 ALORS
+      	RENVOYER Faux
       FIN
-      TOKEN_fin est entier = :pile_compilation[1].TOKEN_numero_règle
-      regle_fin est RegleDeGrammaire <- :tab_règle_grammaire[TOKEN_fin]
+      TOKEN_fin	est entier	= :pile_compilation[1].TOKEN_numero_règle
+      regle_fin	est RegleDeGrammaire dynamique	// <- tab_règle_grammaire.Cherche(tcLinéaire,"TOKEN_numero_règle",TOKEN_fin )
+      // recherche de la règle
+      POUR TOUTE regle de tab_règle_grammaire
+      	SI regle.TOKEN_numero_règle = TOKEN_fin ALORS
+      		regle_fin <- regle
+      	FIN
+      FIN
       // ma règle terminale a 0 = EOF comme dernier token
-      si regle_fin=Null ALORS
-      	renvoyer  faux
+      SI regle_fin=Null ALORS
+      	RENVOYER  Faux
       FIN
-      si regle_fin.tab_indices_token[ regle_fin.nombre_de_paramètre ] <>0 ALORS
-      	renvoyer faux
+      SI regle_fin.nombre_de_paramètre =0 ALORS
+      	RENVOYER Faux
       FIN
+      // le dernier token doit être O = EOF
+      TOKEN_derniere_regle est entier = regle_fin.tab_indices_token[ regle_fin.nombre_de_paramètre ] 
+      SI TOKEN_derniere_regle<>0 ALORS
+      	RENVOYER Faux
+      FIN
+      
       // OK , regle racine
-      renvoyer vrai
+      RENVOYER Vrai
+      
      type : 458752
    -
      name : _compile_chaine_avec_lexer
@@ -287,17 +301,24 @@ class :
       
       nombre_de_paramètre_max est entier
       
+      // init du nombre de paramètre max au 1er appel
+      si nombre_de_paramètre_max=0 alors
+      	POUR TOUT regle_de_grammaire DE :tab_règle_grammaire
+      		// Calcul du max du nb de paramètres possible
+      		nombre_de_paramètre_max = Max(nombre_de_paramètre_max,regle_de_grammaire.nombre_de_paramètre)
+      	FIN
+      FIN
+      
+      
       // recherche d'une règle reduce
       regle_reduce est RegleDeGrammaire dynamique
+      nb_regle_ok est un entier
       POUR TOUT regle_de_grammaire DE :tab_règle_grammaire
-      	// Calcul du max du nb de paramètres possible
-      	nombre_de_paramètre_max = max(nombre_de_paramètre_max,regle_de_grammaire.nombre_de_paramètre)
       	
       	// si la règle correpond au bas de la pile
       	si _bRegleReduceOk( regle_de_grammaire ) ALORS
       		regle_reduce = regle_de_grammaire
-      		// on stoppe a la 1ere ok
-      		sortir
+      		nb_regle_ok++
       	FIN
       
       FIN
