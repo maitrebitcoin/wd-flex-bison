@@ -225,17 +225,6 @@ class :
       		_erreur_de_syntaxe()
       		RENVOYER Faux		
       	FIN
-      	// si c'est la fin du fichier
-      	SI TOKEN_valeur_token_courant = ::TOKEN_EOF ALORS
-      		// on vérifie que la pile correspond a la racine sinon il manque des tokens 		
-      		si pas _bPileValideALaFinDuFichier() ALORS
-      			// erreur de compilation
-      			_erreur_de_syntaxe()
-      			renvoyer faux
-      		FIN
-      		// compilation terminée OK
-      		RENVOYER Vrai
-      	FIN
       	
       	// Opération de SHIFT : 
       	// Ajoute le token a la pile de compilation
@@ -268,6 +257,17 @@ class :
       		FIN
       	FIN	//TANTQUE  bReduce 
       	
+      	// si c'est la fin du fichier
+      	SI TOKEN_valeur_token_courant = ::TOKEN_EOF ALORS
+      		// on vérifie que la pile correspond a la racine sinon il manque des tokens 		
+      		SI PAS _bPileValideALaFinDuFichier() ALORS
+      			// erreur de compilation
+      			_erreur_de_syntaxe()
+      			RENVOYER Faux
+      		FIN
+      		// compilation terminée OK
+      		RENVOYER Vrai
+      	FIN
       
       FIN //BOUCLE infinie
      type : 458752
